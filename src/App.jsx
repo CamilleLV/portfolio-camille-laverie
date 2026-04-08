@@ -9,20 +9,20 @@ import {
 
 // --- CONFIGURATION ---
 const images = [
-  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop", 
-  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop",
-  "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop"
+  ".\\images\\profile1.png", 
+  ".\\images\\profile2.png", 
+  ".\\images\\profile3.png"
 ];
 
-const typewriterWords = ["Engineer", "Analyst", "Steward", "Enthusiast"];
+const typewriterWords = ["Engineer", "Enthusiast"];
 
 const data = {
   profile: {
     name: "Camille Laverie",
     role: "Data Professional",
-    description: "Conception de pipelines de données robustes et architectures cloud éco-responsables.",
-    email: "ton.email@exemple.com",
-    linkedin: "https://linkedin.com/in/tonprofil",
+    description: "BAC+5 Master 2 BI&A, 3 ans d'alternance, maîtrise confirmée en transformation et nettoyage de données. Communicant dynamique.",
+    email: "camille.laverie@gmail.com",
+    linkedin: "https://linkedin.com/in/camille-laverie",
     github: "https://github.com/CamilleLV"
   },
   projects: [
