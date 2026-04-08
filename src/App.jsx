@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { 
-  Github as GitHub, FileText, Mail, LinkedIn, 
-  Database, Code, GraduationCap, Trophy, 
-  ExternalLink, ChevronDown, Leaf 
+  Github as GithubIcon, 
+  Linkedin as LinkedinIcon, 
+  FileText as FileIcon, 
+  Mail as MailIcon, 
+  Database as DbIcon, 
+  Code as CodeIcon, 
+  GraduationCap as GradIcon, 
+  Trophy as TrophyIcon, 
+  ExternalLink as LinkIcon, 
+  ChevronDown as ArrowIcon, 
+  Leaf as LeafIcon 
 } from 'lucide-react';
 
-// Simulation de tes données (On pourra les extraire dans data.json plus tard)
 const data = {
   profile: {
     name: "Camille Laverie",
@@ -37,11 +44,11 @@ function App() {
   return (
     <div className="min-h-screen bg-dash-bg text-dash-text-main selection:bg-dash-accent selection:text-white">
       
-      {/* HEADER NAVIGATION (Sticky Mobile) */}
+      {/* HEADER */}
       <nav className="fixed top-0 w-full z-50 bg-dash-card/80 backdrop-blur-md border-b border-dash-border">
         <div className="max-w-xl mx-auto px-6 h-16 flex items-center justify-between">
           <span className="font-bold flex items-center gap-2 text-dash-accent">
-            <Leaf size={18} /> CL.
+            <LeafIcon size={18} /> CL.
           </span>
           <div className="flex gap-6 text-sm font-medium text-dash-text-muted uppercase tracking-widest">
             <a href="#projets" className="hover:text-dash-accent transition-colors">Projets</a>
@@ -67,15 +74,15 @@ function App() {
           </p>
           <div className="flex flex-wrap gap-4 pt-4">
             <button className="flex items-center gap-2 bg-dash-accent hover:bg-dash-accent-hover text-white px-6 py-3 rounded-xl font-bold transition-all shadow-lg shadow-dash-accent/20">
-              <FileText size={20} /> CV.pdf
+              <FileIcon size={20} /> CV.pdf
             </button>
             <a href="#contact" className="flex items-center gap-2 bg-dash-card border border-dash-border hover:border-dash-accent text-dash-text-main px-6 py-3 rounded-xl font-bold transition-all">
-              <Mail size={20} /> Contact
+              <MailIcon size={20} /> Contact
             </a>
           </div>
         </section>
 
-        {/* SECTION PROJETS (Infinite Scroll Style) */}
+        {/* SECTION PROJETS */}
         <section id="projets" className="space-y-10">
           <div className="flex items-center gap-4">
             <h2 className="text-2xl font-bold italic tracking-tight">/ Projets</h2>
@@ -93,9 +100,11 @@ function App() {
                 <div className="p-6 space-y-4">
                   <div className="flex justify-between items-start">
                     <h3 className="text-xl font-bold">{project.title}</h3>
-                    <a href={project.github} className="text-dash-text-muted hover:text-dash-accent transition-colors">
-                      <GitHub size={22} />
-                    </a>
+                    {project.github && (
+                      <a href={project.github} className="text-dash-text-muted hover:text-dash-accent transition-colors">
+                        <GithubIcon size={22} />
+                      </a>
+                    )}
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {project.tags.map(tag => (
@@ -122,14 +131,14 @@ function App() {
             </p>
             <div className="flex flex-col gap-4 pt-4">
               <a href={`mailto:${data.profile.email}`} className="flex items-center gap-3 font-mono text-sm underline underline-offset-4">
-                <Mail size={18} /> {data.profile.email}
+                <MailIcon size={18} /> {data.profile.email}
               </a>
               <div className="flex gap-4">
                 <a href={data.profile.linkedin} className="bg-white/20 p-3 rounded-full hover:bg-white/40 transition">
-                  <LinkedIn size={20} />
+                  <LinkedinIcon size={20} />
                 </a>
                 <a href={data.profile.github} className="bg-white/20 p-3 rounded-full hover:bg-white/40 transition">
-                  <Github size={20} />
+                  <GithubIcon size={20} />
                 </a>
               </div>
             </div>
@@ -138,7 +147,6 @@ function App() {
 
       </main>
 
-      {/* FOOTER */}
       <footer className="text-center py-10 text-xs text-dash-text-muted font-mono uppercase tracking-widest border-t border-dash-border">
         © 2026 — Built with React & Green Logic
       </footer>
