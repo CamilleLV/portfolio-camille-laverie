@@ -1,23 +1,25 @@
-import React from 'react';
-/* On utilise des icônes génériques qui ne risquent pas de manquer à l'appel */
+import React, { useState, useEffect } from 'react';
 import { 
-  Code as GithubIcon,      /* On mappe Code sur Github */
-  User as LinkedinIcon,    /* On mappe User sur Linkedin */
+  Github as GithubIcon, 
+  Linkedin as LinkedinIcon, 
   FileText as FileIcon, 
   Mail as MailIcon, 
-  Database as DbIcon, 
-  Terminal as CodeIcon, 
-  GraduationCap as GradIcon, 
-  Trophy as TrophyIcon, 
-  ExternalLink as LinkIcon, 
-  ChevronDown as ArrowIcon, 
   Leaf as LeafIcon 
 } from 'lucide-react';
+
+// --- CONFIGURATION ---
+const images = [
+  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop", // Remplace par tes images locales
+  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop",
+  "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop"
+];
+
+const typewriterWords = ["Engineer", "Analyst", "Steward", "Enthusiast"];
 
 const data = {
   profile: {
     name: "Camille Laverie",
-    role: "Data Engineer",
+    role: "Data Professional",
     description: "Conception de pipelines de données robustes et architectures cloud éco-responsables.",
     email: "ton.email@exemple.com",
     linkedin: "https://linkedin.com/in/tonprofil",
@@ -30,20 +32,47 @@ const data = {
       description: "Réduction de 40% du temps de traitement des données via une refonte de l'orchestration.",
       github: "https://github.com/CamilleLV/projet1",
       image: "https://images.unsplash.com/photo-1551288049-bbbda536339a?auto=format&fit=crop&q=80&w=400"
-    },
-    {
-      title: "Eco-Data Monitor",
-      tags: ["Spark", "AWS", "Green IT"],
-      description: "Dashboard de monitoring de l'empreinte carbone des clusters de calcul en temps réel.",
-      github: "https://github.com/CamilleLV/projet2",
-      image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&q=80&w=400"
     }
   ]
 };
 
 function App() {
+  // --- LOGIQUE CARROUSEL ---
+  const [imgIdx, setImgIdx] = useState(0);
+  useEffect(() => {
+    const interval = setInterval(() => setImgIdx(idx => (idx + 1) % images.length), 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // --- LOGIQUE TYPEWRITER ---
+  const [currentText, setCurrentText] = useState("");
+  const [wordIdx, setWordIdx] = useState(0);
+  const [charIdx, setCharIdx] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const speed = isDeleting ? 40 : 80;
+    const currentWord = typewriterWords[wordIdx];
+
+    const timer = setTimeout(() => {
+      if (!isDeleting && charIdx < currentWord.length) {
+        setCurrentText(currentWord.substring(0, charIdx + 1));
+        setCharIdx(charIdx + 1);
+      } else if (isDeleting && charIdx > 0) {
+        setCurrentText(currentWord.substring(0, charIdx - 1));
+        setCharIdx(charIdx - 1);
+      } else if (!isDeleting && charIdx === currentWord.length) {
+        setTimeout(() => setIsDeleting(true), 2000);
+      } else if (isDeleting && charIdx === 0) {
+        setIsDeleting(false);
+        setWordIdx((wordIdx + 1) % typewriterWords.length);
+      }
+    }, speed);
+    return () => clearTimeout(timer);
+  }, [charIdx, isDeleting, wordIdx]);
+
   return (
-    <div className="min-h-screen bg-dash-bg text-dash-text-main selection:bg-dash-accent selection:text-white font-sans">
+    <div className="min-h-screen bg-dash-bg text-dash-text-main selection:bg-dash-accent selection:text-white font-sans overflow-x-hidden">
       
       {/* HEADER */}
       <nav className="fixed top-0 w-full z-50 bg-dash-card/80 backdrop-blur-md border-b border-dash-border">
@@ -58,22 +87,43 @@ function App() {
         </div>
       </nav>
 
-      <main className="max-w-xl mx-auto px-6 pt-32 pb-20 space-y-32">
+      <main className="max-w-xl mx-auto px-6 pt-24 pb-20 space-y-24">
         
-        {/* SECTION INTRO */}
-        <section id="intro" className="space-y-8">
+        {/* SECTION INTRO AVEC CARROUSEL */}
+        <section id="intro" className="flex flex-col items-center text-center space-y-8">
+          
+          {/* CARROUSEL D'IMAGES (Adapté de ton ancien code) */}
+          <div className="relative w-40 h-40 md:w-48 md:h-48 rounded-3xl overflow-hidden border-4 border-white shadow-2xl">
+            {images.map((src, i) => (
+              <img
+                key={i}
+                src={src}
+                alt="Profile"
+                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${imgIdx === i ? 'opacity-100' : 'opacity-0'}`}
+              />
+            ))}
+          </div>
+
           <div className="space-y-4">
-            <h1 className="text-5xl font-black tracking-tight text-dash-text-main leading-none">
-              {data.profile.name}
+            <h1 className="text-4xl md:text-5xl font-black tracking-tight text-dash-text-main leading-tight">
+              Salut ! Je suis <br/>
+              <span className="text-dash-accent">{data.profile.name}</span>
             </h1>
-            <p className="text-xl text-dash-accent font-semibold tracking-tight uppercase">
-              {data.profile.role}
+            
+            {/* TYPEWRITER TEXT */}
+            <div className="h-8 flex items-center justify-center">
+              <span className="text-xl md:text-2xl font-mono font-bold text-dash-text-muted">
+                Data <span className="text-dash-accent">{currentText}</span>
+                <span className="animate-pulse ml-1 text-dash-accent">|</span>
+              </span>
+            </div>
+
+            <p className="text-dash-text-muted leading-relaxed text-lg font-medium max-w-md mx-auto">
+              {data.profile.description}
             </p>
           </div>
-          <p className="text-dash-text-muted leading-relaxed text-lg font-medium">
-            {data.profile.description}
-          </p>
-          <div className="flex flex-wrap gap-4 pt-4">
+
+          <div className="flex flex-wrap gap-4 pt-4 justify-center">
             <button className="flex items-center gap-2 bg-dash-accent hover:bg-dash-accent-hover text-white px-8 py-4 rounded-2xl font-bold transition-all shadow-xl shadow-dash-accent/20 active:scale-95">
               <FileIcon size={20} /> Mon CV
             </button>
@@ -83,7 +133,7 @@ function App() {
           </div>
         </section>
 
-        {/* SECTION PROJETS */}
+        {/* SECTION PROJETS (Infinite Scroll) */}
         <section id="projets" className="space-y-12">
           <div className="flex items-center gap-4">
             <h2 className="text-3xl font-black tracking-tighter uppercase italic">/ Projets</h2>
@@ -93,14 +143,14 @@ function App() {
           <div className="space-y-16">
             {data.projects.map((project, index) => (
               <div key={index} className="group space-y-6">
-                <div className="relative overflow-hidden rounded-3xl border border-dash-border shadow-sm">
+                <div className="relative overflow-hidden rounded-3xl border border-dash-border shadow-sm aspect-video">
                    <img 
                     src={project.image} 
                     alt={project.title} 
-                    className="w-full h-64 object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-in-out"
+                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-in-out"
                   />
                 </div>
-                <div className="space-y-4">
+                <div className="space-y-4 px-2">
                   <div className="flex justify-between items-center">
                     <h3 className="text-2xl font-extrabold tracking-tight">{project.title}</h3>
                     {project.github && (
@@ -127,15 +177,9 @@ function App() {
 
         {/* SECTION CONTACT */}
         <section id="contact" className="pb-10">
-          <div className="bg-dash-text-main rounded-[2.5rem] p-10 text-white space-y-8 relative overflow-hidden shadow-2xl">
-            <div className="relative z-10 space-y-4">
-              <h2 className="text-4xl font-black tracking-tighter">Prêt pour le prochain pipeline ?</h2>
-              <p className="opacity-70 font-medium text-lg max-w-md">
-                Disponible pour échanger sur vos problématiques Data & Environnement.
-              </p>
-            </div>
-            
-            <div className="relative z-10 flex flex-col sm:flex-row gap-6 items-start sm:items-center justify-between border-t border-white/10 pt-8">
+          <div className="bg-dash-text-main rounded-[2.5rem] p-10 text-white space-y-8 shadow-2xl">
+            <h2 className="text-4xl font-black tracking-tighter">On collabore ?</h2>
+            <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center justify-between border-t border-white/10 pt-8">
               <a href={`mailto:${data.profile.email}`} className="text-xl font-bold hover:text-dash-accent transition-colors flex items-center gap-3">
                 <MailIcon size={24} /> Me contacter
               </a>
