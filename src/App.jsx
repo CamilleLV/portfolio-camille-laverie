@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  Github as GithubIcon, 
-  Linkedin as LinkedinIcon, 
+  Code as GithubIcon,      /* Secours pour Github */
+  User as LinkedinIcon,    /* Secours pour Linkedin */
   FileText as FileIcon, 
   Mail as MailIcon, 
   Leaf as LeafIcon 
@@ -9,7 +9,7 @@ import {
 
 // --- CONFIGURATION ---
 const images = [
-  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop", // Remplace par tes images locales
+  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop", 
   "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop",
   "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop"
 ];
@@ -92,8 +92,7 @@ function App() {
         {/* SECTION INTRO AVEC CARROUSEL */}
         <section id="intro" className="flex flex-col items-center text-center space-y-8">
           
-          {/* CARROUSEL D'IMAGES (Adapté de ton ancien code) */}
-          <div className="relative w-40 h-40 md:w-48 md:h-48 rounded-3xl overflow-hidden border-4 border-white shadow-2xl">
+          <div className="relative w-40 h-40 md:w-48 md:h-48 rounded-3xl overflow-hidden border-4 border-white shadow-2xl bg-dash-border">
             {images.map((src, i) => (
               <img
                 key={i}
@@ -110,7 +109,6 @@ function App() {
               <span className="text-dash-accent">{data.profile.name}</span>
             </h1>
             
-            {/* TYPEWRITER TEXT */}
             <div className="h-8 flex items-center justify-center">
               <span className="text-xl md:text-2xl font-mono font-bold text-dash-text-muted">
                 Data <span className="text-dash-accent">{currentText}</span>
@@ -133,7 +131,7 @@ function App() {
           </div>
         </section>
 
-        {/* SECTION PROJETS (Infinite Scroll) */}
+        {/* SECTION PROJETS */}
         <section id="projets" className="space-y-12">
           <div className="flex items-center gap-4">
             <h2 className="text-3xl font-black tracking-tighter uppercase italic">/ Projets</h2>
