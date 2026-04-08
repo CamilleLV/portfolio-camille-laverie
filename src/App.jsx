@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { 
-  Github, FileText, Mail, Linkedin, 
+  Github as GitHub, FileText, Mail, LinkedIn, 
   Database, Code, GraduationCap, Trophy, 
   ExternalLink, ChevronDown, Leaf 
 } from 'lucide-react';
@@ -94,7 +94,7 @@ function App() {
                   <div className="flex justify-between items-start">
                     <h3 className="text-xl font-bold">{project.title}</h3>
                     <a href={project.github} className="text-dash-text-muted hover:text-dash-accent transition-colors">
-                      <Github size={22} />
+                      <GitHub size={22} />
                     </a>
                   </div>
                   <div className="flex flex-wrap gap-2">
@@ -126,7 +126,7 @@ function App() {
               </a>
               <div className="flex gap-4">
                 <a href={data.profile.linkedin} className="bg-white/20 p-3 rounded-full hover:bg-white/40 transition">
-                  <Linkedin size={20} />
+                  <LinkedIn size={20} />
                 </a>
                 <a href={data.profile.github} className="bg-white/20 p-3 rounded-full hover:bg-white/40 transition">
                   <Github size={20} />
