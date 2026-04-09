@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
-/* Importation via React-Icons (plus robuste pour le build) */
-import { FaLinkedin, FaGithub, FaFileDownload, FaEnvelope, FaLeaf } from 'react-icons/fa';
-import { SiPowerbi, SiPython, SiSnowflake, SiSqlite } from 'react-icons/si';
+
+// --- COMPOSANTS ICONES SVG (Zéro dépendance, Zéro erreur de build) ---
+const IconLeaf = () => <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8a7 7 0 0 1-7 7c-1.24 0-2.25-.43-3-1z"></path><path d="M11 20c-1.5 1.5-3 2-5 2s-5-3-5-5 2-3.5 3.5-4.5"></path><path d="M11 20s2-2 3-3"></path></svg>;
+const IconGithub = () => <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>;
+const IconLinkedin = () => <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>;
+const IconMail = () => <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>;
+const IconCV = () => <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>;
+const IconData = () => <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>;
 
 // --- CONFIGURATION ---
 const images = [
@@ -10,12 +15,12 @@ const images = [
   "/images/photo3.jpg"
 ];
 
-const typewriterWords = ["Engineer", "Enthusiast"];
+const typewriterWords = ["Engineer", "Analyst", "Steward", "Enthusiast"];
 
 const skillCategories = [
-  { id: "bi", label: "BI & Analysis", icon: <SiPowerbi />, skills: ["Power BI", "Dataiku", "Tableau", "DAX", "ETL"] },
-  { id: "eng", label: "Data Engineering", icon: <SiSqlite />, skills: ["SQL", "MongoDB", "Snowflake", "Modeling"] },
-  { id: "ds", label: "Data Science", icon: <SiPython />, skills: ["Python", "Machine Learning", "NLP", "Pipelines"] }
+  { id: "bi", label: "BI & Analysis", skills: ["Power BI", "Dataiku", "Tableau", "DAX", "ETL"] },
+  { id: "eng", label: "Data Engineering", skills: ["SQL", "MongoDB", "Snowflake", "Modeling"] },
+  { id: "ds", label: "Data Science", skills: ["Python", "Machine Learning", "NLP", "Pipelines"] }
 ];
 
 const data = {
@@ -23,8 +28,8 @@ const data = {
     name: "Camille Laverie",
     role: "Data Professional",
     description: "Data Enjoyer, 3 years Data Manager Assistant at Cyclable! Seeking V.I.E Opportunities.",
-    email: "camille.laverie@exemple.com",
-    linkedin: "https://linkedin.com/in/camillelaverie",
+    email: "ton.email@exemple.com",
+    linkedin: "https://linkedin.com/in/tonprofil",
     github: "https://github.com/CamilleLV"
   }
 };
@@ -65,11 +70,11 @@ function App() {
   return (
     <div className="min-h-screen bg-[#F8FAF9] text-[#1A2E26] selection:bg-[#059669] selection:text-white font-sans overflow-x-hidden">
       
-      {/* HEADER ZOOMÉ */}
+      {/* HEADER */}
       <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl border-b border-[#E2E8F0]">
         <div className="max-w-3xl mx-auto px-8 h-24 flex items-center justify-between">
           <span className="font-black flex items-center gap-3 text-[#059669] text-2xl uppercase tracking-tighter">
-            <FaLeaf size={28} /> Camille.L
+            <IconLeaf /> Camille.L
           </span>
           <div className="flex gap-10 text-[11px] font-black text-[#64748B] uppercase tracking-[0.2em]">
             <a href="#skills" className="hover:text-[#059669] transition-all">Skills</a>
@@ -82,8 +87,6 @@ function App() {
         
         {/* HERO SECTION */}
         <section id="intro" className="flex flex-col items-center text-center space-y-14">
-          
-          {/* PHOTO PORTRAIT SANS BORD BLANC */}
           <div className="relative w-72 h-[26rem] md:w-96 md:h-[34rem] rounded-[4rem] overflow-hidden shadow-2xl bg-slate-200">
             {images.map((src, i) => (
               <img
@@ -114,10 +117,10 @@ function App() {
 
           <div className="flex flex-col sm:flex-row gap-8 justify-center w-full px-4">
             <button className="flex items-center justify-center gap-4 bg-[#059669] hover:bg-[#047857] text-white px-12 py-6 rounded-[2rem] font-black text-xl transition-all shadow-2xl shadow-emerald-200 active:scale-95 flex-1 md:flex-none">
-              <FaFileDownload size={24} /> Mon CV
+              <IconCV /> Mon CV
             </button>
             <a href="#contact" className="flex items-center justify-center gap-4 bg-white border-4 border-[#E2E8F0] hover:border-[#059669] text-[#0F172A] px-12 py-6 rounded-[2rem] font-black text-xl transition-all active:scale-95 flex-1 md:flex-none">
-              <FaEnvelope size={24} /> Contact
+              <IconMail /> Contact
             </a>
           </div>
         </section>
@@ -139,16 +142,16 @@ function App() {
                     ? 'bg-[#059669] border-[#059669] text-white shadow-xl shadow-emerald-100' 
                     : 'bg-white border-[#E2E8F0] text-[#64748B] hover:border-[#059669]'}`}
               >
-                {cat.icon} {cat.label}
+                {cat.label}
               </button>
             ))}
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-6 animate-in fade-in slide-in-from-bottom-6 duration-700">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
             {skillCategories.find(c => c.id === activeSkillCat).skills.map(skill => (
               <div key={skill} className="bg-white border-4 border-[#E2E8F0] p-10 rounded-[3rem] flex flex-col items-center justify-center text-center hover:border-[#059669] transition-all group shadow-sm">
-                <div className="text-4xl text-[#059669] mb-6 group-hover:scale-110 transition-transform">
-                  {skillCategories.find(c => c.id === activeSkillCat).icon}
+                <div className="text-[#059669] mb-6 group-hover:scale-110 transition-transform">
+                  <IconData />
                 </div>
                 <span className="font-black text-lg uppercase tracking-wider text-[#0F172A]">{skill}</span>
               </div>
@@ -166,20 +169,19 @@ function App() {
             
             <div className="flex flex-col lg:flex-row gap-12 items-start lg:items-center justify-between border-t border-white/10 pt-12">
               <a href={`mailto:${data.profile.email}`} className="text-3xl font-black hover:text-[#059669] transition-all flex items-center gap-5">
-                <FaEnvelope size={36} className="text-[#059669]" /> {data.profile.email}
+                <IconMail /> {data.profile.email}
               </a>
               <div className="flex gap-8">
                 <a href={data.profile.linkedin} className="p-7 bg-white/5 rounded-[2.5rem] hover:bg-[#059669] transition-all shadow-lg active:scale-90">
-                  <FaLinkedin size={36} />
+                  <IconLinkedin />
                 </a>
                 <a href={data.profile.github} className="p-7 bg-white/5 rounded-[2.5rem] hover:bg-[#059669] transition-all shadow-lg active:scale-90">
-                  <FaGithub size={36} />
+                  <IconGithub />
                 </a>
               </div>
             </div>
           </div>
         </section>
-
       </main>
 
       <footer className="text-center py-24 text-xs text-[#94A3B8] font-black uppercase tracking-[0.4em] border-t border-[#E2E8F0]">
