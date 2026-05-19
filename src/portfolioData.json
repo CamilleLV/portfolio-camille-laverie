@@ -88,6 +88,16 @@
       "fontFamily": "font-sans"
     },
     {
+      "id": "bi-engagee-data-ethique",
+      "title": "BI Engagée : Analyser pour informer, debunker et sauver",
+      "category": "Blog",
+      "date": "19 Mai 2026",
+      "readTime": "6 min",
+      "summary": "Focus sur la manière dont la Business Intelligence et la Data Science se mettent au service de l'intérêt général et de l'urgence écologique.",
+      "tags": ["Data Éthique", "Datavisualisation", "Data For Good"],
+      "fontFamily": "font-sans"
+    },
+    {
       "id": "pipeline-sirene-airflow",
       "title": "Bâtir un pipeline SIRENE avec Airflow et Docker",
       "category": "Data Engineering",
