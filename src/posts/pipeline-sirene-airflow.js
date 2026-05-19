@@ -70,6 +70,6 @@ export const pipelineSireneAirflowContent = [
   { 
   type: "link", 
   text: "Voir le dépôt GitHub du projet", 
-  url: "https://github.com/CamilleLV/LYON2_Analyse_Et_Datavisualisation" 
+  url: "https://github.com/CamilleLV/LYON2_Data_Quality" 
   }
   ];

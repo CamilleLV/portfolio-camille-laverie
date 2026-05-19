@@ -3,6 +3,7 @@ export const projetM2AnalyseHypermarcheDatavizContent = [
     type: "paragraph", 
     text: "Dans le cadre de mon Master 2 Business Intelligence & Analytics, cette étude de cas retrace l'intégralité de la démarche décisionnelle (BI) appliquée au modèle HYPERMARCHE : depuis l'alimentation brute jusqu'au déploiement de tableaux de bord avancés sous Power BI." 
   },
+  { type: "image", src: "images/projet_M2_DataViz_Screen_Acceuil.png", alt: "Capture d'écran de la page d'acceuil du rapport PBI final", caption: "Figure 1 : Capture d'écran de la page d'acceuil du rapport PBI final" },
   { 
     type: "heading", 
     text: "1. Préparation des données & Web Scraping" 
@@ -34,5 +35,10 @@ export const projetM2AnalyseHypermarcheDatavizContent = [
   { 
     type: "paragraph", 
     text: "Le code complet des mesures DAX, la structure du modèle décisionnel ainsi que le fichier de rapport (.pbix) sont disponibles sur mon dépôt GitHub." 
+  },
+  { 
+  type: "link", 
+  text: "Voir le dépôt GitHub du projet", 
+  url: "https://github.com/CamilleLV/LYON2_Analyse_Et_Datavisualisation" 
   }
 ];
