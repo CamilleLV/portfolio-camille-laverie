@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   FaBriefcase, FaCode, FaLeaf, FaEnvelope, FaCalendarAlt,
-  FaClock, FaArrowLeft
+  FaClock, FaArrowLeft, FaExternalLinkAlt
 } from "react-icons/fa";
 
 // 🔹 IMPORTATION DU FICHIER JSON ET DU HUB D'ARTICLES
