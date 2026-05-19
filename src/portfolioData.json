@@ -1,0 +1,54 @@
+{
+  "profile": {
+    "name": "Camille Laverie",
+    "role": "Data Professional",
+    "description": "Data Enjoyer, 3 years Data Manager Assistant at Cyclable! Seeking V.I.E Opportunities.",
+    "email": "camille.laverie@gmail.com",
+    "linkedin": "https://linkedin.com/in/camillelaverie",
+    "github": "https://github.com/CamilleLV"
+  },
+  "skillCategories": [
+    { 
+      "id": "bi", 
+      "label": "BI & Analysis", 
+      "skills": ["Power BI", "Dataiku DSS", "Tableau", "Power Query / DAX", "Dataflow / ETL", "Data Analysis"] 
+    },
+    { 
+      "id": "eng", 
+      "label": "Data Engineering", 
+      "skills": ["SQL / MySQL / PL-SQL", "HiveQL", "MongoDB", "Cassandra", "Snowflake", "Data Modeling & Management"] 
+    },
+    { 
+      "id": "ds", 
+      "label": "Data Science & ML", 
+      "skills": ["Python", "KNIME", "Machine Learning", "Statistical Data Analysis", "LLaMA (AI / NLP)", "Data Pipeline Architecture"] 
+    },
+    { 
+      "id": "soft", 
+      "label": "Project & Soft Skills", 
+      "skills": ["Project Management", "Agile / Scrum", "Public Speaking", "Business English (TOEIC 900)"] 
+    }
+  ],
+  "blogPosts": [
+    {
+      "id": "pipeline-sirene-airflow",
+      "title": "Bâtir un pipeline SIRENE avec Airflow et Docker",
+      "category": "Data Engineering",
+      "date": "18 Mai 2026",
+      "readTime": "6 min",
+      "summary": "Découvrez comment orchestrer un pipeline de nettoyage et de qualité de données de bout en bout.",
+      "tags": ["Airflow", "Docker", "Python"],
+      "fontFamily": "font-mono"
+    },
+    {
+      "id": "optimisation-dax-powerbi",
+      "title": "Top 5 des optimisations DAX pour grands volumes",
+      "category": "Business Intelligence",
+      "date": "12 Mai 2026",
+      "readTime": "4 min",
+      "summary": "Retour d'expérience sur la réduction des temps de calcul de modèles Power BI complexes.",
+      "tags": ["Power BI", "DAX", "Performance"],
+      "fontFamily": "font-sans"
+    }
+  ]
+}
