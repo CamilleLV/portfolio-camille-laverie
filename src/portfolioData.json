@@ -12,45 +12,67 @@
       "id": "bi", 
       "label": "BI & Analysis", 
       "skills": [
-        { "name": "Power BI", "level": "Avancé" },
-        { "name": "Dataiku DSS", "level": "Avancé" },
-        { "name": "Power Query / DAX", "level": "Avancé" },
+        { "name": "Power BI / DAX", "level": "Avancé" },
+        { "name": "Microsoft Power Query / Langage M", "level": "Avancé" },
+        { "name": "Dataflow / ETL", "level": "Avancé" },
+        { "name": "Visualisation & Analytique de données", "level": "Avancé" },
         { "name": "Tableau", "level": "Intermédiaire" },
-        { "name": "Dataflow / ETL", "level": "Intermédiaire" },
-        { "name": "Data Analysis", "level": "Intermédiaire" }
+        { "name": "Dataiku DSS", "level": "Intermédiaire" },
+        { "name": "Pentaho DI / Fabric", "level": "Intermédiaire" }
       ]
     },
     { 
       "id": "eng", 
       "label": "Data Engineering", 
       "skills": [
-        { "name": "SQL / MySQL / PL-SQL", "level": "Avancé" },
-        { "name": "Data Modeling & Management", "level": "Avancé" },
-        { "name": "Snowflake", "level": "Intermédiaire" },
-        { "name": "HiveQL", "level": "Notions" },
-        { "name": "MongoDB", "level": "Notions" },
+        { "name": "SQL / PL-SQL / MySQL", "level": "Avancé" },
+        { "name": "Modélisation & Gestion des données", "level": "Avancé" },
+        { "name": "Docker & Airflow", "level": "Intermédiaire" },
+        { "name": "Apizr / REST APIs / Postman", "level": "Avancé" },
+        { "name": "Cloud Snowflake", "level": "Notions" },
+        { "name": "MongoDB", "level": "Intermédiaire" },
+        { "name": "Langage HiveQL", "level": "Notions" },
         { "name": "Cassandra", "level": "Notions" }
       ]
     },
     { 
       "id": "ds", 
-      "label": "Data Science & ML", 
+      "label": "Data Science & Dev", 
       "skills": [
         { "name": "Python", "level": "Avancé" },
-        { "name": "Statistical Data Analysis", "level": "Intermédiaire" },
-        { "name": "Data Pipeline Architecture", "level": "Intermédiaire" },
+        { "name": "JavaScript", "level": "Intermédiaire" },
+        { "name": "HTML5 / CSS3", "level": "Intermédiaire" },
+        { "name": "Analyse de données statistiques", "level": "Intermédiaire" },
+        { "name": "Apprentissage automatique / ML", "level": "Intermédiaire" },
+        { "name": "PHP / Architecture MVC", "level": "Intermédiaire" },
+        { "name": "Java", "level": "Notions" },
         { "name": "LLaMA (AI / NLP)", "level": "Notions" },
         { "name": "KNIME", "level": "Notions" }
       ]
     },
     { 
       "id": "soft", 
-      "label": "Project & Soft Skills", 
+      "label": "Management & Tools", 
       "skills": [
-        { "name": "Project Management", "level": "Avancé" },
-        { "name": "Public Speaking", "level": "Avancé" },
-        { "name": "Agile / Scrum", "level": "Intermédiaire" },
-        { "name": "Business English", "level": "TOEIC 900" }
+        { "name": "Gestion de projet (Scrum / Agile)", "level": "Avancé" },
+        { "name": "ERP CeGid Retail Y2 / Sage", "level": "Avancé" },
+        { "name": "HubSpot & Pipedrive CRM", "level": "Avancé" },
+        { "name": "Anglais des affaires (TOEIC 800/990)", "level": "Intermédiaire" },
+        { "name": "Microsoft PowerApps / Automate / Lists", "level": "Intermédiaire" },
+        { "name": "Parler en public & Animation", "level": "Intermédiaire" },
+        { "name": "Analyse des risques", "level": "Intermédiaire" }
+      ]
+    },
+    {
+      "id": "com",
+      "label": "Engagement & Soft Skills",
+      "skills": [
+        { "name": "Bénévolat & Gestion associative (AFEV)", "level": "Avancé" },
+        { "name": "Sensibilisation aux transidentités dans le sport", "level": "Avancé" },
+        { "name": "Communication interpersonnelle & Interculturelle", "level": "Avancé" },
+        { "name": "Projet & Développement communautaire", "level": "Avancé" },
+        { "name": "Communication visuelle & Montage vidéo", "level": "Intermédiaire" },
+        { "name": "Recherches & Archivage numérique", "level": "Intermédiaire" }
       ]
     }
   ],

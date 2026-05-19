@@ -167,7 +167,7 @@ function App() {
           {!activeArticle ? (
             <>
               <div className="flex items-center gap-4">
-                <h2 className="text-2xl md:text-3xl font-black tracking-tighter uppercase italic text-[#0F172A]">/ Blog & Tutos</h2>
+                <h2 className="text-2xl md:text-3xl font-black tracking-tighter uppercase italic text-[#0F172A]">/ Projets, Blog & Tutos</h2>
                 <div className="h-1 flex-1 bg-[#E2E8F0] rounded-full"></div>
               </div>
               <div className="space-y-6">
