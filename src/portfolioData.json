@@ -78,6 +78,16 @@
   ],
   "blogPosts": [
     {
+      "id": "projet-M2-analyse-hypermarche-dataviz",
+      "title": "Projet Décisionnel M2 : Analyse & Datavisualisation",
+      "category": "Projet",
+      "date": "19 Mai 2026",
+      "readTime": "5 min",
+      "summary": "Mise en place d'une architecture BI de bout en bout sur le modèle HYPERMARCHE : modélisation en étoile, DAX avancé, Web Scraping et clustering de clients.",
+      "tags": ["Power BI", "DAX", "Pentaho", "Analytics"],
+      "fontFamily": "font-sans"
+    },
+    {
       "id": "pipeline-sirene-airflow",
       "title": "Bâtir un pipeline SIRENE avec Airflow et Docker",
       "category": "Data Engineering",
