@@ -9,7 +9,7 @@ export const pipelineSireneAirflowContent = [
   { type: "heading", text: "Structure du Projet" },
   { type: "paragraph", text: "Voici l'organisation détaillée des fichiers et dossiers du repository :" },
   {
-    type: "code", language: "markdown", code: ```
+    type: "code", language: "markdown", code: `
 .
 ├── .env                                    # Variables d'environnement
 ├── .gitignore                              # Fichiers ignorés par Git
@@ -54,9 +54,7 @@ export const pipelineSireneAirflowContent = [
 └── scripts/                                # Scripts ETL appelés par Airflow
     ├── ingest_data.py                      # Ingestion (Raw)
     ├── clean_data.py                       # Nettoyage et Standardisation
-    └── validate_data.py                    # Validation Qualité (Great Expectations)
-
-  ```
+    └── validate_data.py                    # Validation Qualité (Great Expectations)`
   },
 
   { type: "heading", text: "Architecture Technique" },

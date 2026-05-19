@@ -1,4 +1,5 @@
-export const biEngageeContent = [ {
+export const biEngageeContent = [ 
+  {
       "type": "paragraph",
       "text": "On ne va pas se mentir en école d'informatique, le parcours classique est souvent balisé. On nous apprend à manipuler des bases de données SQL, à optimiser des scripts Python ou à construire des dashboards PowerBI et Tableau avec un objectif quasi unique : optimiser le ROI, traquer les KPIs financiers, maximiser la marge ou faire cliquer l'utilisateur sur une pub. C'est ce qu'on appelle la Business Intelligence (BI) traditionnelle."
     },
@@ -79,4 +80,5 @@ export const biEngageeContent = [ {
     {
       "type": "paragraph",
       "text": "Vous pouvez, vous aussi, rejoindre une saison de Data for Good (quel que soit votre niveau technique) ou simplement utiliser la donnée fiable de projets comme la Graphothèque pour sensibiliser autour de vous. Il est temps de mettre nos IDE au service de l'intérêt général !"
-    } ];
+    } 
+  ];
