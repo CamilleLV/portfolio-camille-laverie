@@ -129,10 +129,10 @@ function App() {
                     <div
                       key={skill.name}
                       className={`bg-white border-2 p-4 rounded-xl flex items-center justify-between transition-all shadow-sm ${isExpert
-                          ? "border-[#059669] bg-emerald-50/10" // Élite : Bordure verte
-                          : isNotion
-                            ? "border-slate-100 opacity-60 filter grayscale-[30%]" // Secondaire : Atténué et grisâtre
-                            : "border-[#E2E8F0]" // Intermédiaire : Standard propre
+                        ? "border-[#059669] bg-emerald-50/10" // Élite : Bordure verte
+                        : isNotion
+                          ? "border-slate-100 opacity-60 filter grayscale-[30%]" // Secondaire : Atténué et grisâtre
+                          : "border-[#E2E8F0]" // Intermédiaire : Standard propre
                         }`}
                     >
                       <div className="flex items-center gap-3">
@@ -147,10 +147,10 @@ function App() {
 
                       {/* Badge de niveau discret à droite */}
                       <span className={`text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded ${isExpert
-                          ? "bg-[#059669] text-white"
-                          : isNotion
-                            ? "bg-slate-100 text-slate-400"
-                            : "bg-slate-100 text-slate-600"
+                        ? "bg-[#059669] text-white"
+                        : isNotion
+                          ? "bg-slate-100 text-slate-400"
+                          : "bg-slate-100 text-slate-600"
                         }`}>
                         {skill.level}
                       </span>
@@ -203,15 +203,21 @@ function App() {
                 </div>
               </div>
 
-              {/* Rendu dynamique selon la police de l'article */}
+              {/* Rendu dynamique du contenu de l'article */}
               <div className={`space-y-6 text-[#334155] leading-relaxed text-base md:text-lg ${activeArticle.fontFamily}`}>
                 {activeArticle.content.map((block, index) => {
+
+                  // 1. Paragraphe standard
                   if (block.type === "paragraph") {
-                    return <p key={index} className="font-medium">{block.text}</p>;
+                    return <p key={index} className="font-medium text-[#475569]">{block.text}</p>;
                   }
+
+                  // 2. Titre de section
                   if (block.type === "heading") {
-                    return <h2 key={index} className="text-xl md:text-2xl font-black tracking-tight text-[#0F172A] pt-4">{block.text}</h2>;
+                    return <h2 key={index} className="text-xl md:text-2xl font-black tracking-tight text-[#0F172A] pt-4 italic">{block.text}</h2>;
                   }
+
+                  // 3. Image avec légende
                   if (block.type === "image") {
                     return (
                       <div key={index} className="space-y-2 py-2">
@@ -222,6 +228,61 @@ function App() {
                       </div>
                     );
                   }
+
+                  // 4. Bloc de Code formaté (style terminal)
+                  if (block.type === "code") {
+                    return (
+                      <div key={index} className="relative my-4 rounded-2xl overflow-hidden border border-[#1E293B] bg-[#0F172A] p-5 font-mono text-xs md:text-sm text-slate-200 shadow-lg">
+                        <div className="absolute top-0 right-0 bg-[#1E293B] text-[#94A3B8] text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-bl-lg">
+                          {block.language || "code"}
+                        </div>
+                        <pre className="overflow-x-auto whitespace-pre no-scrollbar">
+                          <code>{block.code}</code>
+                        </pre>
+                      </div>
+                    );
+                  }
+
+                  // 5. Liste à puces
+                  if (block.type === "bullet-list") {
+                    return (
+                      <ul key={index} className="list-none space-y-2.5 pl-2 my-4">
+                        {block.items.map((item, i) => (
+                          <li key={i} className="flex items-start gap-3 text-sm md:text-base font-medium text-[#475569]">
+                            <span className="text-[#059669] font-black mt-1">➔</span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    );
+                  }
+
+                  // 6. Bloc de Citation / Remarque (Mise en avant verte)
+                  if (block.type === "quote") {
+                    return (
+                      <div key={index} className="border-l-4 border-[#059669] bg-[#F0FDF4]/50 p-5 rounded-r-2xl italic my-4 text-sm md:text-base font-medium text-[#1A2E26]">
+                        "{block.text}"
+                      </div>
+                    );
+                  }
+
+                  // 7. Bouton de lien cliquable (Dépôt GitHub / Ressources)
+                  if (block.type === "link") {
+                    return (
+                      <div key={index} className="py-2 flex justify-center sm:justify-start">
+                        <a
+                          href={block.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-3 bg-white border-2 border-[#E2E8F0] hover:border-[#059669] text-[#0F172A] hover:text-[#059669] px-6 py-3 rounded-xl font-black text-sm transition-all shadow-sm active:scale-95 group"
+                        >
+                          <span>{block.text}</span>
+                          <FaExternalLinkAlt size={12} className="text-[#64748B] group-hover:text-[#059669] transition-colors" />
+                        </a>
+                      </div>
+                    );
+                  }
+
                   return null;
                 })}
               </div>
