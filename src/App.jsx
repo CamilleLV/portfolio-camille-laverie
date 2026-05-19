@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  FaBriefcase, FaCode, FaLeaf, FaEnvelope, FaCalendarAlt, 
+import {
+  FaBriefcase, FaCode, FaLeaf, FaEnvelope, FaCalendarAlt,
   FaClock, FaArrowLeft
 } from "react-icons/fa";
 
@@ -9,7 +9,7 @@ import portfolioData from './portfolioData.json';
 import { postContents } from './posts';
 
 const images = ["images/profile1.png", "images/profile2.png", "images/profile3.png"];
-const typewriterWords = ["Engineer", "Analyst", "Steward", "Enthusiast"];
+const typewriterWords = ["Engineer", "Enthusiast"];
 
 function App() {
   const [imgIdx, setImgIdx] = useState(0);
@@ -18,7 +18,7 @@ function App() {
   const [charIdx, setCharIdx] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [activeSkillCat, setActiveSkillCat] = useState("bi");
-  
+
   // Contient l'objet de métadonnées de l'article actif + son contenu injecté
   const [activeArticle, setActiveArticle] = useState(null);
 
@@ -56,7 +56,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-[#F8FAF9] text-[#1A2E26] selection:bg-[#059669] selection:text-white font-sans overflow-x-hidden">
-      
+
       {/* HEADER */}
       <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl border-b border-[#E2E8F0]">
         <div className="max-w-3xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -72,7 +72,7 @@ function App() {
       </nav>
 
       <main className="max-w-2xl mx-auto px-6 pt-28 pb-24 space-y-28">
-        
+
         {!activeArticle ? (
           <>
             {/* HERO SECTION */}
@@ -104,18 +104,59 @@ function App() {
                 <h2 className="text-2xl md:text-3xl font-black tracking-tighter uppercase italic text-[#0F172A]">/ Compétences</h2>
                 <div className="h-1 flex-1 bg-[#E2E8F0] rounded-full"></div>
               </div>
+
+              {/* Sélecteur de catégories */}
               <div className="flex overflow-x-auto gap-2 pb-2 no-scrollbar">
                 {portfolioData.skillCategories.map(cat => (
-                  <button key={cat.id} onClick={() => setActiveSkillCat(cat.id)} className={`px-5 py-2.5 rounded-xl font-black text-xs border-2 transition-all ${activeSkillCat === cat.id ? 'bg-[#059669] border-[#059669] text-white' : 'bg-white border-[#E2E8F0] text-[#64748B]'}`}>{cat.label}</button>
+                  <button
+                    key={cat.id}
+                    onClick={() => setActiveSkillCat(cat.id)}
+                    className={`px-5 py-2.5 rounded-xl font-black text-xs border-2 transition-all ${activeSkillCat === cat.id ? 'bg-[#059669] border-[#059669] text-white shadow-sm' : 'bg-white border-[#E2E8F0] text-[#64748B]'}`}
+                  >
+                    {cat.label}
+                  </button>
                 ))}
               </div>
+
+              {/* Grille des compétences dynamiques */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {portfolioData.skillCategories.find(c => c.id === activeSkillCat).skills.map(skill => (
-                  <div key={skill} className="bg-white border-2 border-[#E2E8F0] p-4 rounded-xl flex items-center gap-3 shadow-sm">
-                    <span className="text-[#059669] font-black">✓</span>
-                    <span className="font-bold text-xs md:text-sm text-[#0F172A]">{skill}</span>
-                  </div>
-                ))}
+                {portfolioData.skillCategories.find(c => c.id === activeSkillCat).skills.map(skill => {
+                  // 🔹 Gestion dynamique des styles selon le niveau de maîtrise
+                  const isExpert = skill.level === "Avancé";
+                  const isNotion = skill.level === "Notions";
+
+                  return (
+                    <div
+                      key={skill.name}
+                      className={`bg-white border-2 p-4 rounded-xl flex items-center justify-between transition-all shadow-sm ${isExpert
+                          ? "border-[#059669] bg-emerald-50/10" // Élite : Bordure verte
+                          : isNotion
+                            ? "border-slate-100 opacity-60 filter grayscale-[30%]" // Secondaire : Atténué et grisâtre
+                            : "border-[#E2E8F0]" // Intermédiaire : Standard propre
+                        }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        {/* Icône de validation verte ou grise */}
+                        <span className={`font-black text-xs md:text-sm ${isExpert ? "text-[#059669]" : isNotion ? "text-slate-300" : "text-[#059669]/70"}`}>
+                          ✓
+                        </span>
+                        <span className={`font-bold text-xs md:text-sm ${isNotion ? "text-slate-500 font-medium" : "text-[#0F172A]"}`}>
+                          {skill.name}
+                        </span>
+                      </div>
+
+                      {/* Badge de niveau discret à droite */}
+                      <span className={`text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded ${isExpert
+                          ? "bg-[#059669] text-white"
+                          : isNotion
+                            ? "bg-slate-100 text-slate-400"
+                            : "bg-slate-100 text-slate-600"
+                        }`}>
+                        {skill.level}
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
             </section>
           </>
@@ -151,7 +192,7 @@ function App() {
               <button onClick={() => setActiveArticle(null)} className="flex items-center gap-2 text-xs font-black uppercase text-[#64748B] hover:text-[#059669] transition-colors pb-4">
                 <FaArrowLeft /> Retour aux articles
               </button>
-              
+
               <div className="space-y-2">
                 <span className="bg-[#E0F2FE] text-[#0369A1] font-black text-[10px] px-3 py-1 rounded-full uppercase tracking-wider">{activeArticle.category}</span>
                 <h1 className="text-3xl md:text-4xl font-black tracking-tighter text-[#0F172A] leading-tight">{activeArticle.title}</h1>
@@ -184,8 +225,8 @@ function App() {
                   return null;
                 })}
               </div>
-              
-              <button onClick={() => { setActiveArticle(null); window.scrollTo(0,0); }} className="flex items-center gap-2 text-xs font-black uppercase bg-white border-2 border-[#E2E8F0] px-5 py-3 rounded-xl hover:border-[#059669] transition-colors mt-8">
+
+              <button onClick={() => { setActiveArticle(null); window.scrollTo(0, 0); }} className="flex items-center gap-2 text-xs font-black uppercase bg-white border-2 border-[#E2E8F0] px-5 py-3 rounded-xl hover:border-[#059669] transition-colors mt-8">
                 <FaArrowLeft /> Fermer l'article
               </button>
             </div>
