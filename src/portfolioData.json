@@ -1,5 +1,9 @@
 {
   "fr": {
+    "nav": { "skills": "Skills", "exp": "Expériences", "edu": "Formations", "blog": "Blog", "contact": "Contact" },
+    "hero": { "connect": "Let's Connect", "cv": "Télécharger CV" },
+    "titles": { "skills": "/ Compétences", "exp": "/ Expériences", "edu": "/ Formations", "blog": "/ Blog & Tutos" },
+    "blog": { "back": "Retour aux articles", "close": "Fermer l'article" },
     "profile": {
       "name": "Camille Laverie",
       "role": "Data Engineer",
@@ -77,6 +81,53 @@
         ]
       }
     ],
+    "experience": [
+      {
+        "title": "Data Engineer (Alternance)",
+        "company": "Cyclable",
+        "date": "Août 2023 — Présent • Lyon",
+        "tasks": [
+          "Audit, nettoyage et fiabilisation des tables du SI pour garantir la qualité et l'intégrité des référentiels.",
+          "Automatisation des flux de données entre les outils internes (CRM Hubspot, API REST, Postman) et les plateformes fournisseurs via MAKE.",
+          "Refonte complète, optimisation et uniformisation globale du parc de rapports décisionnels sous Power BI (DAX, Power Query).",
+          "Support technique ERP (Cegid Retail Y2) et optimisation des processus métiers pour plus de 80 points de vente."
+        ],
+        "tags": ["Power BI", "DAX", "Python", "Hubspot", "SQL", "APIs", "MAKE", "ERP Cegid"]
+      },
+      {
+        "title": "Data Analyst (Stage)",
+        "company": "HYDREKA (Groupe Claire)",
+        "date": "Avril 2023 — Juin 2023 • Lyon",
+        "tasks": [
+          "Centralisation, consolidation et unification de données multi-sources issues d'architectures ERP hétérogènes.",
+          "Conception de dashboards KPIs pour le pilotage stratégique et l'aide à la décision via Microsoft Dataflows et Power BI."
+        ],
+        "tags": ["Power BI", "Dataflows", "Power Query", "Power Apps", "Excel"]
+      }
+    ],
+    "education": [
+      {
+        "icon": "🎓",
+        "degree": "Master BI & Analytics",
+        "school": "Université Lumière Lyon 2",
+        "desc": "Spécialisation : Analyse opérationnelle, Big Data & Data Science",
+        "date": "2025 — 2026"
+      },
+      {
+        "icon": "🚀",
+        "degree": "MSc Data Engineering",
+        "school": "EPSI Lyon",
+        "desc": "Titre d'expert certifié en Ingénierie et modélisation des flux de données",
+        "date": "2024 — 2025"
+      },
+      {
+        "icon": "💻",
+        "degree": "BUT Informatique",
+        "school": "IUT Lyon 1 (La Doua)",
+        "desc": "Parcours : Administration, Gestion et Exploitation sécurisée des Données",
+        "date": "2021 — 2024"
+      }
+    ],
     "blogPosts": [
       {
         "id": "projet-M2-analyse-hypermarche-dataviz",
@@ -108,9 +159,17 @@
         "tags": ["Airflow", "Docker", "Python"],
         "fontFamily": "font-mono"
       }
-    ]
+    ],
+    "contact": {
+      "title": "À la recherche d'une mission orientée Data en CDI sur Lyon, ou d'un V.I.E, n'hésitez pas à me contacter !",
+      "footer": "© 2026 — Camille Laverie"
+    }
   },
   "en": {
+    "nav": { "skills": "Skills", "exp": "Experience", "edu": "Education", "blog": "Blog", "contact": "Contact" },
+    "hero": { "connect": "Let's Connect", "cv": "Download CV" },
+    "titles": { "skills": "/ Skills", "exp": "/ Experience", "edu": "/ Education", "blog": "/ Blog & Tutorials" },
+    "blog": { "back": "Back to articles", "close": "Close article" },
     "profile": {
       "name": "Camille Laverie",
       "role": "Data Engineer",
@@ -188,6 +247,53 @@
         ]
       }
     ],
+    "experience": [
+      {
+        "title": "Data Engineer (Apprentice)",
+        "company": "Cyclable",
+        "date": "August 2023 — Present • Lyon",
+        "tasks": [
+          "Audit, cleaning, and reliability mapping of IS tables to ensure data quality and master data integrity.",
+          "Automation of data flows between internal tools (Hubspot CRM, REST APIs, Postman) and supplier platforms via MAKE.",
+          "Complete redesign, optimization, and global standardization of the decision-making reporting ecosystem in Power BI (DAX, Power Query).",
+          "ERP technical support (Cegid Retail Y2) and business process optimization for over 80 retail stores."
+        ],
+        "tags": ["Power BI", "DAX", "Python", "Hubspot", "SQL", "APIs", "MAKE", "ERP Cegid"]
+      },
+      {
+        "title": "Data Analyst (Internship)",
+        "company": "HYDREKA (Groupe Claire)",
+        "date": "April 2023 — June 2023 • Lyon",
+        "tasks": [
+          "Centralization, consolidation, and unification of multi-source data from heterogeneous ERP architectures.",
+          "Design of KPI dashboards for strategic management and decision support via Microsoft Dataflows and Power BI."
+        ],
+        "tags": ["Power BI", "Dataflows", "Power Query", "Power Apps", "Excel"]
+      }
+    ],
+    "education": [
+      {
+        "icon": "🎓",
+        "degree": "Master's in BI & Analytics",
+        "school": "Université Lumière Lyon 2",
+        "desc": "Specialization: Operational Analysis, Big Data & Data Science",
+        "date": "2025 — 2026"
+      },
+      {
+        "icon": "🚀",
+        "degree": "MSc Data Engineering",
+        "school": "EPSI Lyon",
+        "desc": "Certified Expert Degree in Data Flow Engineering and Modeling",
+        "date": "2024 — 2025"
+      },
+      {
+        "icon": "💻",
+        "degree": "Bachelor of Technology in CS",
+        "school": "IUT Lyon 1 (La Doua)",
+        "desc": "Track: Administration, Management, and Secure Data Exploitation",
+        "date": "2021 — 2024"
+      }
+    ],
     "blogPosts": [
       {
         "id": "projet-M2-analyse-hypermarche-dataviz",
@@ -219,6 +325,10 @@
         "tags": ["Airflow", "Docker", "Python"],
         "fontFamily": "font-mono"
       }
-    ]
+    ],
+    "contact": {
+      "title": "Looking for a Data-oriented permanent contract in Lyon, or a V.I.E abroad, feel free to reach out!",
+      "footer": "© 2026 — Camille Laverie"
+    }
   }
 }

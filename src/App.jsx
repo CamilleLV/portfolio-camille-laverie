@@ -11,30 +11,6 @@ import { postContents } from './posts';
 const images = ["images/profile1.png", "images/profile2.png", "images/profile3.png"];
 const typewriterWords = ["Engineer", "Enthusiast"];
 
-// 🔹 DICTIONNAIRE DE TRADUCTION POUR L'INTERFACE STATIQUE
-const t = {
-  fr: {
-    nav: { skills: "Skills", exp: "Expériences", edu: "Formations", blog: "Blog", contact: "Contact" },
-    hero: { connect: "Let's Connect", cv: "Télécharger CV" },
-    titles: { skills: "/ Compétences", exp: "/ Expériences", edu: "/ Formations", blog: "/ Blog & Tutos" },
-    blog: { back: "Retour aux articles", close: "Fermer l'article" },
-    contact: {
-      title: "À la recherche d'une mission orientée Data en CDI sur Lyon, ou d'un V.I.E, n'hésitez pas à me contacter !",
-      footer: "© 2026 — Camille Laverie"
-    }
-  },
-  en: {
-    nav: { skills: "Skills", exp: "Experience", edu: "Education", blog: "Blog", contact: "Contact" },
-    hero: { connect: "Let's Connect", cv: "Download CV" },
-    titles: { skills: "/ Skills", exp: "/ Experience", edu: "/ Education", blog: "/ Blog & Tutorials" },
-    blog: { back: "Back to articles", close: "Close article" },
-    contact: {
-      title: "Looking for a Data-oriented permanent contract in Lyon, or a V.I.E abroad, feel free to reach out!",
-      footer: "© 2026 — Camille Laverie"
-    }
-  }
-};
-
 function App() {
   const [imgIdx, setImgIdx] = useState(0);
   const [currentText, setCurrentText] = useState("");
@@ -42,12 +18,10 @@ function App() {
   const [charIdx, setCharIdx] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [activeSkillCat, setActiveSkillCat] = useState("bi");
-
   const [scrollPosition, setScrollPosition] = useState(0);
 
-  // 🌟 NOUVEL ÉTAT POUR LA LANGUE (Par défaut : Français)
+  // 🌟 LANGUE ACTIVE (Par défaut : Français)
   const [lang, setLang] = useState('fr');
-
   const [activeArticle, setActiveArticle] = useState(null);
 
   useEffect(() => {
@@ -76,10 +50,10 @@ function App() {
   }, [charIdx, isDeleting, wordIdx]);
 
   const handleOpenArticle = (post) => {
-    setScrollPosition(window.pageYOffset); // On sauvegarde la position actuelle
+    setScrollPosition(window.pageYOffset); 
     const content = postContents[post.id] || [];
     setActiveArticle({ ...post, content });
-    window.scrollTo(0, 0); // On monte pour lire l'article
+    window.scrollTo(0, 0); 
   };
 
   return (
@@ -95,14 +69,13 @@ function App() {
           </span>
           <div className="flex items-center gap-6 md:gap-8">
             <div className="hidden md:flex gap-6 md:gap-8 text-xs md:text-sm font-black text-[#475569] uppercase tracking-widest overflow-x-auto no-scrollbar">
-              <a href="#skills" onClick={() => setActiveArticle(null)} className="hover:text-[#059669] transition-colors whitespace-nowrap">{t[lang].nav.skills}</a>
-              <a href="#experience" onClick={() => setActiveArticle(null)} className="hover:text-[#059669] transition-colors whitespace-nowrap">{t[lang].nav.exp}</a>
-              <a href="#education" onClick={() => setActiveArticle(null)} className="hover:text-[#059669] transition-colors whitespace-nowrap">{t[lang].nav.edu}</a>
-              <a href="#blog" className="hover:text-[#059669] transition-colors whitespace-nowrap">{t[lang].nav.blog}</a>
-              <a href="#contact" className="hover:text-[#059669] transition-colors whitespace-nowrap">{t[lang].nav.contact}</a>
+              <a href="#skills" onClick={() => setActiveArticle(null)} className="hover:text-[#059669] transition-colors whitespace-nowrap">{portfolioData[lang].nav.skills}</a>
+              <a href="#experience" onClick={() => setActiveArticle(null)} className="hover:text-[#059669] transition-colors whitespace-nowrap">{portfolioData[lang].nav.exp}</a>
+              <a href="#education" onClick={() => setActiveArticle(null)} className="hover:text-[#059669] transition-colors whitespace-nowrap">{portfolioData[lang].nav.edu}</a>
+              <a href="#blog" className="hover:text-[#059669] transition-colors whitespace-nowrap">{portfolioData[lang].nav.blog}</a>
+              <a href="#contact" className="hover:text-[#059669] transition-colors whitespace-nowrap">{portfolioData[lang].nav.contact}</a>
             </div>
 
-            {/* 🌟 SÉLECTEUR DE LANGUE */}
             <div className="flex bg-[#E2E8F0]/50 p-1 rounded-lg">
               <button onClick={() => setLang('fr')} className={`px-3 py-1.5 rounded-md text-xs font-black uppercase transition-all ${lang === 'fr' ? 'bg-white text-[#059669] shadow-sm' : 'text-[#64748B] hover:text-[#059669]'}`}>FR</button>
               <button onClick={() => setLang('en')} className={`px-3 py-1.5 rounded-md text-xs font-black uppercase transition-all ${lang === 'en' ? 'bg-white text-[#059669] shadow-sm' : 'text-[#64748B] hover:text-[#059669]'}`}>EN</button>
@@ -136,28 +109,26 @@ function App() {
                 </p>
               </div>
 
-              {/* 🌟 BOUTONS D'ACTION : CONNECT & TÉLÉCHARGER CV */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center w-full max-w-lg pt-2">
                 <a
                   href="#contact"
                   className="flex-1 flex items-center justify-center gap-3 bg-[#059669] hover:bg-[#047857] text-white py-5 rounded-2xl font-black text-sm md:text-base transition-all shadow-xl shadow-emerald-700/10 active:scale-95"
                 >
-                  <FaEnvelope size={18} /> {t[lang].hero.connect}
+                  <FaEnvelope size={18} /> {portfolioData[lang].hero.connect}
                 </a>
 
-                {/* Le lien pointe vers le dossier /public selon la langue sélectionnée */}
                 <button
                   onClick={() => window.open(lang === 'fr' ? "/portfolio-camille-laverie/CV_Camille_Laverie_FR.pdf" : "/portfolio-camille-laverie/CV_Camille_Laverie_EN.pdf", "_blank")}
                   className="flex-1 flex items-center justify-center gap-3 bg-white border-2 border-[#E2E8F0] hover:border-[#059669] text-[#0F172A] hover:text-[#059669] py-5 rounded-2xl font-black text-sm md:text-base transition-all shadow-md active:scale-95 group"
                 >
-                  <FaDownload size={18} className="text-[#64748B] group-hover:text-[#059669] transition-colors" /> {t[lang].hero.cv}
+                  <FaDownload size={18} className="text-[#64748B] group-hover:text-[#059669] transition-colors" /> {portfolioData[lang].hero.cv}
                 </button>
               </div>
             </section>
 
             <section id="skills" className="space-y-10">
               <div className="flex items-center gap-5">
-                <h2 className="text-3xl md:text-4xl font-black tracking-tighter uppercase italic text-[#0F172A]">{t[lang].titles.skills}</h2>
+                <h2 className="text-3xl md:text-4xl font-black tracking-tighter uppercase italic text-[#0F172A]">{portfolioData[lang].titles.skills}</h2>
                 <div className="h-1.5 flex-1 bg-[#D1FAE5] rounded-full"></div>
               </div>
 
@@ -178,8 +149,8 @@ function App() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {portfolioData[lang].skillCategories.find(c => c.id === activeSkillCat).skills.map(skill => {
-                  const isExpert = skill.level === "Expert";
-                  const isNotion = skill.level === "Notions";
+                  const isExpert = skill.level === "Expert" || skill.level === "Advanced" || skill.level === "Avancé";
+                  const isNotion = skill.level === "Notions" || skill.level === "Basic";
 
                   return (
                     <div
@@ -203,121 +174,62 @@ function App() {
 
             <section id="experience" className="space-y-10">
               <div className="flex items-center gap-5">
-                <h2 className="text-3xl md:text-4xl font-black tracking-tighter uppercase italic text-[#0F172A]">{t[lang].titles.exp}</h2>
+                <h2 className="text-3xl md:text-4xl font-black tracking-tighter uppercase italic text-[#0F172A]">{portfolioData[lang].titles.exp}</h2>
                 <div className="h-1.5 flex-1 bg-[#D1FAE5] rounded-full"></div>
               </div>
 
               <div className="space-y-6">
-                <div className="bg-white border-2 border-[#E2E8F0] p-7 md:p-8 rounded-[2.5rem] space-y-4 shadow-md hover:shadow-xl transition-all">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-4">
-                    <div>
-                      <h3 className="font-black text-2xl text-[#0F172A]">Data Manager Assistant</h3>
-                      <p className="text-[#059669] font-black text-base uppercase tracking-wider">Cyclable</p>
-                    </div>
-                    <span className="text-xs md:text-sm font-black text-[#64748B] bg-slate-50 px-3 py-1.5 rounded-full uppercase italic self-start sm:self-center">
-                      Août 2023 — Présent • Lyon
-                    </span>
-                  </div>
-                  <ul className="list-none space-y-3 pl-1 text-base md:text-lg font-medium text-[#475569]">
-                    <li className="flex items-start gap-3">
-                      <span className="text-[#059669] font-black mt-1">➔</span>
-                      <span>Audit, nettoyage et fiabilisation des tables du SI pour garantir la qualité et l'intégrité des référentiels.</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="text-[#059669] font-black mt-1">➔</span>
-                      <span>Automatisation des flux de données entre les outils internes (CRM Hubspot, API REST, Postman) et les plateformes fournisseurs via MAKE.</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="text-[#059669] font-black mt-1">➔</span>
-                      <span>Refonte complète, optimisation et uniformisation globale du parc de rapports décisionnels sous Power BI (DAX, Power Query).</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="text-[#059669] font-black mt-1">➔</span>
-                      <span>Support technique ERP (Cegid Retail Y2) et optimisation des processus métiers pour plus de 80 points de vente.</span>
-                    </li>
-                  </ul>
-                  <div className="flex flex-wrap gap-2 pt-2">
-                    {["Power BI", "DAX", "Python", "Hubspot", "SQL", "APIs", "MAKE", "ERP Cegid"].map(tag => (
-                      <span key={tag} className="text-[10px] md:text-xs font-black text-[#059669] uppercase bg-emerald-50 px-3 py-1.5 rounded-full">
-                        {tag}
+                {portfolioData[lang].experience.map((exp, index) => (
+                  <div key={index} className="bg-white border-2 border-[#E2E8F0] p-7 md:p-8 rounded-[2.5rem] space-y-4 shadow-md hover:shadow-xl transition-all">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-4">
+                      <div>
+                        <h3 className="font-black text-2xl text-[#0F172A]">{exp.title}</h3>
+                        <p className="text-[#059669] font-black text-base uppercase tracking-wider">{exp.company}</p>
+                      </div>
+                      <span className="text-xs md:text-sm font-black text-[#64748B] bg-slate-50 px-3 py-1.5 rounded-full uppercase italic self-start sm:self-center">
+                        {exp.date}
                       </span>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="bg-white border-2 border-[#E2E8F0] p-7 md:p-8 rounded-[2.5rem] space-y-4 shadow-md hover:shadow-xl transition-all">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-4">
-                    <div>
-                      <h3 className="font-black text-2xl text-[#0F172A]">Data Analyst (Stage)</h3>
-                      <p className="text-[#059669] font-black text-base uppercase tracking-wider">HYDREKA (Groupe Claire)</p>
                     </div>
-                    <span className="text-xs md:text-sm font-black text-[#64748B] bg-slate-50 px-3 py-1.5 rounded-full uppercase italic self-start sm:self-center">
-                      Avril 2023 — Juin 2023 • Lyon
-                    </span>
+                    <ul className="list-none space-y-3 pl-1 text-base md:text-lg font-medium text-[#475569]">
+                      {exp.tasks.map((task, i) => (
+                        <li key={i} className="flex items-start gap-3">
+                          <span className="text-[#059669] font-black mt-1">➔</span>
+                          <span>{task}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="flex flex-wrap gap-2 pt-2">
+                      {exp.tags.map(tag => (
+                        <span key={tag} className="text-[10px] md:text-xs font-black text-[#059669] uppercase bg-emerald-50 px-3 py-1.5 rounded-full">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                  <ul className="list-none space-y-3 pl-1 text-base md:text-lg font-medium text-[#475569]">
-                    <li className="flex items-start gap-3">
-                      <span className="text-[#059669] font-black mt-1">➔</span>
-                      <span>Centralisation, consolidation et unification de données multi-sources issues d'architectures ERP hétérogènes.</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="text-[#059669] font-black mt-1">➔</span>
-                      <span>Conception de dashboards KPIs pour le pilotage stratégique et l'aide à la décision via Microsoft Dataflows et Power BI.</span>
-                    </li>
-                  </ul>
-                  <div className="flex flex-wrap gap-2 pt-2">
-                    {["Power BI", "Dataflows", "Power Query", "Power Apps", "Excel"].map(tag => (
-                      <span key={tag} className="text-[10px] md:text-xs font-black text-[#059669] uppercase bg-emerald-50 px-3 py-1.5 rounded-full">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+                ))}
               </div>
             </section>
 
             <section id="education" className="space-y-10">
               <div className="flex items-center gap-5">
-                <h2 className="text-3xl md:text-4xl font-black tracking-tighter uppercase italic text-[#0F172A]">{t[lang].titles.edu}</h2>
+                <h2 className="text-3xl md:text-4xl font-black tracking-tighter uppercase italic text-[#0F172A]">{portfolioData[lang].titles.edu}</h2>
                 <div className="h-1.5 flex-1 bg-[#D1FAE5] rounded-full"></div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-                <div className="bg-white border-2 border-[#E2E8F0] p-6 rounded-[2rem] shadow-md hover:shadow-xl transition-all text-center flex flex-col justify-between">
-                  <div className="space-y-3">
-                    <span className="text-4xl block pt-2">🎓</span>
-                    <h3 className="font-black text-lg md:text-xl text-[#0F172A] leading-snug">Master BI & Analytics</h3>
-                    <p className="text-[#475569] text-sm font-bold">Université Lumière Lyon 2</p>
-                    <p className="text-[#64748B] text-xs font-semibold px-2">Spécialisation : Analyse opérationnelle, Big Data & Data Science</p>
+                {portfolioData[lang].education.map((edu, index) => (
+                  <div key={index} className="bg-white border-2 border-[#E2E8F0] p-6 rounded-[2rem] shadow-md hover:shadow-xl transition-all text-center flex flex-col justify-between">
+                    <div className="space-y-3">
+                      <span className="text-4xl block pt-2">{edu.icon}</span>
+                      <h3 className="font-black text-lg md:text-xl text-[#0F172A] leading-snug">{edu.degree}</h3>
+                      <p className="text-[#475569] text-sm font-bold">{edu.school}</p>
+                      <p className="text-[#64748B] text-xs font-semibold px-2">{edu.desc}</p>
+                    </div>
+                    <span className="text-xs font-black text-[#059669] bg-emerald-50 py-2 rounded-full mt-6 block uppercase tracking-wider">
+                      {edu.date}
+                    </span>
                   </div>
-                  <span className="text-xs font-black text-[#059669] bg-emerald-50 py-2 rounded-full mt-6 block uppercase tracking-wider">
-                    2025 — 2026
-                  </span>
-                </div>
-
-                <div className="bg-white border-2 border-[#E2E8F0] p-6 rounded-[2rem] shadow-md hover:shadow-xl transition-all text-center flex flex-col justify-between">
-                  <div className="space-y-3">
-                    <span className="text-4xl block pt-2">🚀</span>
-                    <h3 className="font-black text-lg md:text-xl text-[#0F172A] leading-snug">MSc Data Engineering</h3>
-                    <p className="text-[#475569] text-sm font-bold">EPSI Lyon</p>
-                    <p className="text-[#64748B] text-xs font-semibold px-2">Titre d'expert certifié en Ingénierie et modélisation des flux de données</p>
-                  </div>
-                  <span className="text-xs font-black text-[#059669] bg-emerald-50 py-2 rounded-full mt-6 block uppercase tracking-wider">
-                    2024 — 2025
-                  </span>
-                </div>
-
-                <div className="bg-white border-2 border-[#E2E8F0] p-6 rounded-[2rem] shadow-md hover:shadow-xl transition-all text-center flex flex-col justify-between">
-                  <div className="space-y-3">
-                    <span className="text-4xl block pt-2">💻</span>
-                    <h3 className="font-black text-lg md:text-xl text-[#0F172A] leading-snug">BUT Informatique</h3>
-                    <p className="text-[#475569] text-sm font-bold">IUT Lyon 1 (La Doua)</p>
-                    <p className="text-[#64748B] text-xs font-semibold px-2">Parcours : Administration, Gestion et Exploitation sécurisée des Données</p>
-                  </div>
-                  <span className="text-xs font-black text-[#059669] bg-emerald-50 py-2 rounded-full mt-6 block uppercase tracking-wider">
-                    2021 — 2024
-                  </span>
-                </div>
+                ))}
               </div>
             </section>
           </>
@@ -327,7 +239,7 @@ function App() {
           {!activeArticle ? (
             <>
               <div className="flex items-center gap-5">
-                <h2 className="text-3xl md:text-4xl font-black tracking-tighter uppercase italic text-[#0F172A]">{t[lang].titles.blog}</h2>
+                <h2 className="text-3xl md:text-4xl font-black tracking-tighter uppercase italic text-[#0F172A]">{portfolioData[lang].titles.blog}</h2>
                 <div className="h-1.5 flex-1 bg-[#D1FAE5] rounded-full"></div>
               </div>
 
@@ -362,12 +274,11 @@ function App() {
               <button
                 onClick={() => {
                   setActiveArticle(null);
-                  // On rétablit la position sauvegardée juste après la fermeture
                   setTimeout(() => window.scrollTo({ top: scrollPosition, behavior: 'smooth' }), 0);
                 }}
                 className="flex items-center gap-2 text-sm font-black uppercase text-[#64748B] hover:text-[#059669] transition-colors pb-2"
               >
-                <FaArrowLeft /> {t[lang].blog.back}
+                <FaArrowLeft /> {portfolioData[lang].blog.back}
               </button>
 
               <div className="space-y-3 border-b border-slate-100 pb-6">
@@ -447,11 +358,11 @@ function App() {
               <button
                 onClick={() => {
                   setActiveArticle(null);
-                  setTimeout(() => window.scrollTo(0, scrollPosition), 0); // Restaure la position après le rendu
+                  setTimeout(() => window.scrollTo(0, scrollPosition), 0);
                 }}
                 className="flex items-center gap-2 text-sm font-black uppercase bg-[#0F172A] text-white px-6 py-4 rounded-xl hover:bg-[#059669] transition-colors mt-8 shadow-md"
               >
-                <FaArrowLeft /> {t[lang].blog.close}
+                <FaArrowLeft /> {portfolioData[lang].blog.close}
               </button>
             </div>
           )}
@@ -460,7 +371,7 @@ function App() {
         <section id="contact" className="pt-12">
           <div className="bg-[#0F172A] rounded-[3.5rem] p-10 md:p-14 text-white space-y-10 shadow-2xl relative overflow-hidden">
             <h2 className="text-4xl md:text-5xl font-black tracking-tighter italic leading-snug">
-              {t[lang].contact.title}
+              {portfolioData[lang].contact.title}
             </h2>
             <div className="flex flex-col lg:flex-row gap-8 items-start justify-between border-t border-white/10 pt-10 text-base md:text-lg font-bold">
               <a
@@ -479,7 +390,7 @@ function App() {
       </main>
 
       <footer className="text-center py-16 text-xs text-[#94A3B8] font-black uppercase tracking-[0.3em] border-t border-[#D1FAE5]">
-        {t[lang].contact.footer}
+        {portfolioData[lang].contact.footer}
       </footer>
 
       <style>{`
