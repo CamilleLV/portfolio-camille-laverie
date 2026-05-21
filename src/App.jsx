@@ -117,22 +117,23 @@ function App() {
               </div>
             </section>
 
-            {/* 🌟 SKILLS SECTION — PADDINGS ET COMPOSANTS AGRANDIS */}
+            {/* 🌟 SKILLS SECTION — RETRAVAIL DU SLIDER DES CATÉGORIES */}
             <section id="skills" className="space-y-10">
               <div className="flex items-center gap-5">
                 <h2 className="text-3xl md:text-4xl font-black tracking-tighter uppercase italic text-[#0F172A]">/ Compétences</h2>
                 <div className="h-1.5 flex-1 bg-[#D1FAE5] rounded-full"></div>
               </div>
               
-              <div className="flex overflow-x-auto gap-3 pb-3 no-scrollbar">
+              {/* 💅 LE NOUVEAU SLIDER : Fond pills discret, défilement fluide sans aucune barre système visible */}
+              <div className="flex overflow-x-auto gap-2 p-1.5 bg-[#E2E8F0]/50 rounded-2xl border border-[#E2E8F0]/30 scrollbar-none snap-x snap-mandatory">
                 {portfolioData.skillCategories.map(cat => (
                   <button
                     key={cat.id}
                     onClick={() => setActiveSkillCat(cat.id)}
-                    className={`px-6 py-4 rounded-xl font-black text-sm border-2 transition-all shrink-0 ${
+                    className={`px-6 py-3.5 rounded-xl font-black text-xs md:text-sm uppercase tracking-wider transition-all shrink-0 snap-start active:scale-95 duration-200 ${
                       activeSkillCat === cat.id 
-                        ? 'bg-[#059669] border-[#059669] text-white shadow-lg' 
-                        : 'bg-white border-[#E2E8F0] text-[#475569] hover:border-[#059669]'
+                        ? 'bg-[#059669] text-white shadow-md shadow-emerald-800/10 scale-[1.02]' 
+                        : 'bg-transparent text-[#475569] hover:text-[#059669] hover:bg-white/40'
                     }`}
                   >
                     {cat.label}
@@ -319,7 +320,7 @@ function App() {
         <section id="contact" className="pt-12">
           <div className="bg-[#0F172A] rounded-[3.5rem] p-10 md:p-14 text-white space-y-10 shadow-2xl relative overflow-hidden">
             <h2 className="text-5xl md:text-6xl font-black tracking-tighter italic leading-none">
-              Discutons ! 
+              Parlons de <br/> vos données.
             </h2>
             <div className="flex flex-col lg:flex-row gap-8 items-start justify-between border-t border-white/10 pt-10 text-base md:text-lg font-bold">
               <a 
