@@ -55,10 +55,10 @@ function App() {
   };
 
   return (
-    // 🌟 MODIFICATION 1 : FOND VIVANT EN DÉGRADÉ LUMINEUX & NETTOYAGE DES SÉLECTIONS
+    // FOND VIVANT EN DÉGRADÉ LUMINEUX & NETTOYAGE DES SÉLECTIONS
     <div className="min-h-screen bg-gradient-to-tr from-[#E6F4EA] via-[#F4FBF7] to-[#F8FAFC] text-[#11221B] selection:bg-[#059669] selection:text-white font-sans overflow-x-hidden antialiased">
       
-      {/* 🌟 BARRE DE NAVIGATION — TEXTES ET HAUTEUR LÉGÈREMENT REHAUSSÉS */}
+      {/* BARRE DE NAVIGATION */}
       <nav className="fixed top-0 w-full z-50 bg-white/85 backdrop-blur-2xl border-b border-[#D1FAE5]">
         <div className="max-w-4xl mx-auto px-8 h-20 flex items-center justify-between">
           <span 
@@ -75,12 +75,12 @@ function App() {
         </div>
       </nav>
 
-      {/* 🌟 CONTAINER PRINCIPAL — ESPACEMENTS INTER-SECTIONS AUGMENTÉS (x1.4) */}
+      {/* CONTAINER PRINCIPAL */}
       <main className="max-w-3xl mx-auto px-8 pt-36 pb-32 space-y-36 md:space-y-44">
         
         {!activeArticle ? (
           <>
-            {/* 🌟 HERO SECTION — TAILLES DE POLICES ET BOUTONS AUGMENTÉES */}
+            {/* HERO SECTION */}
             <section id="intro" className="flex flex-col items-center text-center space-y-10">
               <div className="relative w-64 h-[22rem] md:w-72 md:h-[25rem] rounded-[3.5rem] overflow-hidden shadow-2xl bg-emerald-50 border-4 border-white">
                 {images.map((src, i) => (
@@ -117,23 +117,23 @@ function App() {
               </div>
             </section>
 
-            {/* 🌟 SKILLS SECTION — RETRAVAIL DU SLIDER DES CATÉGORIES */}
+            {/* SKILLS SECTION — RETRAVAIL DES ONGLETS SELON TES INSTRUCTIONS */}
             <section id="skills" className="space-y-10">
               <div className="flex items-center gap-5">
                 <h2 className="text-3xl md:text-4xl font-black tracking-tighter uppercase italic text-[#0F172A]">/ Compétences</h2>
                 <div className="h-1.5 flex-1 bg-[#D1FAE5] rounded-full"></div>
               </div>
               
-              {/* 💅 LE NOUVEAU SLIDER : Fond pills discret, défilement fluide sans aucune barre système visible */}
-              <div className="flex overflow-x-auto gap-2 p-1.5 bg-[#E2E8F0]/50 rounded-2xl border border-[#E2E8F0]/30 scrollbar-none snap-x snap-mandatory">
+              {/* 💅 NAVIGATION TRANSPARENTE : Seul l'onglet actif possède un fond (vert) et des bordures épaisses */}
+              <div className="flex overflow-x-auto gap-3 pb-3 no-scrollbar scrollbar-none snap-x bg-transparent">
                 {portfolioData.skillCategories.map(cat => (
                   <button
                     key={cat.id}
                     onClick={() => setActiveSkillCat(cat.id)}
-                    className={`px-6 py-3.5 rounded-xl font-black text-xs md:text-sm uppercase tracking-wider transition-all shrink-0 snap-start active:scale-95 duration-200 ${
+                    className={`px-6 py-4 rounded-xl font-black text-sm border-2 transition-all shrink-0 snap-start active:scale-95 duration-200 ${
                       activeSkillCat === cat.id 
-                        ? 'bg-[#059669] text-white shadow-md shadow-emerald-800/10 scale-[1.02]' 
-                        : 'bg-transparent text-[#475569] hover:text-[#059669] hover:bg-white/40'
+                        ? 'bg-[#059669] border-[#059669] text-white shadow-lg shadow-emerald-900/10' 
+                        : 'bg-white border-[#E2E8F0] text-[#475569] hover:border-[#059669]'
                     }`}
                   >
                     {cat.label}
@@ -170,7 +170,7 @@ function App() {
           </>
         ) : null}
 
-        {/* 🌟 BLOG SECTION — TEXTES ET CARTES ÉLARGIES POUR LE MOBILE */}
+        {/* BLOG SECTION */}
         <section id="blog" className="space-y-10">
           {!activeArticle ? (
             <>
@@ -206,7 +206,7 @@ function App() {
               </div>
             </>
           ) : (
-            /* 🌟 LECTEUR D'ARTICLE DYNAMIQUE — POLICES REHAUSSÉES DE 1.4x SANS SCROLL AMBIGU */
+            /* LECTEUR D'ARTICLE DYNAMIQUE */
             <div className="space-y-8 bg-white p-6 md:p-10 rounded-[2.5rem] border-2 border-[#E2E8F0] shadow-xl animate-in fade-in duration-300">
               <button 
                 onClick={() => setActiveArticle(null)} 
@@ -229,7 +229,6 @@ function App() {
                 </div>
               </div>
 
-              {/* Rendu dynamique du contenu selon la structure en blocs */}
               <div className={`space-y-8 text-[#1E293B] leading-relaxed text-lg md:text-xl ${activeArticle.fontFamily}`}>
                 {activeArticle.content.map((block, index) => {
                   
@@ -316,7 +315,7 @@ function App() {
           )}
         </section>
 
-        {/* 🌟 SECTION CONTACT — CALIBRATION DU CONTRASTE DES TITRES SUR LE FOND DE COULEUR */}
+        {/* SECTION CONTACT */}
         <section id="contact" className="pt-12">
           <div className="bg-[#0F172A] rounded-[3.5rem] p-10 md:p-14 text-white space-y-10 shadow-2xl relative overflow-hidden">
             <h2 className="text-5xl md:text-6xl font-black tracking-tighter italic leading-none">
