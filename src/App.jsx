@@ -47,111 +47,118 @@ function App() {
     return () => clearTimeout(timer);
   }, [charIdx, isDeleting, wordIdx]);
 
-  // Fonction pour ouvrir un article en liant les métadonnées du JSON et son fichier de contenu
+  // Fonction pour charger dynamiquement le contenu d'un article au clic
   const handleOpenArticle = (post) => {
     const content = postContents[post.id] || [];
     setActiveArticle({ ...post, content });
-    window.scrollTo(0, 0);
+    window.scrollTo(0, 0); // Remonte en haut de page
   };
 
   return (
-    <div className="min-h-screen bg-[#F8FAF9] text-[#1A2E26] selection:bg-[#059669] selection:text-white font-sans overflow-x-hidden">
-
-      {/* HEADER */}
-      <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl border-b border-[#E2E8F0]">
-        <div className="max-w-3xl mx-auto px-6 h-16 flex items-center justify-between">
-          <span onClick={() => setActiveArticle(null)} className="cursor-pointer font-black text-[#059669] text-lg uppercase tracking-tighter flex items-center gap-2">
-            <FaLeaf /> Camille.L
+    // 🌟 MODIFICATION 1 : FOND VIVANT EN DÉGRADÉ LUMINEUX & NETTOYAGE DES SÉLECTIONS
+    <div className="min-h-screen bg-gradient-to-tr from-[#E6F4EA] via-[#F4FBF7] to-[#F8FAFC] text-[#11221B] selection:bg-[#059669] selection:text-white font-sans overflow-x-hidden antialiased">
+      
+      {/* 🌟 BARRE DE NAVIGATION — TEXTES ET HAUTEUR LÉGÈREMENT REHAUSSÉS */}
+      <nav className="fixed top-0 w-full z-50 bg-white/85 backdrop-blur-2xl border-b border-[#D1FAE5]">
+        <div className="max-w-4xl mx-auto px-8 h-20 flex items-center justify-between">
+          <span 
+            onClick={() => setActiveArticle(null)} 
+            className="cursor-pointer font-black text-[#059669] text-2xl uppercase tracking-tighter flex items-center gap-2.5"
+          >
+            <FaLeaf size={22} /> Camille.L
           </span>
-          <div className="flex gap-6 text-[10px] font-black text-[#64748B] uppercase tracking-widest">
-            <a href="#skills" onClick={() => setActiveArticle(null)} className="hover:text-[#059669]">Skills</a>
-            <a href="#blog" className="hover:text-[#059669]">Blog</a>
-            <a href="#contact" className="hover:text-[#059669]">Contact</a>
+          <div className="flex gap-8 text-xs md:text-sm font-black text-[#475569] uppercase tracking-widest">
+            <a href="#skills" onClick={() => setActiveArticle(null)} className="hover:text-[#059669] transition-colors">Skills</a>
+            <a href="#blog" className="hover:text-[#059669] transition-colors">Blog</a>
+            <a href="#contact" className="hover:text-[#059669] transition-colors">Contact</a>
           </div>
         </div>
       </nav>
 
-      <main className="max-w-2xl mx-auto px-6 pt-28 pb-24 space-y-28">
-
+      {/* 🌟 CONTAINER PRINCIPAL — ESPACEMENTS INTER-SECTIONS AUGMENTÉS (x1.4) */}
+      <main className="max-w-3xl mx-auto px-8 pt-36 pb-32 space-y-36 md:space-y-44">
+        
         {!activeArticle ? (
           <>
-            {/* HERO SECTION */}
-            <section id="intro" className="flex flex-col items-center text-center space-y-8">
-              <div className="relative w-56 h-[19rem] rounded-[3rem] overflow-hidden shadow-xl bg-slate-200">
+            {/* 🌟 HERO SECTION — TAILLES DE POLICES ET BOUTONS AUGMENTÉES */}
+            <section id="intro" className="flex flex-col items-center text-center space-y-10">
+              <div className="relative w-64 h-[22rem] md:w-72 md:h-[25rem] rounded-[3.5rem] overflow-hidden shadow-2xl bg-emerald-50 border-4 border-white">
                 {images.map((src, i) => (
-                  <img key={i} src={src} alt="Profile" className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${imgIdx === i ? 'opacity-100' : 'opacity-0'}`} />
+                  <img
+                    key={i}
+                    src={src}
+                    alt="Profile"
+                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${imgIdx === i ? 'opacity-100' : 'opacity-0'}`}
+                  />
                 ))}
               </div>
-              <div className="space-y-4">
-                <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-[#0F172A]">{portfolioData.profile.name}</h1>
-                <div className="h-8 flex items-center justify-center">
-                  <span className="text-xl md:text-2xl font-mono font-bold text-[#64748B]">Data <span className="text-[#059669]">{currentText}</span>_</span>
+              
+              <div className="space-y-6">
+                <h1 className="text-5xl md:text-7xl font-black tracking-tight text-[#0F172A] leading-tight">
+                  {portfolioData.profile.name}
+                </h1>
+                <div className="h-10 flex items-center justify-center">
+                  <span className="text-2xl md:text-4xl font-mono font-bold text-[#475569]">
+                    Data <span className="text-[#059669]">{currentText}</span>_
+                  </span>
                 </div>
-                <p className="text-[#475569] leading-relaxed text-lg font-medium max-w-md mx-auto">
+                <p className="text-[#334155] leading-relaxed text-xl font-semibold max-w-xl mx-auto px-2">
                   {portfolioData.profile.description}
                 </p>
               </div>
-              <div className="flex gap-4 justify-center w-full max-w-xs">
-                <a href="#contact" className="flex items-center justify-center gap-2 bg-[#059669] hover:bg-[#047857] text-white w-full py-4 rounded-2xl font-black text-sm transition-all shadow-lg active:scale-95">
-                  <FaEnvelope /> Let's Connect
+
+              <div className="flex gap-5 justify-center w-full max-w-md pt-2">
+                <a 
+                  href="#contact" 
+                  className="flex items-center justify-center gap-3 bg-[#059669] hover:bg-[#047857] text-white w-full py-5 rounded-2xl font-black text-base transition-all shadow-xl shadow-emerald-700/10 active:scale-95"
+                >
+                  <FaEnvelope size={18} /> Let's Connect
                 </a>
               </div>
             </section>
 
-            {/* SKILLS SECTION */}
-            <section id="skills" className="space-y-8">
-              <div className="flex items-center gap-4">
-                <h2 className="text-2xl md:text-3xl font-black tracking-tighter uppercase italic text-[#0F172A]">/ Compétences</h2>
-                <div className="h-1 flex-1 bg-[#E2E8F0] rounded-full"></div>
+            {/* 🌟 SKILLS SECTION — PADDINGS ET COMPOSANTS AGRANDIS */}
+            <section id="skills" className="space-y-10">
+              <div className="flex items-center gap-5">
+                <h2 className="text-3xl md:text-4xl font-black tracking-tighter uppercase italic text-[#0F172A]">/ Compétences</h2>
+                <div className="h-1.5 flex-1 bg-[#D1FAE5] rounded-full"></div>
               </div>
-
-              {/* Sélecteur de catégories */}
-              <div className="flex overflow-x-auto gap-2 pb-2 no-scrollbar">
+              
+              <div className="flex overflow-x-auto gap-3 pb-3 no-scrollbar">
                 {portfolioData.skillCategories.map(cat => (
                   <button
                     key={cat.id}
                     onClick={() => setActiveSkillCat(cat.id)}
-                    className={`px-5 py-2.5 rounded-xl font-black text-xs border-2 transition-all ${activeSkillCat === cat.id ? 'bg-[#059669] border-[#059669] text-white shadow-sm' : 'bg-white border-[#E2E8F0] text-[#64748B]'}`}
+                    className={`px-6 py-4 rounded-xl font-black text-sm border-2 transition-all shrink-0 ${
+                      activeSkillCat === cat.id 
+                        ? 'bg-[#059669] border-[#059669] text-white shadow-lg' 
+                        : 'bg-white border-[#E2E8F0] text-[#475569] hover:border-[#059669]'
+                    }`}
                   >
                     {cat.label}
                   </button>
                 ))}
               </div>
-
-              {/* Grille des compétences dynamiques */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {portfolioData.skillCategories.find(c => c.id === activeSkillCat).skills.map(skill => {
-                  // 🔹 Gestion dynamique des styles selon le niveau de maîtrise
-                  const isExpert = skill.level === "Avancé";
+                  const isExpert = skill.level === "Expert";
                   const isNotion = skill.level === "Notions";
 
                   return (
-                    <div
-                      key={skill.name}
-                      className={`bg-white border-2 p-4 rounded-xl flex items-center justify-between transition-all shadow-sm ${isExpert
-                        ? "border-[#059669] bg-emerald-50/10" // Élite : Bordure verte
-                        : isNotion
-                          ? "border-slate-100 opacity-60 filter grayscale-[30%]" // Secondaire : Atténué et grisâtre
-                          : "border-[#E2E8F0]" // Intermédiaire : Standard propre
-                        }`}
+                    <div 
+                      key={skill.name} 
+                      className={`bg-white border-2 p-5 rounded-2xl flex items-center justify-between transition-all shadow-md hover:shadow-lg ${
+                        isExpert ? "border-[#059669] bg-emerald-50/5" : isNotion ? "border-slate-100/70 opacity-60" : "border-[#E2E8F0]"
+                      }`}
                     >
-                      <div className="flex items-center gap-3">
-                        {/* Icône de validation verte ou grise */}
-                        <span className={`font-black text-xs md:text-sm ${isExpert ? "text-[#059669]" : isNotion ? "text-slate-300" : "text-[#059669]/70"}`}>
-                          ✓
-                        </span>
-                        <span className={`font-bold text-xs md:text-sm ${isNotion ? "text-slate-500 font-medium" : "text-[#0F172A]"}`}>
-                          {skill.name}
-                        </span>
+                      <div className="flex items-center gap-4">
+                        <span className={`font-black text-base ${isExpert ? "text-[#059669]" : isNotion ? "text-slate-300" : "text-[#059669]/70"}`}>✓</span>
+                        <span className={`font-black text-sm md:text-base ${isNotion ? "text-slate-500 font-semibold" : "text-[#0F172A]"}`}>{skill.name}</span>
                       </div>
-
-                      {/* Badge de niveau discret à droite */}
-                      <span className={`text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded ${isExpert
-                        ? "bg-[#059669] text-white"
-                        : isNotion
-                          ? "bg-slate-100 text-slate-400"
-                          : "bg-slate-100 text-slate-600"
-                        }`}>
+                      <span className={`text-[10px] md:text-xs font-black uppercase tracking-wider px-2.5 py-1 rounded ${
+                        isExpert ? "bg-[#059669] text-white" : isNotion ? "bg-slate-100 text-slate-400" : "bg-slate-100 text-slate-600"
+                      }`}>
                         {skill.level}
                       </span>
                     </div>
@@ -162,78 +169,92 @@ function App() {
           </>
         ) : null}
 
-        {/* SECTION BLOG */}
-        <section id="blog" className="space-y-8">
+        {/* 🌟 BLOG SECTION — TEXTES ET CARTES ÉLARGIES POUR LE MOBILE */}
+        <section id="blog" className="space-y-10">
           {!activeArticle ? (
             <>
-              <div className="flex items-center gap-4">
-                <h2 className="text-2xl md:text-3xl font-black tracking-tighter uppercase italic text-[#0F172A]">/ Projets, Blog & Tutos</h2>
-                <div className="h-1 flex-1 bg-[#E2E8F0] rounded-full"></div>
+              <div className="flex items-center gap-5">
+                <h2 className="text-3xl md:text-4xl font-black tracking-tighter uppercase italic text-[#0F172A]">/ Blog & Tutos</h2>
+                <div className="h-1.5 flex-1 bg-[#D1FAE5] rounded-full"></div>
               </div>
-              <div className="space-y-6">
+
+              <div className="space-y-8">
                 {portfolioData.blogPosts.map((post) => (
-                  <article key={post.id} onClick={() => handleOpenArticle(post)} className="bg-white border-2 border-[#E2E8F0] p-6 rounded-[2rem] space-y-4 hover:border-[#059669] transition-all group cursor-pointer shadow-sm">
-                    <div className="flex gap-4 text-[10px] font-black text-[#64748B] uppercase tracking-wider">
-                      <span className="bg-slate-100 px-2 py-1 rounded text-[#059669]">{post.category}</span>
-                      <span className="flex items-center gap-1"><FaCalendarAlt /> {post.date}</span>
+                  <article 
+                    key={post.id} 
+                    onClick={() => handleOpenArticle(post)}
+                    className="bg-white border-2 border-[#E2E8F0] p-7 md:p-8 rounded-[2.5rem] space-y-5 hover:border-[#059669] transition-all group cursor-pointer shadow-md hover:shadow-xl"
+                  >
+                    <div className="flex gap-4 text-xs font-black text-[#64748B] uppercase tracking-wider">
+                      <span className="bg-emerald-50 text-[#059669] px-2.5 py-1 rounded">{post.category}</span>
+                      <span className="flex items-center gap-1.5"><FaCalendarAlt /> {post.date}</span>
                     </div>
-                    <h3 className="font-black text-xl text-[#0F172A] group-hover:text-[#059669] transition-colors">{post.title}</h3>
-                    <p className="text-[#475569] text-sm font-medium leading-relaxed">{post.summary}</p>
-                    <div className="flex gap-2">
-                      {post.tags.map(t => <span key={t} className="text-[9px] font-black text-slate-400">#{t}</span>)}
+                    <h3 className="font-black text-2xl text-[#0F172A] group-hover:text-[#059669] transition-colors leading-tight">
+                      {post.title}
+                    </h3>
+                    <p className="text-[#475569] text-base md:text-lg font-medium leading-relaxed">
+                      {post.summary}
+                    </p>
+                    <div className="flex flex-wrap gap-2 pt-1">
+                      {post.tags.map(t => (
+                        <span key={t} className="text-[10px] font-black text-[#64748B] uppercase bg-slate-100 px-2.5 py-1 rounded">#{t}</span>
+                      ))}
                     </div>
                   </article>
                 ))}
               </div>
             </>
           ) : (
-            /* --- VUE ARTICLE SEUL --- */
-            <div className="space-y-6 animate-in fade-in duration-300">
-              <button onClick={() => setActiveArticle(null)} className="flex items-center gap-2 text-xs font-black uppercase text-[#64748B] hover:text-[#059669] transition-colors pb-4">
+            /* 🌟 LECTEUR D'ARTICLE DYNAMIQUE — POLICES REHAUSSÉES DE 1.4x SANS SCROLL AMBIGU */
+            <div className="space-y-8 bg-white p-6 md:p-10 rounded-[2.5rem] border-2 border-[#E2E8F0] shadow-xl animate-in fade-in duration-300">
+              <button 
+                onClick={() => setActiveArticle(null)} 
+                className="flex items-center gap-2 text-sm font-black uppercase text-[#64748B] hover:text-[#059669] transition-colors pb-2"
+              >
                 <FaArrowLeft /> Retour aux articles
               </button>
-
-              <div className="space-y-2">
-                <span className="bg-[#E0F2FE] text-[#0369A1] font-black text-[10px] px-3 py-1 rounded-full uppercase tracking-wider">{activeArticle.category}</span>
-                <h1 className="text-3xl md:text-4xl font-black tracking-tighter text-[#0F172A] leading-tight">{activeArticle.title}</h1>
-                <div className="flex gap-4 text-xs font-bold text-[#94A3B8] pt-2">
+              
+              <div className="space-y-3 border-b border-slate-100 pb-6">
+                <span className="bg-[#E0F2FE] text-[#0369A1] font-black text-xs px-3 py-1 rounded-full uppercase tracking-wider">
+                  {activeArticle.category}
+                </span>
+                <h1 className="text-3xl md:text-5xl font-black tracking-tighter text-[#0F172A] leading-tight">
+                  {activeArticle.title}
+                </h1>
+                <div className="flex gap-4 text-sm font-bold text-[#94A3B8] pt-1">
                   <span>{activeArticle.date}</span>
                   <span>•</span>
-                  <span className="flex items-center gap-1"><FaClock /> {activeArticle.readTime}</span>
+                  <span className="flex items-center gap-1.5"><FaClock /> {activeArticle.readTime}</span>
                 </div>
               </div>
 
-              {/* Rendu dynamique du contenu de l'article */}
-              <div className={`space-y-6 text-[#334155] leading-relaxed text-base md:text-lg ${activeArticle.fontFamily}`}>
+              {/* Rendu dynamique du contenu selon la structure en blocs */}
+              <div className={`space-y-8 text-[#1E293B] leading-relaxed text-lg md:text-xl ${activeArticle.fontFamily}`}>
                 {activeArticle.content.map((block, index) => {
-
-                  // 1. Paragraphe standard
+                  
                   if (block.type === "paragraph") {
-                    return <p key={index} className="font-medium text-[#475569]">{block.text}</p>;
+                    return <p key={index} className="font-medium text-[#334155]">{block.text}</p>;
                   }
-
-                  // 2. Titre de section
+                  
                   if (block.type === "heading") {
-                    return <h2 key={index} className="text-xl md:text-2xl font-black tracking-tight text-[#0F172A] pt-4 italic">{block.text}</h2>;
+                    return <h2 key={index} className="text-2xl md:text-3xl font-black tracking-tight text-[#0F172A] pt-4 italic">{block.text}</h2>;
                   }
-
-                  // 3. Image avec légende
+                  
                   if (block.type === "image") {
                     return (
-                      <div key={index} className="space-y-2 py-2">
-                        <div className="rounded-2xl overflow-hidden border border-[#E2E8F0] bg-white p-2 shadow-sm">
-                          <img src={block.src} alt={block.alt} className="w-full h-auto object-cover rounded-xl" />
+                      <div key={index} className="space-y-3 py-2">
+                        <div className="rounded-[2rem] overflow-hidden border border-[#E2E8F0] bg-white p-3 shadow-md">
+                          <img src={block.src} alt={block.alt} className="w-full h-auto object-cover rounded-2xl" />
                         </div>
-                        {block.caption && <p className="text-center text-xs font-bold text-[#94A3B8] italic">{block.caption}</p>}
+                        {block.caption && <p className="text-center text-sm font-bold text-[#94A3B8] italic">{block.caption}</p>}
                       </div>
                     );
                   }
 
-                  // 4. Bloc de Code formaté (style terminal)
                   if (block.type === "code") {
                     return (
-                      <div key={index} className="relative my-4 rounded-2xl overflow-hidden border border-[#1E293B] bg-[#0F172A] p-5 font-mono text-xs md:text-sm text-slate-200 shadow-lg">
-                        <div className="absolute top-0 right-0 bg-[#1E293B] text-[#94A3B8] text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-bl-lg">
+                      <div key={index} className="relative my-6 rounded-2xl overflow-hidden border border-[#1E293B] bg-[#0F172A] p-6 font-mono text-xs md:text-sm text-slate-200 shadow-xl">
+                        <div className="absolute top-0 right-0 bg-[#1E293B] text-[#94A3B8] text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-bl-lg">
                           {block.language || "code"}
                         </div>
                         <pre className="overflow-x-auto whitespace-pre no-scrollbar">
@@ -243,12 +264,11 @@ function App() {
                     );
                   }
 
-                  // 5. Liste à puces
                   if (block.type === "bullet-list") {
                     return (
-                      <ul key={index} className="list-none space-y-2.5 pl-2 my-4">
+                      <ul key={index} className="list-none space-y-3.5 pl-2 my-4">
                         {block.items.map((item, i) => (
-                          <li key={i} className="flex items-start gap-3 text-sm md:text-base font-medium text-[#475569]">
+                          <li key={i} className="flex items-start gap-4 text-base md:text-lg font-medium text-[#334155]">
                             <span className="text-[#059669] font-black mt-1">➔</span>
                             <span>{item}</span>
                           </li>
@@ -257,27 +277,25 @@ function App() {
                     );
                   }
 
-                  // 6. Bloc de Citation / Remarque (Mise en avant verte)
                   if (block.type === "quote") {
                     return (
-                      <div key={index} className="border-l-4 border-[#059669] bg-[#F0FDF4]/50 p-5 rounded-r-2xl italic my-4 text-sm md:text-base font-medium text-[#1A2E26]">
+                      <div key={index} className="border-l-4 border-[#059669] bg-[#F0FDF4]/70 p-6 rounded-r-2xl italic my-5 text-base md:text-lg font-semibold text-[#1A2E26]">
                         "{block.text}"
                       </div>
                     );
                   }
 
-                  // 7. Bouton de lien cliquable (Dépôt GitHub / Ressources)
                   if (block.type === "link") {
                     return (
                       <div key={index} className="py-2 flex justify-center sm:justify-start">
-                        <a
-                          href={block.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-3 bg-white border-2 border-[#E2E8F0] hover:border-[#059669] text-[#0F172A] hover:text-[#059669] px-6 py-3 rounded-xl font-black text-sm transition-all shadow-sm active:scale-95 group"
+                        <a 
+                          href={block.url} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="inline-flex items-center gap-3 bg-white border-2 border-[#E2E8F0] hover:border-[#059669] text-[#0F172A] hover:text-[#059669] px-7 py-4 rounded-xl font-black text-base transition-all shadow-md active:scale-95 group"
                         >
                           <span>{block.text}</span>
-                          <FaExternalLinkAlt size={12} className="text-[#64748B] group-hover:text-[#059669] transition-colors" />
+                          <span className="text-[#64748B] group-hover:text-[#059669] font-normal">↗</span>
                         </a>
                       </div>
                     );
@@ -287,27 +305,41 @@ function App() {
                 })}
               </div>
 
-              <button onClick={() => { setActiveArticle(null); window.scrollTo(0, 0); }} className="flex items-center gap-2 text-xs font-black uppercase bg-white border-2 border-[#E2E8F0] px-5 py-3 rounded-xl hover:border-[#059669] transition-colors mt-8">
+              <button 
+                onClick={() => { setActiveArticle(null); window.scrollTo(0, 0); }} 
+                className="flex items-center gap-2 text-sm font-black uppercase bg-[#0F172A] text-white px-6 py-4 rounded-xl hover:bg-[#059669] transition-colors mt-8 shadow-md"
+              >
                 <FaArrowLeft /> Fermer l'article
               </button>
             </div>
           )}
         </section>
 
-        {/* SECTION CONTACT */}
+        {/* 🌟 SECTION CONTACT — CALIBRATION DU CONTRASTE DES TITRES SUR LE FOND DE COULEUR */}
         <section id="contact" className="pt-12">
-          <div className="bg-[#0F172A] rounded-[2.5rem] p-8 md:p-10 text-white space-y-8 shadow-xl">
-            <h2 className="text-3xl font-black tracking-tighter italic">Parlons de vos projets.</h2>
-            <div className="flex flex-col sm:flex-row gap-6 justify-between items-start sm:items-center border-t border-white/10 pt-8 text-sm font-bold">
-              <a href={`mailto:${portfolioData.profile.email}`} className="hover:text-[#059669] transition-colors underline underline-offset-4">{portfolioData.profile.email}</a>
-              <div className="flex gap-4">
-                <a href={portfolioData.profile.linkedin} className="text-slate-400 hover:text-white">LinkedIn</a>
-                <a href={portfolioData.profile.github} className="text-slate-400 hover:text-white">GitHub</a>
+          <div className="bg-[#0F172A] rounded-[3.5rem] p-10 md:p-14 text-white space-y-10 shadow-2xl relative overflow-hidden">
+            <h2 className="text-5xl md:text-6xl font-black tracking-tighter italic leading-none">
+              Discutons ! 
+            </h2>
+            <div className="flex flex-col lg:flex-row gap-8 items-start justify-between border-t border-white/10 pt-10 text-base md:text-lg font-bold">
+              <a 
+                href={`mailto:${portfolioData.profile.email}`} 
+                className="hover:text-[#059669] transition-colors underline underline-offset-4 decoration-[#059669] decoration-2"
+              >
+                {portfolioData.profile.email}
+              </a>
+              <div className="flex gap-6">
+                <a href={portfolioData.profile.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">LinkedIn</a>
+                <a href={portfolioData.profile.github} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">GitHub</a>
               </div>
             </div>
           </div>
         </section>
       </main>
+
+      <footer className="text-center py-16 text-xs text-[#94A3B8] font-black uppercase tracking-[0.3em] border-t border-[#D1FAE5]">
+        © 2026 — Camille Laverie
+      </footer>
     </div>
   );
 }

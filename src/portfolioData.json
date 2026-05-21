@@ -100,22 +100,12 @@
     {
       "id": "pipeline-sirene-airflow",
       "title": "Bâtir un pipeline SIRENE avec Airflow et Docker",
-      "category": "Data Engineering",
+      "category": "Projet",
       "date": "18 Mai 2026",
       "readTime": "6 min",
       "summary": "Découvrez comment orchestrer un pipeline de nettoyage et de qualité de données de bout en bout.",
       "tags": ["Airflow", "Docker", "Python"],
       "fontFamily": "font-mono"
-    },
-    {
-      "id": "optimisation-dax-powerbi",
-      "title": "Top 5 des optimisations DAX pour grands volumes",
-      "category": "Business Intelligence",
-      "date": "12 Mai 2026",
-      "readTime": "4 min",
-      "summary": "Retour d'expérience sur la réduction des temps de calcul de modèles Power BI complexes.",
-      "tags": ["Power BI", "DAX", "Performance"],
-      "fontFamily": "font-sans"
     }
   ]
 }
