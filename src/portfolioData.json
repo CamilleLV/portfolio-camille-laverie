@@ -1,111 +1,224 @@
 {
-  "profile": {
-    "name": "Camille Laverie",
-    "role": "Data Professional",
-    "description": "Data Enjoyer, 3 years Data Manager Assistant at Cyclable! Seeking V.I.E Opportunities.",
-    "email": "camille.laverie@gmail.com",
-    "linkedin": "https://linkedin.com/in/camille-laverie",
-    "github": "https://github.com/CamilleLV"
+  "fr": {
+    "profile": {
+      "name": "Camille Laverie",
+      "role": "Data Engineer",
+      "description": "Passionné par la Data, 3 ans d'expérience en tant qu'Assistant Data Manager chez Cyclable ! À la recherche d'une opportunité en V.I.E ou CDI.",
+      "email": "camille.laverie@gmail.com",
+      "linkedin": "https://linkedin.com/in/camille-laverie",
+      "github": "https://github.com/CamilleLV"
+    },
+    "skillCategories": [
+      { 
+        "id": "bi", 
+        "label": "BI & Analyse", 
+        "skills": [
+          { "name": "Power BI / DAX", "level": "Avancé" },
+          { "name": "Microsoft Power Query / Langage M", "level": "Avancé" },
+          { "name": "Dataflow / ETL", "level": "Avancé" },
+          { "name": "Visualisation & Analytique de données", "level": "Avancé" },
+          { "name": "Tableau", "level": "Intermédiaire" },
+          { "name": "Dataiku DSS", "level": "Intermédiaire" },
+          { "name": "Pentaho DI / Fabric", "level": "Intermédiaire" }
+        ]
+      },
+      { 
+        "id": "eng", 
+        "label": "Data Engineering", 
+        "skills": [
+          { "name": "SQL / PL-SQL / MySQL", "level": "Avancé" },
+          { "name": "Modélisation & Gestion des données", "level": "Avancé" },
+          { "name": "Docker & Airflow", "level": "Intermédiaire" },
+          { "name": "Apizr / REST APIs / Postman", "level": "Avancé" },
+          { "name": "Cloud Snowflake", "level": "Notions" },
+          { "name": "MongoDB", "level": "Intermédiaire" },
+          { "name": "Langage HiveQL", "level": "Notions" },
+          { "name": "Cassandra", "level": "Notions" }
+        ]
+      },
+      { 
+        "id": "ds", 
+        "label": "Data Science & Dev", 
+        "skills": [
+          { "name": "Python", "level": "Avancé" },
+          { "name": "JavaScript", "level": "Intermédiaire" },
+          { "name": "HTML5 / CSS3", "level": "Intermédiaire" },
+          { "name": "Analyse de données statistiques", "level": "Intermédiaire" },
+          { "name": "Apprentissage automatique / ML", "level": "Intermédiaire" },
+          { "name": "PHP / Architecture MVC", "level": "Intermédiaire" },
+          { "name": "Java", "level": "Notions" },
+          { "name": "LLaMA (AI / NLP)", "level": "Notions" },
+          { "name": "KNIME", "level": "Notions" }
+        ]
+      },
+      { 
+        "id": "soft", 
+        "label": "Management & Outils", 
+        "skills": [
+          { "name": "Gestion de projet (Scrum / Agile)", "level": "Avancé" },
+          { "name": "ERP CeGid Retail Y2 / Sage", "level": "Avancé" },
+          { "name": "HubSpot & Pipedrive CRM", "level": "Avancé" },
+          { "name": "Anglais des affaires (TOEIC 800/990)", "level": "Intermédiaire" },
+          { "name": "Microsoft PowerApps / Automate / Lists", "level": "Intermédiaire" },
+          { "name": "Parler en public & Animation", "level": "Intermédiaire" },
+          { "name": "Analyse des risques", "level": "Intermédiaire" }
+        ]
+      },
+      {
+        "id": "com",
+        "label": "Engagement & Soft Skills",
+        "skills": [
+          { "name": "Bénévolat & Gestion associative (AFEV)", "level": "Avancé" },
+          { "name": "Sensibilisation aux transidentités dans le sport", "level": "Avancé" },
+          { "name": "Communication interpersonnelle & Interculturelle", "level": "Avancé" },
+          { "name": "Projet & Développement communautaire", "level": "Avancé" },
+          { "name": "Communication visuelle & Montage vidéo", "level": "Intermédiaire" },
+          { "name": "Recherches & Archivage numérique", "level": "Intermédiaire" }
+        ]
+      }
+    ],
+    "blogPosts": [
+      {
+        "id": "projet-M2-analyse-hypermarche-dataviz",
+        "title": "Projet Décisionnel M2 : Analyse & Datavisualisation",
+        "category": "Projet",
+        "date": "19 Mai 2026",
+        "readTime": "5 min",
+        "summary": "Mise en place d'une architecture BI de bout en bout sur le modèle HYPERMARCHE : modélisation en étoile, DAX avancé, Web Scraping et clustering de clients.",
+        "tags": ["Power BI", "DAX", "Pentaho", "Analytics"],
+        "fontFamily": "font-sans"
+      },
+      {
+        "id": "bi-engagee-data-ethique",
+        "title": "BI Engagée : Analyser pour informer, debunker et sauver",
+        "category": "Blog",
+        "date": "19 Mai 2026",
+        "readTime": "6 min",
+        "summary": "Focus sur la manière dont la Business Intelligence et la Data Science se mettent au service de l'intérêt général et de l'urgence écologique.",
+        "tags": ["Data Éthique", "Datavisualisation", "Data For Good"],
+        "fontFamily": "font-sans"
+      },
+      {
+        "id": "pipeline-sirene-airflow",
+        "title": "Bâtir un pipeline SIRENE avec Airflow et Docker",
+        "category": "Projet",
+        "date": "18 Mai 2026",
+        "readTime": "6 min",
+        "summary": "Découvrez comment orchestrer un pipeline de nettoyage et de qualité de données de bout en bout.",
+        "tags": ["Airflow", "Docker", "Python"],
+        "fontFamily": "font-mono"
+      }
+    ]
   },
-  "skillCategories": [
-    { 
-      "id": "bi", 
-      "label": "BI & Analysis", 
-      "skills": [
-        { "name": "Power BI / DAX", "level": "Avancé" },
-        { "name": "Microsoft Power Query / Langage M", "level": "Avancé" },
-        { "name": "Dataflow / ETL", "level": "Avancé" },
-        { "name": "Visualisation & Analytique de données", "level": "Avancé" },
-        { "name": "Tableau", "level": "Intermédiaire" },
-        { "name": "Dataiku DSS", "level": "Intermédiaire" },
-        { "name": "Pentaho DI / Fabric", "level": "Intermédiaire" }
-      ]
+  "en": {
+    "profile": {
+      "name": "Camille Laverie",
+      "role": "Data Engineer",
+      "description": "Data Enthusiast, 3 years of experience as a Data Manager Assistant at Cyclable! Seeking V.I.E or full-time opportunities.",
+      "email": "camille.laverie@gmail.com",
+      "linkedin": "https://linkedin.com/in/camille-laverie",
+      "github": "https://github.com/CamilleLV"
     },
-    { 
-      "id": "eng", 
-      "label": "Data Engineering", 
-      "skills": [
-        { "name": "SQL / PL-SQL / MySQL", "level": "Avancé" },
-        { "name": "Modélisation & Gestion des données", "level": "Avancé" },
-        { "name": "Docker & Airflow", "level": "Intermédiaire" },
-        { "name": "Apizr / REST APIs / Postman", "level": "Avancé" },
-        { "name": "Cloud Snowflake", "level": "Notions" },
-        { "name": "MongoDB", "level": "Intermédiaire" },
-        { "name": "Langage HiveQL", "level": "Notions" },
-        { "name": "Cassandra", "level": "Notions" }
-      ]
-    },
-    { 
-      "id": "ds", 
-      "label": "Data Science & Dev", 
-      "skills": [
-        { "name": "Python", "level": "Avancé" },
-        { "name": "JavaScript", "level": "Intermédiaire" },
-        { "name": "HTML5 / CSS3", "level": "Intermédiaire" },
-        { "name": "Analyse de données statistiques", "level": "Intermédiaire" },
-        { "name": "Apprentissage automatique / ML", "level": "Intermédiaire" },
-        { "name": "PHP / Architecture MVC", "level": "Intermédiaire" },
-        { "name": "Java", "level": "Notions" },
-        { "name": "LLaMA (AI / NLP)", "level": "Notions" },
-        { "name": "KNIME", "level": "Notions" }
-      ]
-    },
-    { 
-      "id": "soft", 
-      "label": "Management & Tools", 
-      "skills": [
-        { "name": "Gestion de projet (Scrum / Agile)", "level": "Avancé" },
-        { "name": "ERP CeGid Retail Y2 / Sage", "level": "Avancé" },
-        { "name": "HubSpot & Pipedrive CRM", "level": "Avancé" },
-        { "name": "Anglais des affaires (TOEIC 800/990)", "level": "Intermédiaire" },
-        { "name": "Microsoft PowerApps / Automate / Lists", "level": "Intermédiaire" },
-        { "name": "Parler en public & Animation", "level": "Intermédiaire" },
-        { "name": "Analyse des risques", "level": "Intermédiaire" }
-      ]
-    },
-    {
-      "id": "com",
-      "label": "Engagement & Soft Skills",
-      "skills": [
-        { "name": "Bénévolat & Gestion associative (AFEV)", "level": "Avancé" },
-        { "name": "Sensibilisation aux transidentités dans le sport", "level": "Avancé" },
-        { "name": "Communication interpersonnelle & Interculturelle", "level": "Avancé" },
-        { "name": "Projet & Développement communautaire", "level": "Avancé" },
-        { "name": "Communication visuelle & Montage vidéo", "level": "Intermédiaire" },
-        { "name": "Recherches & Archivage numérique", "level": "Intermédiaire" }
-      ]
-    }
-  ],
-  "blogPosts": [
-    {
-      "id": "projet-M2-analyse-hypermarche-dataviz",
-      "title": "Projet Décisionnel M2 : Analyse & Datavisualisation",
-      "category": "Projet",
-      "date": "19 Mai 2026",
-      "readTime": "5 min",
-      "summary": "Mise en place d'une architecture BI de bout en bout sur le modèle HYPERMARCHE : modélisation en étoile, DAX avancé, Web Scraping et clustering de clients.",
-      "tags": ["Power BI", "DAX", "Pentaho", "Analytics"],
-      "fontFamily": "font-sans"
-    },
-    {
-      "id": "bi-engagee-data-ethique",
-      "title": "BI Engagée : Analyser pour informer, debunker et sauver",
-      "category": "Blog",
-      "date": "19 Mai 2026",
-      "readTime": "6 min",
-      "summary": "Focus sur la manière dont la Business Intelligence et la Data Science se mettent au service de l'intérêt général et de l'urgence écologique.",
-      "tags": ["Data Éthique", "Datavisualisation", "Data For Good"],
-      "fontFamily": "font-sans"
-    },
-    {
-      "id": "pipeline-sirene-airflow",
-      "title": "Bâtir un pipeline SIRENE avec Airflow et Docker",
-      "category": "Projet",
-      "date": "18 Mai 2026",
-      "readTime": "6 min",
-      "summary": "Découvrez comment orchestrer un pipeline de nettoyage et de qualité de données de bout en bout.",
-      "tags": ["Airflow", "Docker", "Python"],
-      "fontFamily": "font-mono"
-    }
-  ]
+    "skillCategories": [
+      { 
+        "id": "bi", 
+        "label": "BI & Analysis", 
+        "skills": [
+          { "name": "Power BI / DAX", "level": "Advanced" },
+          { "name": "Microsoft Power Query / M Language", "level": "Advanced" },
+          { "name": "Dataflow / ETL", "level": "Advanced" },
+          { "name": "Data Visualization & Analytics", "level": "Advanced" },
+          { "name": "Tableau", "level": "Intermediate" },
+          { "name": "Dataiku DSS", "level": "Intermediate" },
+          { "name": "Pentaho DI / Fabric", "level": "Intermediate" }
+        ]
+      },
+      { 
+        "id": "eng", 
+        "label": "Data Engineering", 
+        "skills": [
+          { "name": "SQL / PL-SQL / MySQL", "level": "Advanced" },
+          { "name": "Data Modeling & Management", "level": "Advanced" },
+          { "name": "Docker & Airflow", "level": "Intermediate" },
+          { "name": "Apizr / REST APIs / Postman", "level": "Advanced" },
+          { "name": "Cloud Snowflake", "level": "Basic" },
+          { "name": "MongoDB", "level": "Intermediate" },
+          { "name": "HiveQL Language", "level": "Basic" },
+          { "name": "Cassandra", "level": "Basic" }
+        ]
+      },
+      { 
+        "id": "ds", 
+        "label": "Data Science & Dev", 
+        "skills": [
+          { "name": "Python", "level": "Advanced" },
+          { "name": "JavaScript", "level": "Intermediate" },
+          { "name": "HTML5 / CSS3", "level": "Intermediate" },
+          { "name": "Statistical Data Analysis", "level": "Intermediate" },
+          { "name": "Machine Learning / ML", "level": "Intermediate" },
+          { "name": "PHP / MVC Architecture", "level": "Intermediate" },
+          { "name": "Java", "level": "Basic" },
+          { "name": "LLaMA (AI / NLP)", "level": "Basic" },
+          { "name": "KNIME", "level": "Basic" }
+        ]
+      },
+      { 
+        "id": "soft", 
+        "label": "Management & Tools", 
+        "skills": [
+          { "name": "Project Management (Scrum / Agile)", "level": "Advanced" },
+          { "name": "ERP CeGid Retail Y2 / Sage", "level": "Advanced" },
+          { "name": "HubSpot & Pipedrive CRM", "level": "Advanced" },
+          { "name": "Business English (TOEIC 800/990)", "level": "Intermediate" },
+          { "name": "Microsoft PowerApps / Automate / Lists", "level": "Intermediate" },
+          { "name": "Public Speaking & Facilitation", "level": "Intermediate" },
+          { "name": "Risk Analysis", "level": "Intermediate" }
+        ]
+      },
+      {
+        "id": "com",
+        "label": "Engagement & Soft Skills",
+        "skills": [
+          { "name": "Volunteering & NGO Management (AFEV)", "level": "Advanced" },
+          { "name": "Transgender Awareness in Sports", "level": "Advanced" },
+          { "name": "Interpersonal & Intercultural Communication", "level": "Advanced" },
+          { "name": "Community Project & Development", "level": "Advanced" },
+          { "name": "Visual Communication & Video Editing", "level": "Intermediate" },
+          { "name": "Research & Digital Archiving", "level": "Intermediate" }
+        ]
+      }
+    ],
+    "blogPosts": [
+      {
+        "id": "projet-M2-analyse-hypermarche-dataviz",
+        "title": "M2 BI Project: Analysis & Data Visualization",
+        "category": "Project",
+        "date": "May 19, 2026",
+        "readTime": "5 min",
+        "summary": "End-to-end implementation of a BI architecture on the HYPERMARCHE model: star schema modeling, advanced DAX, Web Scraping, and customer clustering.",
+        "tags": ["Power BI", "DAX", "Pentaho", "Analytics"],
+        "fontFamily": "font-sans"
+      },
+      {
+        "id": "bi-engagee-data-ethique",
+        "title": "Ethical BI: Analyzing to inform, debunk, and save",
+        "category": "Blog",
+        "date": "May 19, 2026",
+        "readTime": "6 min",
+        "summary": "Focus on how Business Intelligence and Data Science are serving the public interest and the ecological emergency.",
+        "tags": ["Ethical Data", "Data Visualization", "Data For Good"],
+        "fontFamily": "font-sans"
+      },
+      {
+        "id": "pipeline-sirene-airflow",
+        "title": "Building a SIRENE pipeline with Airflow and Docker",
+        "category": "Project",
+        "date": "May 18, 2026",
+        "readTime": "6 min",
+        "summary": "Discover how to orchestrate an end-to-end data cleaning and quality pipeline.",
+        "tags": ["Airflow", "Docker", "Python"],
+        "fontFamily": "font-mono"
+      }
+    ]
+  }
 }

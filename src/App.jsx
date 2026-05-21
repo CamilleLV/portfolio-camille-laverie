@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   FaBriefcase, FaCode, FaLeaf, FaEnvelope, FaCalendarAlt,
-  FaClock, FaArrowLeft, FaExternalLinkAlt
+  FaClock, FaArrowLeft, FaExternalLinkAlt, FaDownload
 } from "react-icons/fa";
 
 // 🔹 IMPORTATION DU FICHIER JSON ET DU HUB D'ARTICLES
@@ -11,6 +11,30 @@ import { postContents } from './posts';
 const images = ["images/profile1.png", "images/profile2.png", "images/profile3.png"];
 const typewriterWords = ["Engineer", "Enthusiast"];
 
+// 🔹 DICTIONNAIRE DE TRADUCTION POUR L'INTERFACE STATIQUE
+const t = {
+  fr: {
+    nav: { skills: "Skills", exp: "Expériences", edu: "Formations", blog: "Blog", contact: "Contact" },
+    hero: { connect: "Let's Connect", cv: "Télécharger CV" },
+    titles: { skills: "/ Compétences", exp: "/ Expériences", edu: "/ Formations", blog: "/ Blog & Tutos" },
+    blog: { back: "Retour aux articles", close: "Fermer l'article" },
+    contact: {
+      title: "À la recherche d'une mission orientée Data en CDI sur Lyon, ou d'un V.I.E, n'hésitez pas à me contacter !",
+      footer: "© 2026 — Camille Laverie"
+    }
+  },
+  en: {
+    nav: { skills: "Skills", exp: "Experience", edu: "Education", blog: "Blog", contact: "Contact" },
+    hero: { connect: "Let's Connect", cv: "Download CV" },
+    titles: { skills: "/ Skills", exp: "/ Experience", edu: "/ Education", blog: "/ Blog & Tutorials" },
+    blog: { back: "Back to articles", close: "Close article" },
+    contact: {
+      title: "Looking for a Data-oriented permanent contract in Lyon, or a V.I.E abroad, feel free to reach out!",
+      footer: "© 2026 — Camille Laverie"
+    }
+  }
+};
+
 function App() {
   const [imgIdx, setImgIdx] = useState(0);
   const [currentText, setCurrentText] = useState("");
@@ -18,6 +42,11 @@ function App() {
   const [charIdx, setCharIdx] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [activeSkillCat, setActiveSkillCat] = useState("bi");
+
+  const [scrollPosition, setScrollPosition] = useState(0);
+
+  // 🌟 NOUVEL ÉTAT POUR LA LANGUE (Par défaut : Français)
+  const [lang, setLang] = useState('fr');
 
   const [activeArticle, setActiveArticle] = useState(null);
 
@@ -47,49 +76,55 @@ function App() {
   }, [charIdx, isDeleting, wordIdx]);
 
   const handleOpenArticle = (post) => {
+    setScrollPosition(window.pageYOffset); // On sauvegarde la position actuelle
     const content = postContents[post.id] || [];
     setActiveArticle({ ...post, content });
-    window.scrollTo(0, 0); 
+    window.scrollTo(0, 0); // On monte pour lire l'article
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-tr from-[#E6F4EA] via-[#F4FBF7] to-[#F8FAFC] text-[#11221B] selection:bg-[#059669] selection:text-white font-sans overflow-x-hidden antialiased">
-      
+
       <nav className="fixed top-0 w-full z-50 bg-white/85 backdrop-blur-2xl border-b border-[#D1FAE5]">
         <div className="max-w-4xl mx-auto px-8 h-20 flex items-center justify-between">
-          <span 
-            onClick={() => setActiveArticle(null)} 
+          <span
+            onClick={() => setActiveArticle(null)}
             className="cursor-pointer font-black text-[#059669] text-2xl uppercase tracking-tighter flex items-center gap-2.5"
           >
             <FaLeaf size={22} /> Camille.L
           </span>
-          <div className="flex gap-8 text-xs md:text-sm font-black text-[#475569] uppercase tracking-widest">
-            <a href="#skills" onClick={() => setActiveArticle(null)} className="hover:text-[#059669] transition-colors">Skills</a>
-            <a href="#blog" className="hover:text-[#059669] transition-colors">Blog</a>
-            <a href="#contact" className="hover:text-[#059669] transition-colors">Contact</a>
+          <div className="flex items-center gap-6 md:gap-8">
+            <div className="hidden md:flex gap-6 md:gap-8 text-xs md:text-sm font-black text-[#475569] uppercase tracking-widest overflow-x-auto no-scrollbar">
+              <a href="#skills" onClick={() => setActiveArticle(null)} className="hover:text-[#059669] transition-colors whitespace-nowrap">{t[lang].nav.skills}</a>
+              <a href="#experience" onClick={() => setActiveArticle(null)} className="hover:text-[#059669] transition-colors whitespace-nowrap">{t[lang].nav.exp}</a>
+              <a href="#education" onClick={() => setActiveArticle(null)} className="hover:text-[#059669] transition-colors whitespace-nowrap">{t[lang].nav.edu}</a>
+              <a href="#blog" className="hover:text-[#059669] transition-colors whitespace-nowrap">{t[lang].nav.blog}</a>
+              <a href="#contact" className="hover:text-[#059669] transition-colors whitespace-nowrap">{t[lang].nav.contact}</a>
+            </div>
+
+            {/* 🌟 SÉLECTEUR DE LANGUE */}
+            <div className="flex bg-[#E2E8F0]/50 p-1 rounded-lg">
+              <button onClick={() => setLang('fr')} className={`px-3 py-1.5 rounded-md text-xs font-black uppercase transition-all ${lang === 'fr' ? 'bg-white text-[#059669] shadow-sm' : 'text-[#64748B] hover:text-[#059669]'}`}>FR</button>
+              <button onClick={() => setLang('en')} className={`px-3 py-1.5 rounded-md text-xs font-black uppercase transition-all ${lang === 'en' ? 'bg-white text-[#059669] shadow-sm' : 'text-[#64748B] hover:text-[#059669]'}`}>EN</button>
+            </div>
           </div>
         </div>
       </nav>
 
       <main className="max-w-3xl mx-auto px-8 pt-36 pb-32 space-y-36 md:space-y-44">
-        
+
         {!activeArticle ? (
           <>
             <section id="intro" className="flex flex-col items-center text-center space-y-10">
               <div className="relative w-64 h-[22rem] md:w-72 md:h-[25rem] rounded-[3.5rem] overflow-hidden shadow-2xl bg-emerald-50 border-4 border-white">
                 {images.map((src, i) => (
-                  <img
-                    key={i}
-                    src={src}
-                    alt="Profile"
-                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${imgIdx === i ? 'opacity-100' : 'opacity-0'}`}
-                  />
+                  <img key={i} src={src} alt="Profile" className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${imgIdx === i ? 'opacity-100' : 'opacity-0'}`} />
                 ))}
               </div>
-              
+
               <div className="space-y-6">
                 <h1 className="text-5xl md:text-7xl font-black tracking-tight text-[#0F172A] leading-tight">
-                  {portfolioData.profile.name}
+                  {portfolioData[lang].profile.name}
                 </h1>
                 <div className="h-10 flex items-center justify-center">
                   <span className="text-2xl md:text-4xl font-mono font-bold text-[#475569]">
@@ -97,66 +132,193 @@ function App() {
                   </span>
                 </div>
                 <p className="text-[#334155] leading-relaxed text-xl font-semibold max-w-xl mx-auto px-2">
-                  {portfolioData.profile.description}
+                  {portfolioData[lang].profile.description}
                 </p>
               </div>
 
-              <div className="flex gap-5 justify-center w-full max-w-md pt-2">
-                <a 
-                  href="#contact" 
-                  className="flex items-center justify-center gap-3 bg-[#059669] hover:bg-[#047857] text-white w-full py-5 rounded-2xl font-black text-base transition-all shadow-xl shadow-emerald-700/10 active:scale-95"
+              {/* 🌟 BOUTONS D'ACTION : CONNECT & TÉLÉCHARGER CV */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center w-full max-w-lg pt-2">
+                <a
+                  href="#contact"
+                  className="flex-1 flex items-center justify-center gap-3 bg-[#059669] hover:bg-[#047857] text-white py-5 rounded-2xl font-black text-sm md:text-base transition-all shadow-xl shadow-emerald-700/10 active:scale-95"
                 >
-                  <FaEnvelope size={18} /> Let's Connect
+                  <FaEnvelope size={18} /> {t[lang].hero.connect}
+                </a>
+
+                {/* Le lien pointe vers le dossier /public selon la langue sélectionnée */}
+                <a
+                  href={lang === 'fr' ? "/CV_Camille_Laverie_FR.pdf" : "/CV_Camille_Laverie_EN.pdf"}
+                  download
+                  className="flex-1 flex items-center justify-center gap-3 bg-white border-2 border-[#E2E8F0] hover:border-[#059669] text-[#0F172A] hover:text-[#059669] py-5 rounded-2xl font-black text-sm md:text-base transition-all shadow-md active:scale-95 group"
+                >
+                  <FaDownload size={18} className="text-[#64748B] group-hover:text-[#059669] transition-colors" /> {t[lang].hero.cv}
                 </a>
               </div>
             </section>
 
             <section id="skills" className="space-y-10">
               <div className="flex items-center gap-5">
-                <h2 className="text-3xl md:text-4xl font-black tracking-tighter uppercase italic text-[#0F172A]">/ Compétences</h2>
+                <h2 className="text-3xl md:text-4xl font-black tracking-tighter uppercase italic text-[#0F172A]">{t[lang].titles.skills}</h2>
                 <div className="h-1.5 flex-1 bg-[#D1FAE5] rounded-full"></div>
               </div>
-              
+
               <div className="flex overflow-x-auto gap-3 pb-4 bg-transparent custom-scrollbar snap-x">
-                {portfolioData.skillCategories.map(cat => (
+                {portfolioData[lang].skillCategories.map(cat => (
                   <button
                     key={cat.id}
                     onClick={() => setActiveSkillCat(cat.id)}
-                    className={`px-6 py-4 rounded-xl font-black text-sm border-2 transition-all shrink-0 snap-start active:scale-95 duration-200 ${
-                      activeSkillCat === cat.id 
-                        ? 'bg-[#059669] border-[#059669] text-white shadow-lg shadow-emerald-900/10' 
+                    className={`px-6 py-4 rounded-xl font-black text-sm border-2 transition-all shrink-0 snap-start active:scale-95 duration-200 ${activeSkillCat === cat.id
+                        ? 'bg-[#059669] border-[#059669] text-white shadow-lg shadow-emerald-900/10'
                         : 'bg-white border-[#E2E8F0] text-[#475569] hover:border-[#059669]'
-                    }`}
+                      }`}
                   >
                     {cat.label}
                   </button>
                 ))}
               </div>
-              
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {portfolioData.skillCategories.find(c => c.id === activeSkillCat).skills.map(skill => {
+                {portfolioData[lang].skillCategories.find(c => c.id === activeSkillCat).skills.map(skill => {
                   const isExpert = skill.level === "Expert";
                   const isNotion = skill.level === "Notions";
 
                   return (
-                    <div 
-                      key={skill.name} 
-                      className={`bg-white border-2 p-5 rounded-2xl flex items-center justify-between transition-all shadow-md hover:shadow-lg ${
-                        isExpert ? "border-[#059669] bg-emerald-50/5" : isNotion ? "border-slate-100/70 opacity-60" : "border-[#E2E8F0]"
-                      }`}
+                    <div
+                      key={skill.name}
+                      className={`bg-white border-2 p-5 rounded-2xl flex items-center justify-between transition-all shadow-md hover:shadow-lg ${isExpert ? "border-[#059669] bg-emerald-50/5" : isNotion ? "border-slate-100/70 opacity-60" : "border-[#E2E8F0]"
+                        }`}
                     >
                       <div className="flex items-center gap-4">
                         <span className={`font-black text-base ${isExpert ? "text-[#059669]" : isNotion ? "text-slate-300" : "text-[#059669]/70"}`}>✓</span>
                         <span className={`font-black text-sm md:text-base ${isNotion ? "text-slate-500 font-semibold" : "text-[#0F172A]"}`}>{skill.name}</span>
                       </div>
-                      <span className={`text-[10px] md:text-xs font-black uppercase tracking-wider px-2.5 py-1 rounded ${
-                        isExpert ? "bg-[#059669] text-white" : isNotion ? "bg-slate-100 text-slate-400" : "bg-slate-100 text-slate-600"
-                      }`}>
+                      <span className={`text-[10px] md:text-xs font-black uppercase tracking-wider px-2.5 py-1 rounded ${isExpert ? "bg-[#059669] text-white" : isNotion ? "bg-slate-100 text-slate-400" : "bg-slate-100 text-slate-600"
+                        }`}>
                         {skill.level}
                       </span>
                     </div>
                   );
                 })}
+              </div>
+            </section>
+
+            <section id="experience" className="space-y-10">
+              <div className="flex items-center gap-5">
+                <h2 className="text-3xl md:text-4xl font-black tracking-tighter uppercase italic text-[#0F172A]">{t[lang].titles.exp}</h2>
+                <div className="h-1.5 flex-1 bg-[#D1FAE5] rounded-full"></div>
+              </div>
+
+              <div className="space-y-6">
+                <div className="bg-white border-2 border-[#E2E8F0] p-7 md:p-8 rounded-[2.5rem] space-y-4 shadow-md hover:shadow-xl transition-all">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-4">
+                    <div>
+                      <h3 className="font-black text-2xl text-[#0F172A]">Data Manager Assistant</h3>
+                      <p className="text-[#059669] font-black text-base uppercase tracking-wider">Cyclable</p>
+                    </div>
+                    <span className="text-xs md:text-sm font-black text-[#64748B] bg-slate-50 px-3 py-1.5 rounded-full uppercase italic self-start sm:self-center">
+                      Août 2023 — Présent • Lyon
+                    </span>
+                  </div>
+                  <ul className="list-none space-y-3 pl-1 text-base md:text-lg font-medium text-[#475569]">
+                    <li className="flex items-start gap-3">
+                      <span className="text-[#059669] font-black mt-1">➔</span>
+                      <span>Audit, nettoyage et fiabilisation des tables du SI pour garantir la qualité et l'intégrité des référentiels.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="text-[#059669] font-black mt-1">➔</span>
+                      <span>Automatisation des flux de données entre les outils internes (CRM Hubspot, API REST, Postman) et les plateformes fournisseurs via MAKE.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="text-[#059669] font-black mt-1">➔</span>
+                      <span>Refonte complète, optimisation et uniformisation globale du parc de rapports décisionnels sous Power BI (DAX, Power Query).</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="text-[#059669] font-black mt-1">➔</span>
+                      <span>Support technique ERP (Cegid Retail Y2) et optimisation des processus métiers pour plus de 80 points de vente.</span>
+                    </li>
+                  </ul>
+                  <div className="flex flex-wrap gap-2 pt-2">
+                    {["Power BI", "DAX", "Python", "Hubspot", "SQL", "APIs", "MAKE", "ERP Cegid"].map(tag => (
+                      <span key={tag} className="text-[10px] md:text-xs font-black text-[#059669] uppercase bg-emerald-50 px-3 py-1.5 rounded-full">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="bg-white border-2 border-[#E2E8F0] p-7 md:p-8 rounded-[2.5rem] space-y-4 shadow-md hover:shadow-xl transition-all">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-4">
+                    <div>
+                      <h3 className="font-black text-2xl text-[#0F172A]">Data Analyst (Stage)</h3>
+                      <p className="text-[#059669] font-black text-base uppercase tracking-wider">HYDREKA (Groupe Claire)</p>
+                    </div>
+                    <span className="text-xs md:text-sm font-black text-[#64748B] bg-slate-50 px-3 py-1.5 rounded-full uppercase italic self-start sm:self-center">
+                      Avril 2023 — Juin 2023 • Lyon
+                    </span>
+                  </div>
+                  <ul className="list-none space-y-3 pl-1 text-base md:text-lg font-medium text-[#475569]">
+                    <li className="flex items-start gap-3">
+                      <span className="text-[#059669] font-black mt-1">➔</span>
+                      <span>Centralisation, consolidation et unification de données multi-sources issues d'architectures ERP hétérogènes.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="text-[#059669] font-black mt-1">➔</span>
+                      <span>Conception de dashboards KPIs pour le pilotage stratégique et l'aide à la décision via Microsoft Dataflows et Power BI.</span>
+                    </li>
+                  </ul>
+                  <div className="flex flex-wrap gap-2 pt-2">
+                    {["Power BI", "Dataflows", "Power Query", "Power Apps", "Excel"].map(tag => (
+                      <span key={tag} className="text-[10px] md:text-xs font-black text-[#059669] uppercase bg-emerald-50 px-3 py-1.5 rounded-full">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section id="education" className="space-y-10">
+              <div className="flex items-center gap-5">
+                <h2 className="text-3xl md:text-4xl font-black tracking-tighter uppercase italic text-[#0F172A]">{t[lang].titles.edu}</h2>
+                <div className="h-1.5 flex-1 bg-[#D1FAE5] rounded-full"></div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <div className="bg-white border-2 border-[#E2E8F0] p-6 rounded-[2rem] shadow-md hover:shadow-xl transition-all text-center flex flex-col justify-between">
+                  <div className="space-y-3">
+                    <span className="text-4xl block pt-2">🎓</span>
+                    <h3 className="font-black text-lg md:text-xl text-[#0F172A] leading-snug">Master BI & Analytics</h3>
+                    <p className="text-[#475569] text-sm font-bold">Université Lumière Lyon 2</p>
+                    <p className="text-[#64748B] text-xs font-semibold px-2">Spécialisation : Analyse opérationnelle, Big Data & Data Science</p>
+                  </div>
+                  <span className="text-xs font-black text-[#059669] bg-emerald-50 py-2 rounded-full mt-6 block uppercase tracking-wider">
+                    2025 — 2026
+                  </span>
+                </div>
+
+                <div className="bg-white border-2 border-[#E2E8F0] p-6 rounded-[2rem] shadow-md hover:shadow-xl transition-all text-center flex flex-col justify-between">
+                  <div className="space-y-3">
+                    <span className="text-4xl block pt-2">🚀</span>
+                    <h3 className="font-black text-lg md:text-xl text-[#0F172A] leading-snug">MSc Data Engineering</h3>
+                    <p className="text-[#475569] text-sm font-bold">EPSI Lyon</p>
+                    <p className="text-[#64748B] text-xs font-semibold px-2">Titre d'expert certifié en Ingénierie et modélisation des flux de données</p>
+                  </div>
+                  <span className="text-xs font-black text-[#059669] bg-emerald-50 py-2 rounded-full mt-6 block uppercase tracking-wider">
+                    2024 — 2025
+                  </span>
+                </div>
+
+                <div className="bg-white border-2 border-[#E2E8F0] p-6 rounded-[2rem] shadow-md hover:shadow-xl transition-all text-center flex flex-col justify-between">
+                  <div className="space-y-3">
+                    <span className="text-4xl block pt-2">💻</span>
+                    <h3 className="font-black text-lg md:text-xl text-[#0F172A] leading-snug">BUT Informatique</h3>
+                    <p className="text-[#475569] text-sm font-bold">IUT Lyon 1 (La Doua)</p>
+                    <p className="text-[#64748B] text-xs font-semibold px-2">Parcours : Administration, Gestion et Exploitation sécurisée des Données</p>
+                  </div>
+                  <span className="text-xs font-black text-[#059669] bg-emerald-50 py-2 rounded-full mt-6 block uppercase tracking-wider">
+                    2021 — 2024
+                  </span>
+                </div>
               </div>
             </section>
           </>
@@ -166,14 +328,14 @@ function App() {
           {!activeArticle ? (
             <>
               <div className="flex items-center gap-5">
-                <h2 className="text-3xl md:text-4xl font-black tracking-tighter uppercase italic text-[#0F172A]">/ Blog & Tutos</h2>
+                <h2 className="text-3xl md:text-4xl font-black tracking-tighter uppercase italic text-[#0F172A]">{t[lang].titles.blog}</h2>
                 <div className="h-1.5 flex-1 bg-[#D1FAE5] rounded-full"></div>
               </div>
 
               <div className="space-y-8">
-                {portfolioData.blogPosts.map((post) => (
-                  <article 
-                    key={post.id} 
+                {portfolioData[lang].blogPosts.map((post) => (
+                  <article
+                    key={post.id}
                     onClick={() => handleOpenArticle(post)}
                     className="bg-white border-2 border-[#E2E8F0] p-7 md:p-8 rounded-[2.5rem] space-y-5 hover:border-[#059669] transition-all group cursor-pointer shadow-md hover:shadow-xl"
                   >
@@ -198,13 +360,17 @@ function App() {
             </>
           ) : (
             <div className="space-y-8 bg-white p-6 md:p-10 rounded-[2.5rem] border-2 border-[#E2E8F0] shadow-xl animate-in fade-in duration-300">
-              <button 
-                onClick={() => setActiveArticle(null)} 
+              <button
+                onClick={() => {
+                  setActiveArticle(null);
+                  // On rétablit la position sauvegardée juste après la fermeture
+                  setTimeout(() => window.scrollTo({ top: scrollPosition, behavior: 'smooth' }), 0);
+                }}
                 className="flex items-center gap-2 text-sm font-black uppercase text-[#64748B] hover:text-[#059669] transition-colors pb-2"
               >
-                <FaArrowLeft /> Retour aux articles
+                <FaArrowLeft /> {t[lang].blog.back}
               </button>
-              
+
               <div className="space-y-3 border-b border-slate-100 pb-6">
                 <span className="bg-[#E0F2FE] text-[#0369A1] font-black text-xs px-3 py-1 rounded-full uppercase tracking-wider">
                   {activeArticle.category}
@@ -221,7 +387,6 @@ function App() {
 
               <div className={`space-y-8 text-[#1E293B] leading-relaxed text-lg md:text-xl ${activeArticle.fontFamily}`}>
                 {activeArticle.content.map((block, index) => {
-                  
                   if (block.type === "paragraph") return <p key={index} className="font-medium text-[#334155]">{block.text}</p>;
                   if (block.type === "heading") return <h2 key={index} className="text-2xl md:text-3xl font-black tracking-tight text-[#0F172A] pt-4 italic">{block.text}</h2>;
                   if (block.type === "image") {
@@ -264,10 +429,10 @@ function App() {
                   if (block.type === "link") {
                     return (
                       <div key={index} className="py-2 flex justify-center sm:justify-start">
-                        <a 
-                          href={block.url} 
-                          target="_blank" 
-                          rel="noopener noreferrer" 
+                        <a
+                          href={block.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
                           className="inline-flex items-center gap-3 bg-white border-2 border-[#E2E8F0] hover:border-[#059669] text-[#0F172A] hover:text-[#059669] px-7 py-4 rounded-xl font-black text-base transition-all shadow-md active:scale-95 group"
                         >
                           <span>{block.text}</span>
@@ -280,11 +445,14 @@ function App() {
                 })}
               </div>
 
-              <button 
-                onClick={() => { setActiveArticle(null); window.scrollTo(0, 0); }} 
+              <button
+                onClick={() => {
+                  setActiveArticle(null);
+                  setTimeout(() => window.scrollTo(0, scrollPosition), 0); // Restaure la position après le rendu
+                }}
                 className="flex items-center gap-2 text-sm font-black uppercase bg-[#0F172A] text-white px-6 py-4 rounded-xl hover:bg-[#059669] transition-colors mt-8 shadow-md"
               >
-                <FaArrowLeft /> Fermer l'article
+                <FaArrowLeft /> {t[lang].blog.close}
               </button>
             </div>
           )}
@@ -293,18 +461,18 @@ function App() {
         <section id="contact" className="pt-12">
           <div className="bg-[#0F172A] rounded-[3.5rem] p-10 md:p-14 text-white space-y-10 shadow-2xl relative overflow-hidden">
             <h2 className="text-4xl md:text-5xl font-black tracking-tighter italic leading-snug">
-              À la recherche d'une mission orientée Data en CDI sur Lyon, ou d'un V.I.E, n'hésitez pas à me contacter !
+              {t[lang].contact.title}
             </h2>
             <div className="flex flex-col lg:flex-row gap-8 items-start justify-between border-t border-white/10 pt-10 text-base md:text-lg font-bold">
-              <a 
-                href={`mailto:${portfolioData.profile.email}`} 
+              <a
+                href={`mailto:${portfolioData[lang].profile.email}`}
                 className="hover:text-[#059669] transition-colors underline underline-offset-4 decoration-[#059669] decoration-2"
               >
-                {portfolioData.profile.email}
+                {portfolioData[lang].profile.email}
               </a>
               <div className="flex gap-6">
-                <a href={portfolioData.profile.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">LinkedIn</a>
-                <a href={portfolioData.profile.github} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">GitHub</a>
+                <a href={portfolioData[lang].profile.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">LinkedIn</a>
+                <a href={portfolioData[lang].profile.github} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">GitHub</a>
               </div>
             </div>
           </div>
@@ -312,10 +480,9 @@ function App() {
       </main>
 
       <footer className="text-center py-16 text-xs text-[#94A3B8] font-black uppercase tracking-[0.3em] border-t border-[#D1FAE5]">
-        © 2026 — Camille Laverie
+        {t[lang].contact.footer}
       </footer>
-      
-      {/* 💅 STYLISATION DE LA SCROLLBAR : Hauteur augmentée (10px au lieu de 6px) pour une meilleure prise en main */}
+
       <style>{`
         /* Firefox */
         .custom-scrollbar {
