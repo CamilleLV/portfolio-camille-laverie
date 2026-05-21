@@ -19,6 +19,7 @@ function App() {
   const [isDeleting, setIsDeleting] = useState(false);
   const [activeSkillCat, setActiveSkillCat] = useState("bi");
 
+  // Contient l'objet de métadonnées de l'article actif + son contenu injecté
   const [activeArticle, setActiveArticle] = useState(null);
 
   useEffect(() => {
@@ -46,15 +47,18 @@ function App() {
     return () => clearTimeout(timer);
   }, [charIdx, isDeleting, wordIdx]);
 
+  // Fonction pour charger dynamiquement le contenu d'un article au clic
   const handleOpenArticle = (post) => {
     const content = postContents[post.id] || [];
     setActiveArticle({ ...post, content });
-    window.scrollTo(0, 0); 
+    window.scrollTo(0, 0); // Remonte en haut de page
   };
 
   return (
+    // FOND VIVANT EN DÉGRADÉ LUMINEUX
     <div className="min-h-screen bg-gradient-to-tr from-[#E6F4EA] via-[#F4FBF7] to-[#F8FAFC] text-[#11221B] selection:bg-[#059669] selection:text-white font-sans overflow-x-hidden antialiased">
       
+      {/* BARRE DE NAVIGATION */}
       <nav className="fixed top-0 w-full z-50 bg-white/85 backdrop-blur-2xl border-b border-[#D1FAE5]">
         <div className="max-w-4xl mx-auto px-8 h-20 flex items-center justify-between">
           <span 
@@ -75,6 +79,7 @@ function App() {
         
         {!activeArticle ? (
           <>
+            {/* HERO SECTION */}
             <section id="intro" className="flex flex-col items-center text-center space-y-10">
               <div className="relative w-64 h-[22rem] md:w-72 md:h-[25rem] rounded-[3.5rem] overflow-hidden shadow-2xl bg-emerald-50 border-4 border-white">
                 {images.map((src, i) => (
@@ -111,14 +116,15 @@ function App() {
               </div>
             </section>
 
+            {/* SKILLS SECTION */}
             <section id="skills" className="space-y-10">
               <div className="flex items-center gap-5">
                 <h2 className="text-3xl md:text-4xl font-black tracking-tighter uppercase italic text-[#0F172A]">/ Compétences</h2>
                 <div className="h-1.5 flex-1 bg-[#D1FAE5] rounded-full"></div>
               </div>
               
-              {/* 💅 LE CONTENEUR EST BIEN TRANSPARENT */}
-              <div className="flex overflow-x-auto gap-3 pb-3 bg-transparent no-scrollbar snap-x">
+              {/* 💅 LE FAMEUX SLIDER AVEC LA CLASSE custom-scrollbar */}
+              <div className="flex overflow-x-auto gap-3 pb-6 custom-scrollbar snap-x">
                 {portfolioData.skillCategories.map(cat => (
                   <button
                     key={cat.id}
@@ -163,6 +169,7 @@ function App() {
           </>
         ) : null}
 
+        {/* BLOG SECTION */}
         <section id="blog" className="space-y-10">
           {!activeArticle ? (
             <>
@@ -223,8 +230,14 @@ function App() {
               <div className={`space-y-8 text-[#1E293B] leading-relaxed text-lg md:text-xl ${activeArticle.fontFamily}`}>
                 {activeArticle.content.map((block, index) => {
                   
-                  if (block.type === "paragraph") return <p key={index} className="font-medium text-[#334155]">{block.text}</p>;
-                  if (block.type === "heading") return <h2 key={index} className="text-2xl md:text-3xl font-black tracking-tight text-[#0F172A] pt-4 italic">{block.text}</h2>;
+                  if (block.type === "paragraph") {
+                    return <p key={index} className="font-medium text-[#334155]">{block.text}</p>;
+                  }
+                  
+                  if (block.type === "heading") {
+                    return <h2 key={index} className="text-2xl md:text-3xl font-black tracking-tight text-[#0F172A] pt-4 italic">{block.text}</h2>;
+                  }
+                  
                   if (block.type === "image") {
                     return (
                       <div key={index} className="space-y-3 py-2">
@@ -235,18 +248,20 @@ function App() {
                       </div>
                     );
                   }
+
                   if (block.type === "code") {
                     return (
                       <div key={index} className="relative my-6 rounded-2xl overflow-hidden border border-[#1E293B] bg-[#0F172A] p-6 font-mono text-xs md:text-sm text-slate-200 shadow-xl">
                         <div className="absolute top-0 right-0 bg-[#1E293B] text-[#94A3B8] text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-bl-lg">
                           {block.language || "code"}
                         </div>
-                        <pre className="overflow-x-auto whitespace-pre no-scrollbar">
+                        <pre className="overflow-x-auto whitespace-pre custom-scrollbar">
                           <code>{block.code}</code>
                         </pre>
                       </div>
                     );
                   }
+
                   if (block.type === "bullet-list") {
                     return (
                       <ul key={index} className="list-none space-y-3.5 pl-2 my-4">
@@ -259,9 +274,15 @@ function App() {
                       </ul>
                     );
                   }
+
                   if (block.type === "quote") {
-                    return <div key={index} className="border-l-4 border-[#059669] bg-[#F0FDF4]/70 p-6 rounded-r-2xl italic my-5 text-base md:text-lg font-semibold text-[#1A2E26]">"{block.text}"</div>;
+                    return (
+                      <div key={index} className="border-l-4 border-[#059669] bg-[#F0FDF4]/70 p-6 rounded-r-2xl italic my-5 text-base md:text-lg font-semibold text-[#1A2E26]">
+                        "{block.text}"
+                      </div>
+                    );
                   }
+
                   if (block.type === "link") {
                     return (
                       <div key={index} className="py-2 flex justify-center sm:justify-start">
@@ -277,6 +298,7 @@ function App() {
                       </div>
                     );
                   }
+
                   return null;
                 })}
               </div>
@@ -291,10 +313,11 @@ function App() {
           )}
         </section>
 
+        {/* 🌟 SECTION CONTACT AVEC TES MODIFICATIONS MANUELLES */}
         <section id="contact" className="pt-12">
           <div className="bg-[#0F172A] rounded-[3.5rem] p-10 md:p-14 text-white space-y-10 shadow-2xl relative overflow-hidden">
-            <h2 className="text-5xl md:text-6xl font-black tracking-tighter italic leading-none">
-              Parlons de <br/> vos données.
+            <h2 className="text-4xl md:text-5xl font-black tracking-tighter italic leading-snug">
+              À la recherche d'une mission orientée Data en CDI sur Lyon, ou d'un V.I.E, n'hésitez pas à me contacter !
             </h2>
             <div className="flex flex-col lg:flex-row gap-8 items-start justify-between border-t border-white/10 pt-10 text-base md:text-lg font-bold">
               <a 
@@ -316,23 +339,27 @@ function App() {
         © 2026 — Camille Laverie
       </footer>
       
-      {/* 💅 CORRECTIF ABSOLU : Neutralisation des couleurs et tailles de scrollbar par défaut */}
+      {/* 💅 STYLISATION DE LA SCROLLBAR : Fond transparent, Ovale vert */}
       <style>{`
-        .no-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
+        /* Firefox */
+        .custom-scrollbar {
+          scrollbar-width: thin;
+          scrollbar-color: #059669 transparent; 
         }
-        .no-scrollbar::-webkit-scrollbar {
-          display: none;
-          width: 0px;
-          height: 0px;
-          background: transparent;
+        
+        /* Chrome, Edge, Safari */
+        .custom-scrollbar::-webkit-scrollbar {
+          height: 6px; 
         }
-        .no-scrollbar::-webkit-scrollbar-track {
-          background: transparent;
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: transparent; 
         }
-        .no-scrollbar::-webkit-scrollbar-thumb {
-          background: transparent;
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background-color: #059669; 
+          border-radius: 20px; 
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background-color: #047857; 
         }
       `}</style>
     </div>
