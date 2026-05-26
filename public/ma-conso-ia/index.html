@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ta Conso IA - Mesurez votre impact</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <style>
+        body {
+            background-color: #F8F9FA;
+            color: #1E293B;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        .text-marianne { color: #000091; }
+        .bg-marianne { background-color: #000091; }
+        .hover-bg-marianne:hover { background-color: #1212ff; }
+        
+        /* Petit loader d'attente pour le dézippage */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #000091;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="min-h-screen p-6 md:p-12 antialiased">
+
+    <div class="max-w-5xl mx-auto space-y-10">
+        
+        <header class="text-center space-y-4 pt-8">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900">
+                Calculez l'empreinte de vos IA
+            </h1>
+            <p class="text-slate-600 text-lg md:text-xl max-w-2xl mx-auto font-medium">
+                Découvrez l'impact carbone et hydrique caché derrière vos historiques de conversations avec ChatGPT, Claude ou Gemini.
+            </p>
+            <a href="/" class="inline-block mt-4 text-sm font-semibold text-marianne hover:underline underline-offset-4 decoration-2">
+                ← Retour au portfolio de Camille
+            </a>
+        </header>
+
+        <section class="bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-slate-200">
+            <h2 class="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
+                <span class="bg-blue-100 text-marianne w-8 h-8 rounded-full flex items-center justify-center text-sm">1</span>
+                Récupérez votre archive
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-100">
+                    <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2">🟢 ChatGPT</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">Paramètres > Contrôle des données > Exporter les données. Vous recevrez un dossier <strong>.zip</strong> par e-mail.</p>
+                </div>
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-100">
+                    <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2">🟣 Claude</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">Settings > Account > Export Data. Vous obtiendrez directement votre fichier au format JSON.</p>
+                </div>
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-100">
+                    <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2">🔵 Gemini</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">Google Takeout > Cochez uniquement Gemini > Exporter. Vous obtiendrez une archive <strong>.zip</strong>.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-slate-200 text-center">
+            <h2 class="text-2xl font-bold text-slate-900 mb-2 flex items-center justify-center gap-3">
+                <span class="bg-blue-100 text-marianne w-8 h-8 rounded-full flex items-center justify-center text-sm">2</span>
+                Analysez votre historique
+            </h2>
+            <p class="text-sm text-slate-500 mb-8 font-medium">Vos données restent sur votre ordinateur. L'analyse est effectuée localement dans votre navigateur.</p>
+            
+            <div class="flex flex-col items-center justify-center gap-4">
+                <label id="upload-label" class="cursor-pointer bg-marianne hover-bg-marianne text-white font-bold py-4 px-8 rounded-full transition-colors inline-block shadow-md">
+                    Sélectionner mon fichier (.zip ou .json)
+                    <input type="file" id="fileUpload" accept=".zip,.json" class="hidden">
+                </label>
+                
+                <div id="loading" class="hidden flex items-center gap-3 text-marianne font-bold">
+                    <div class="loader"></div> Extraction et analyse en cours...
+                </div>
+            </div>
+        </section>
+
+        <section id="results" class="hidden space-y-8 animate-in fade-in duration-500">
+            
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                <h3 class="text-xl font-bold text-slate-900 mb-6 text-center">Votre bilan d'utilisation</h3>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center mb-8 border-b border-slate-100 pb-8">
+                    <div class="p-2">
+                        <div class="text-slate-500 text-xs font-bold uppercase tracking-wide mb-2">Mots & Morceaux (Tokens)</div>
+                        <div id="val-tokens" class="text-2xl md:text-3xl font-black text-slate-800">0</div>
+                    </div>
+                    <div class="p-2 border-l border-slate-100">
+                        <div class="text-slate-500 text-xs font-bold uppercase tracking-wide mb-2">Images Traitées</div>
+                        <div id="val-images" class="text-2xl md:text-3xl font-black text-slate-800">0</div>
+                    </div>
+                    <div class="p-2 border-t md:border-t-0 md:border-l border-slate-100">
+                        <div class="text-slate-500 text-xs font-bold uppercase tracking-wide mb-2">CO₂ Émis</div>
+                        <div id="val-co2" class="text-2xl md:text-3xl font-black text-marianne">0 g</div>
+                    </div>
+                    <div class="p-2 border-t md:border-t-0 border-l border-slate-100">
+                        <div class="text-slate-500 text-xs font-bold uppercase tracking-wide mb-2">Eau consommée</div>
+                        <div id="val-water" class="text-2xl md:text-3xl font-black text-cyan-700">0 cl</div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-50 rounded-xl p-5 border border-slate-100">
+                    <h4 class="text-sm font-bold text-slate-800 mb-3">Répartition de votre empreinte carbone</h4>
+                    <div class="w-full bg-slate-200 rounded-full h-4 flex overflow-hidden">
+                        <div id="bar-text" class="bg-blue-400 h-4" style="width: 50%"></div>
+                        <div id="bar-img" class="bg-rose-400 h-4" style="width: 50%"></div>
+                    </div>
+                    <div class="flex justify-between text-xs font-bold text-slate-500 mt-2">
+                        <span class="flex items-center gap-1"><div class="w-3 h-3 bg-blue-400 rounded-full"></div> Texte (<span id="pct-text">50</span>%)</span>
+                        <span class="flex items-center gap-1"><div class="w-3 h-3 bg-rose-400 rounded-full"></div> Images (<span id="pct-img">50</span>%)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                <h3 class="text-xl font-bold text-slate-900 mb-6 text-center">Concrètement, c'est l'équivalent de...</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-amber-50 p-6 rounded-xl flex flex-col items-center justify-center text-center border border-amber-100">
+                        <span class="text-5xl mb-3">🍔</span>
+                        <div class="text-3xl font-black text-slate-900"><span id="eq-burger">0</span></div>
+                        <div class="text-sm text-slate-700 font-medium mt-2">Repas avec du bœuf<br><span class="text-xs text-slate-500">(~2.5kg CO₂/repas)</span></div>
+                    </div>
+                    <div class="bg-purple-50 p-6 rounded-xl flex flex-col items-center justify-center text-center border border-purple-100">
+                        <span class="text-5xl mb-3">📱</span>
+                        <div class="text-3xl font-black text-slate-900"><span id="eq-stream">0</span></div>
+                        <div class="text-sm text-slate-700 font-medium mt-2">Épisodes en streaming (4K)<br><span class="text-xs text-slate-500">(~36g CO₂/40min)</span></div>
+                    </div>
+                    <div class="bg-slate-100 p-6 rounded-xl flex flex-col items-center justify-center text-center border border-slate-200">
+                        <span class="text-5xl mb-3">🚗</span>
+                        <div class="text-3xl font-black text-slate-900"><span id="eq-car">0</span> km</div>
+                        <div class="text-sm text-slate-700 font-medium mt-2">Parcourus en voiture<br><span class="text-xs text-slate-500">(~120g CO₂/km)</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // --- CONSTANTES D'ÉVALUATION ---
+        // Les images générées par IA (DALL-E, Midjourney) sont très énergivores.
+        // On estime à environ 2g de CO2 par image générée, contre 0.003g pour 1 token texte.
+        const CO2_PER_TOKEN_G = 0.003; 
+        const WATER_PER_TOKEN_ML = 0.01;
+        const CO2_PER_IMAGE_G = 2.0; 
+        const WATER_PER_IMAGE_ML = 5.0;
+
+        const CO2_BURGER_G = 2500;
+        const CO2_STREAM_40MIN_G = 36;
+        const CO2_CAR_KM_G = 120;
+
+        document.getElementById('fileUpload').addEventListener('change', async function(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            // UI : Afficher le chargement
+            document.getElementById('upload-label').classList.add('hidden');
+            document.getElementById('loading').classList.remove('hidden');
+            document.getElementById('results').classList.add('hidden');
+
+            let totalTokens = 0;
+            let totalImages = 0;
+
+            try {
+                // Si l'utilisateur upload directement un JSON (ex: Claude)
+                if (file.name.endsWith('.json')) {
+                    const text = await file.text();
+                    totalTokens += Math.floor(text.length / 4);
+                } 
+                // Si c'est une archive ZIP (ex: ChatGPT, Gemini)
+                else if (file.name.endsWith('.zip')) {
+                    const zip = new JSZip();
+                    const contents = await zip.loadAsync(file);
+                    
+                    // On parcourt tous les fichiers du ZIP
+                    for (const [filename, zipEntry] of Object.entries(contents.files)) {
+                        if (zipEntry.dir) continue; // On ignore les dossiers
+
+                        // Si c'est un fichier de texte (json, html, txt, csv)
+                        if (filename.match(/\.(json|html|txt|csv)$/i)) {
+                            const text = await zipEntry.async("text");
+                            // Estimation très grossière mais efficace : on divise les caractères par 4
+                            totalTokens += Math.floor(text.length / 4);
+                        }
+                        // Si c'est une image (png, jpg, webp)
+                        else if (filename.match(/\.(png|jpe?g|webp|gif)$/i)) {
+                            totalImages += 1;
+                        }
+                    }
+                } else {
+                    throw new Error("Format de fichier non supporté.");
+                }
+
+                // Calculs d'empreinte
+                const co2Text = totalTokens * CO2_PER_TOKEN_G;
+                const co2Img = totalImages * CO2_PER_IMAGE_G;
+                const totalCo2Grams = co2Text + co2Img;
+
+                const waterText = totalTokens * WATER_PER_TOKEN_ML;
+                const waterImg = totalImages * WATER_PER_IMAGE_ML;
+                const totalWaterMl = waterText + waterImg;
+
+                // Équivalences
+                const burgers = (totalCo2Grams / CO2_BURGER_G).toFixed(2);
+                const streams = (totalCo2Grams / CO2_STREAM_40MIN_G).toFixed(1);
+                const carKm = (totalCo2Grams / CO2_CAR_KM_G).toFixed(1);
+
+                // Pourcentages pour la barre de progression
+                const pctText = totalCo2Grams > 0 ? ((co2Text / totalCo2Grams) * 100).toFixed(1) : 0;
+                const pctImg = totalCo2Grams > 0 ? ((co2Img / totalCo2Grams) * 100).toFixed(1) : 0;
+
+                // Mise à jour de l'interface
+                document.getElementById('val-tokens').innerText = new Intl.NumberFormat('fr-FR').format(totalTokens);
+                document.getElementById('val-images').innerText = new Intl.NumberFormat('fr-FR').format(totalImages);
+                document.getElementById('val-co2').innerText = new Intl.NumberFormat('fr-FR').format(totalCo2Grams.toFixed(0)) + " g";
+                document.getElementById('val-water').innerText = new Intl.NumberFormat('fr-FR').format((totalWaterMl / 10).toFixed(1)) + " cl";
+
+                document.getElementById('bar-text').style.width = pctText + '%';
+                document.getElementById('bar-img').style.width = pctImg + '%';
+                document.getElementById('pct-text').innerText = pctText;
+                document.getElementById('pct-img').innerText = pctImg;
+
+                document.getElementById('eq-burger').innerText = burgers;
+                document.getElementById('eq-stream').innerText = streams;
+                document.getElementById('eq-car').innerText = carKm;
+
+                // Cacher chargement, montrer résultats
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('upload-label').classList.remove('hidden');
+                document.getElementById('results').classList.remove('hidden');
+
+            } catch (error) {
+                console.error(error);
+                alert("Erreur lors de l'analyse du fichier. Assurez-vous qu'il s'agit bien d'une archive valide de ChatGPT, Claude ou Gemini.");
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('upload-label').classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
