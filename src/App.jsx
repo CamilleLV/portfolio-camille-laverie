@@ -118,7 +118,7 @@ function App() {
                 </a>
 
                 <button
-                  onClick={() => window.open(lang === 'fr' ? "/portfolio-camille-laverie/CV_Camille_Laverie_FR.pdf" : "/portfolio-camille-laverie/CV_Camille_Laverie_EN.pdf", "_blank")}
+                  onClick={() => window.open(lang === 'fr' ? "/CV_Camille_Laverie_FR.pdf" : "/CV_Camille_Laverie_EN.pdf", "_blank")}
                   className="flex-1 flex items-center justify-center gap-3 bg-white border-2 border-[#E2E8F0] hover:border-[#059669] text-[#0F172A] hover:text-[#059669] py-5 rounded-2xl font-black text-sm md:text-base transition-all shadow-md active:scale-95 group"
                 >
                   <FaDownload size={18} className="text-[#64748B] group-hover:text-[#059669] transition-colors" /> {portfolioData[lang].hero.cv}
