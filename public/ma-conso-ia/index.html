@@ -14,9 +14,9 @@
         }
         .text-marianne { color: #000091; }
         .bg-marianne { background-color: #000091; }
+        .border-marianne { border-color: #000091; }
         .hover-bg-marianne:hover { background-color: #1212ff; }
         
-        /* Petit loader d'attente pour le dézippage */
         .loader {
             border: 4px solid #f3f3f3;
             border-top: 4px solid #000091;
@@ -47,40 +47,57 @@
         <section class="bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-slate-200">
             <h2 class="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
                 <span class="bg-blue-100 text-marianne w-8 h-8 rounded-full flex items-center justify-center text-sm">1</span>
-                Récupérez votre archive
+                Récupérez vos données d'export
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-slate-50 p-5 rounded-xl border border-slate-100">
-                    <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2">🟢 ChatGPT</h3>
-                    <p class="text-sm text-slate-600 leading-relaxed">Paramètres > Contrôle des données > Exporter les données. Vous recevrez un dossier <strong>.zip</strong> par e-mail.</p>
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-100 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2">🟢 ChatGPT</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">Paramètres > Contrôle des données > Exporter les données. Vous recevrez une archive <strong>.zip</strong> par e-mail contenant vos salons.</p>
+                    </div>
                 </div>
-                <div class="bg-slate-50 p-5 rounded-xl border border-slate-100">
-                    <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2">🟣 Claude</h3>
-                    <p class="text-sm text-slate-600 leading-relaxed">Settings > Account > Export Data. Vous obtiendrez directement votre fichier au format JSON.</p>
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-100 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2">🟣 Claude</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">Settings > Account > Export Data. Vous obtiendrez directement vos conversations dans un unique fichier <strong>.json</strong>.</p>
+                    </div>
                 </div>
-                <div class="bg-slate-50 p-5 rounded-xl border border-slate-100">
-                    <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2">🔵 Gemini</h3>
-                    <p class="text-sm text-slate-600 leading-relaxed">Google Takeout > Cochez uniquement Gemini > Exporter. Vous obtiendrez une archive <strong>.zip</strong>.</p>
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-100 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2">🔵 Gemini</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">Google Takeout > Désélectionner tout > Cochez <strong>Mon Activité</strong> > Options : sélectionnez uniquement <strong>Applications Gemini</strong>. Vous obtiendrez un fichier <strong>.html</strong> dans le dossier.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section class="bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-slate-200 text-center">
+        <section class="bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-slate-200">
             <h2 class="text-2xl font-bold text-slate-900 mb-2 flex items-center justify-center gap-3">
                 <span class="bg-blue-100 text-marianne w-8 h-8 rounded-full flex items-center justify-center text-sm">2</span>
-                Analysez votre historique
+                Déposez vos fichiers
             </h2>
-            <p class="text-sm text-slate-500 mb-8 font-medium">Vos données restent sur votre ordinateur. L'analyse est effectuée localement dans votre navigateur.</p>
+            <p class="text-sm text-slate-500 text-center mb-6 font-medium">Vos données restent sur votre ordinateur. L'analyse est effectuée localement dans votre navigateur.</p>
             
-            <div class="flex flex-col items-center justify-center gap-4">
-                <label id="upload-label" class="cursor-pointer bg-marianne hover-bg-marianne text-white font-bold py-4 px-8 rounded-full transition-colors inline-block shadow-md">
-                    Sélectionner mon fichier (.zip ou .json)
-                    <input type="file" id="fileUpload" accept=".zip,.json" class="hidden">
-                </label>
-                
-                <div id="loading" class="hidden flex items-center gap-3 text-marianne font-bold">
-                    <div class="loader"></div> Extraction et analyse en cours...
+            <div 
+                id="dropzone" 
+                class="border-2 border-dashed border-slate-300 bg-slate-50 hover:bg-slate-100/50 hover:border-blue-800 rounded-2xl p-10 md:p-14 transition-all cursor-pointer flex flex-col items-center justify-center space-y-4"
+            >
+                <div id="dropzone-prompt" class="text-center space-y-2">
+                    <span class="text-4xl block">📁</span>
+                    <p class="text-base font-bold text-slate-700">Glissez-déposez vos fichiers ici</p>
+                    <p class="text-xs text-slate-500 font-medium">Accepte les fichiers .zip, .json, .html ou une sélection de fichiers de votre dossier extrait</p>
+                    <div class="pt-2">
+                        <span class="bg-white border border-slate-300 text-slate-700 font-bold py-2 px-4 rounded-full text-xs shadow-sm hover:bg-slate-50 inline-block">
+                            Ou parcourez vos fichiers
+                        </span>
+                    </div>
                 </div>
+
+                <div id="loading" class="hidden flex items-center gap-3 text-marianne font-bold text-sm">
+                    <div class="loader"></div> Extraction et analyse des données en cours...
+                </div>
+                
+                <input type="file" id="fileUpload" accept=".zip,.json,.html" multiple class="hidden">
             </div>
         </section>
 
@@ -95,7 +112,7 @@
                         <div id="val-tokens" class="text-2xl md:text-3xl font-black text-slate-800">0</div>
                     </div>
                     <div class="p-2 border-l border-slate-100">
-                        <div class="text-slate-500 text-xs font-bold uppercase tracking-wide mb-2">Images Traitées</div>
+                        <div class="text-slate-500 text-xs font-bold uppercase tracking-wide mb-2">Images Générées</div>
                         <div id="val-images" class="text-2xl md:text-3xl font-black text-slate-800">0</div>
                     </div>
                     <div class="p-2 border-t md:border-t-0 md:border-l border-slate-100">
@@ -147,8 +164,6 @@
 
     <script>
         // --- CONSTANTES D'ÉVALUATION ---
-        // Les images générées par IA (DALL-E, Midjourney) sont très énergivores.
-        // On estime à environ 2g de CO2 par image générée, contre 0.003g pour 1 token texte.
         const CO2_PER_TOKEN_G = 0.003; 
         const WATER_PER_TOKEN_ML = 0.01;
         const CO2_PER_IMAGE_G = 2.0; 
@@ -158,49 +173,107 @@
         const CO2_STREAM_40MIN_G = 36;
         const CO2_CAR_KM_G = 120;
 
-        document.getElementById('fileUpload').addEventListener('change', async function(event) {
-            const file = event.target.files[0];
-            if (!file) return;
+        const dropzone = document.getElementById('dropzone');
+        const fileUpload = document.getElementById('fileUpload');
+        const dropzonePrompt = document.getElementById('dropzone-prompt');
+        const loadingUI = document.getElementById('loading');
+        const resultsUI = document.getElementById('results');
 
-            // UI : Afficher le chargement
-            document.getElementById('upload-label').classList.add('hidden');
-            document.getElementById('loading').classList.remove('hidden');
-            document.getElementById('results').classList.add('hidden');
+        // --- GESTION DU CLIC SUR LA DROPZONE ---
+        dropzone.addEventListener('click', () => fileUpload.click());
+
+        // --- GESTION DES EVENEMENTS DRAG & DROP ---
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropzone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                dropzone.classList.add('bg-slate-100', 'border-blue-800');
+            }, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropzone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                dropzone.classList.remove('bg-slate-100', 'border-blue-800');
+            }, false);
+        });
+
+        // Récupération des fichiers déposés
+        dropzone.addEventListener('drop', (e) => {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            if (files.length > 0) {
+                processFiles(files);
+            }
+        });
+
+        // Récupération via l'explorateur classique
+        fileUpload.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                processFiles(e.target.files);
+            }
+        });
+
+        // --- LOGIQUE COMMUNE D'ANALYSE (PIPELINE ETL LOCAL) ---
+        async function processFiles(fileList) {
+            // Affichage UI chargement
+            dropzonePrompt.classList.add('hidden');
+            loadingUI.classList.remove('hidden');
+            resultsUI.classList.add('hidden');
 
             let totalTokens = 0;
             let totalImages = 0;
+            const htmlParser = new DOMParser();
 
             try {
-                // Si l'utilisateur upload directement un JSON (ex: Claude)
-                if (file.name.endsWith('.json')) {
-                    const text = await file.text();
-                    totalTokens += Math.floor(text.length / 4);
-                } 
-                // Si c'est une archive ZIP (ex: ChatGPT, Gemini)
-                else if (file.name.endsWith('.zip')) {
-                    const zip = new JSZip();
-                    const contents = await zip.loadAsync(file);
-                    
-                    // On parcourt tous les fichiers du ZIP
-                    for (const [filename, zipEntry] of Object.entries(contents.files)) {
-                        if (zipEntry.dir) continue; // On ignore les dossiers
+                // Parcourir la liste de fichiers (gère le multi-sélection / dossiers dézippés plats)
+                for (let i = 0; i < fileList.length; i++) {
+                    const file = fileList[i];
 
-                        // Si c'est un fichier de texte (json, html, txt, csv)
-                        if (filename.match(/\.(json|html|txt|csv)$/i)) {
-                            const text = await zipEntry.async("text");
-                            // Estimation très grossière mais efficace : on divise les caractères par 4
-                            totalTokens += Math.floor(text.length / 4);
-                        }
-                        // Si c'est une image (png, jpg, webp)
-                        else if (filename.match(/\.(png|jpe?g|webp|gif)$/i)) {
-                            totalImages += 1;
+                    // 1. ANALYSE DES ARCHIVES ZIP
+                    if (file.name.endsWith('.zip')) {
+                        const zip = new JSZip();
+                        const contents = await zip.loadAsync(file);
+                        
+                        for (const [filename, zipEntry] of Object.entries(contents.files)) {
+                            if (zipEntry.dir) continue;
+
+                            // Fichiers JSON du ZIP
+                            if (filename.match(/\.json$/i)) {
+                                const text = await zipEntry.async("text");
+                                totalTokens += Math.floor(text.length / 4);
+                            }
+                            // Fichiers HTML du ZIP (ex: Gemini)
+                            else if (filename.match(/\.html$/i)) {
+                                const rawHtml = await zipEntry.async("text");
+                                const doc = htmlParser.parseFromString(rawHtml, "text/html");
+                                const cleanText = doc.body.textContent || doc.body.innerText || "";
+                                totalTokens += Math.floor(cleanText.length / 4);
+                            }
+                            // Images contenues dans le ZIP
+                            else if (filename.match(/\.(png|jpe?g|webp|gif)$/i)) {
+                                totalImages += 1;
+                            }
                         }
                     }
-                } else {
-                    throw new Error("Format de fichier non supporté.");
+                    // 2. ANALYSE D'UN FICHIER JSON UNIQUE (Claude / Dossier extrait)
+                    else if (file.name.endsWith('.json')) {
+                        const text = await file.text();
+                        totalTokens += Math.floor(text.length / 4);
+                    }
+                    // 3. ANALYSE D'UN FICHIER HTML UNIQUE (Gemini Activity / Dossier extrait)
+                    else if (file.name.endsWith('.html')) {
+                        const rawHtml = await file.text();
+                        const doc = htmlParser.parseFromString(rawHtml, "text/html");
+                        const cleanText = doc.body.textContent || doc.body.innerText || "";
+                        totalTokens += Math.floor(cleanText.length / 4);
+                    }
+                    // 4. ANALYSE D'IMAGES UNIQUES GLISSÉES EN MÊME TEMPS
+                    else if (file.name.match(/\.(png|jpe?g|webp|gif)$/i)) {
+                        totalImages += 1;
+                    }
                 }
 
-                // Calculs d'empreinte
+                // --- CALCUL DES ÉQUIVALENCES ÉCOLOGIQUES ---
                 const co2Text = totalTokens * CO2_PER_TOKEN_G;
                 const co2Img = totalImages * CO2_PER_IMAGE_G;
                 const totalCo2Grams = co2Text + co2Img;
@@ -209,16 +282,14 @@
                 const waterImg = totalImages * WATER_PER_IMAGE_ML;
                 const totalWaterMl = waterText + waterImg;
 
-                // Équivalences
                 const burgers = (totalCo2Grams / CO2_BURGER_G).toFixed(2);
                 const streams = (totalCo2Grams / CO2_STREAM_40MIN_G).toFixed(1);
                 const carKm = (totalCo2Grams / CO2_CAR_KM_G).toFixed(1);
 
-                // Pourcentages pour la barre de progression
                 const pctText = totalCo2Grams > 0 ? ((co2Text / totalCo2Grams) * 100).toFixed(1) : 0;
                 const pctImg = totalCo2Grams > 0 ? ((co2Img / totalCo2Grams) * 100).toFixed(1) : 0;
 
-                // Mise à jour de l'interface
+                // --- INJECTION DES DONNÉES DANS LE DASHBOARD ---
                 document.getElementById('val-tokens').innerText = new Intl.NumberFormat('fr-FR').format(totalTokens);
                 document.getElementById('val-images').innerText = new Intl.NumberFormat('fr-FR').format(totalImages);
                 document.getElementById('val-co2').innerText = new Intl.NumberFormat('fr-FR').format(totalCo2Grams.toFixed(0)) + " g";
@@ -233,18 +304,18 @@
                 document.getElementById('eq-stream').innerText = streams;
                 document.getElementById('eq-car').innerText = carKm;
 
-                // Cacher chargement, montrer résultats
-                document.getElementById('loading').classList.add('hidden');
-                document.getElementById('upload-label').classList.remove('hidden');
-                document.getElementById('results').classList.remove('hidden');
+                // Affichage des résultats
+                loadingUI.classList.add('hidden');
+                dropzonePrompt.classList.remove('hidden');
+                resultsUI.classList.remove('hidden');
 
             } catch (error) {
                 console.error(error);
-                alert("Erreur lors de l'analyse du fichier. Assurez-vous qu'il s'agit bien d'une archive valide de ChatGPT, Claude ou Gemini.");
-                document.getElementById('loading').classList.add('hidden');
-                document.getElementById('upload-label').classList.remove('hidden');
+                alert("Erreur lors de l'analyse des fichiers. Vérifiez que les formats correspondent à un export valide.");
+                loadingUI.classList.add('hidden');
+                dropzonePrompt.classList.remove('hidden');
             }
-        });
+        }
     </script>
 </body>
 </html>
