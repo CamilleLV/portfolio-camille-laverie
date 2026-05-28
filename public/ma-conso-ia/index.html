@@ -53,7 +53,7 @@
                 <div class="bg-slate-50 p-5 rounded-xl border border-slate-100 flex flex-col justify-between">
                     <div>
                         <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2">🟢 ChatGPT</h3>
-                        <p class="text-sm text-slate-600 leading-relaxed">Paramètres > Contrôle des données > Exporter les données. Vous recevrez une archive <strong>.zip</strong> par e-mail contenant vos salons.</p>
+                        <p class="text-sm text-slate-600 leading-relaxed">Paramètres > Contrôle des données > Exporter les données. Vous recevrez une archive <strong>.zip</strong> contenant vos salons et vos pièces jointes.</p>
                     </div>
                 </div>
                 <div class="bg-slate-50 p-5 rounded-xl border border-slate-100 flex flex-col justify-between">
@@ -65,7 +65,7 @@
                 <div class="bg-slate-50 p-5 rounded-xl border border-slate-100 flex flex-col justify-between">
                     <div>
                         <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2">🔵 Gemini</h3>
-                        <p class="text-sm text-slate-600 leading-relaxed">Google Takeout > Désélectionner tout > Cochez <strong>Mon Activité</strong> > Options : sélectionnez uniquement <strong>Applications Gemini</strong>. Vous obtiendrez un fichier <strong>.html</strong> dans le dossier.</p>
+                        <p class="text-sm text-slate-600 leading-relaxed">Google Takeout > Désélectionner tout > Cochez <strong>Mon Activité</strong> > Options : sélectionnez uniquement <strong>Applications Gemini</strong>. Vous obtiendrez un dossier complet.</p>
                     </div>
                 </div>
             </div>
@@ -74,7 +74,7 @@
         <section class="bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-slate-200">
             <h2 class="text-2xl font-bold text-slate-900 mb-2 flex items-center justify-center gap-3">
                 <span class="bg-blue-100 text-marianne w-8 h-8 rounded-full flex items-center justify-center text-sm">2</span>
-                Déposez vos fichiers
+                Déposez vos fichiers ou votre dossier d'archive
             </h2>
             <p class="text-sm text-slate-500 text-center mb-6 font-medium">Vos données restent sur votre ordinateur. L'analyse est effectuée localement dans votre navigateur.</p>
             
@@ -84,8 +84,8 @@
             >
                 <div id="dropzone-prompt" class="text-center space-y-2">
                     <span class="text-4xl block">📁</span>
-                    <p class="text-base font-bold text-slate-700">Glissez-déposez vos fichiers ici</p>
-                    <p class="text-xs text-slate-500 font-medium">Accepte les fichiers .zip, .json, .html ou une sélection de fichiers de votre dossier extrait</p>
+                    <p class="text-base font-bold text-slate-700">Glissez-déposez vos fichiers ou votre dossier ici</p>
+                    <p class="text-xs text-slate-500 font-medium">Prend en charge les fichiers .zip, .json, .html, .pdf, .docx, .csv, .xml, .wav, .png...</p>
                     <div class="pt-2">
                         <span class="bg-white border border-slate-300 text-slate-700 font-bold py-2 px-4 rounded-full text-xs shadow-sm hover:bg-slate-50 inline-block">
                             Ou parcourez vos fichiers
@@ -97,7 +97,7 @@
                     <div class="loader"></div> Extraction et analyse des données en cours...
                 </div>
                 
-                <input type="file" id="fileUpload" accept=".zip,.json,.html" multiple class="hidden">
+                <input type="file" id="fileUpload" accept=".zip,.json,.html,.wav,.mp3,.m4a,.pdf,.docx,.csv,.xml" multiple class="hidden">
             </div>
         </section>
 
@@ -106,34 +106,46 @@
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
                 <h3 class="text-xl font-bold text-slate-900 mb-6 text-center">Votre bilan d'utilisation</h3>
                 
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center mb-8 border-b border-slate-100 pb-8">
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 text-center mb-8 border-b border-slate-100 pb-8">
                     <div class="p-2">
-                        <div class="text-slate-500 text-xs font-bold uppercase tracking-wide mb-2">Mots & Morceaux (Tokens)</div>
-                        <div id="val-tokens" class="text-2xl md:text-3xl font-black text-slate-800">0</div>
+                        <div class="text-slate-500 text-[10px] font-bold uppercase tracking-wide mb-2">Mots (Tokens)</div>
+                        <div id="val-tokens" class="text-xl md:text-2xl font-black text-slate-800">0</div>
                     </div>
                     <div class="p-2 border-l border-slate-100">
-                        <div class="text-slate-500 text-xs font-bold uppercase tracking-wide mb-2">Images Générées</div>
-                        <div id="val-images" class="text-2xl md:text-3xl font-black text-slate-800">0</div>
+                        <div class="text-slate-500 text-[10px] font-bold uppercase tracking-wide mb-2">Images</div>
+                        <div id="val-images" class="text-xl md:text-2xl font-black text-slate-800">0</div>
                     </div>
-                    <div class="p-2 border-t md:border-t-0 md:border-l border-slate-100">
-                        <div class="text-slate-500 text-xs font-bold uppercase tracking-wide mb-2">CO₂ Émis</div>
-                        <div id="val-co2" class="text-2xl md:text-3xl font-black text-marianne">0 g</div>
+                    <div class="p-2 border-t sm:border-t-0 border-l border-slate-100">
+                        <div class="text-slate-500 text-[10px] font-bold uppercase tracking-wide mb-2">Fichiers Audio</div>
+                        <div id="val-audio" class="text-xl md:text-2xl font-black text-slate-800">0</div>
                     </div>
-                    <div class="p-2 border-t md:border-t-0 border-l border-slate-100">
-                        <div class="text-slate-500 text-xs font-bold uppercase tracking-wide mb-2">Eau consommée</div>
-                        <div id="val-water" class="text-2xl md:text-3xl font-black text-cyan-700">0 cl</div>
+                    <div class="p-2 border-t sm:border-t-0 border-l border-slate-100">
+                        <div class="text-slate-500 text-[10px] font-bold uppercase tracking-wide mb-2">Documents joints</div>
+                        <div id="val-docs" class="text-xl md:text-2xl font-black text-slate-800">0</div>
+                    </div>
+                    <div class="p-2 border-t lg:border-t-0 border-l border-slate-100">
+                        <div class="text-slate-500 text-[10px] font-bold uppercase tracking-wide mb-2">CO₂ Émis</div>
+                        <div id="val-co2" class="text-xl md:text-2xl font-black text-marianne">0 g</div>
+                    </div>
+                    <div class="p-2 border-t lg:border-t-0 border-l border-slate-100">
+                        <div class="text-slate-500 text-[10px] font-bold uppercase tracking-wide mb-2">Eau consommée</div>
+                        <div id="val-water" class="text-xl md:text-2xl font-black text-cyan-700">0 cl</div>
                     </div>
                 </div>
 
                 <div class="bg-slate-50 rounded-xl p-5 border border-slate-100">
                     <h4 class="text-sm font-bold text-slate-800 mb-3">Répartition de votre empreinte carbone</h4>
                     <div class="w-full bg-slate-200 rounded-full h-4 flex overflow-hidden">
-                        <div id="bar-text" class="bg-blue-400 h-4" style="width: 50%"></div>
-                        <div id="bar-img" class="bg-rose-400 h-4" style="width: 50%"></div>
+                        <div id="bar-text" class="bg-blue-400 h-4" style="width: 25%"></div>
+                        <div id="bar-img" class="bg-rose-400 h-4" style="width: 25%"></div>
+                        <div id="bar-audio" class="bg-amber-400 h-4" style="width: 25%"></div>
+                        <div id="bar-doc" class="bg-emerald-400 h-4" style="width: 25%"></div>
                     </div>
-                    <div class="flex justify-between text-xs font-bold text-slate-500 mt-2">
-                        <span class="flex items-center gap-1"><div class="w-3 h-3 bg-blue-400 rounded-full"></div> Texte (<span id="pct-text">50</span>%)</span>
-                        <span class="flex items-center gap-1"><div class="w-3 h-3 bg-rose-400 rounded-full"></div> Images (<span id="pct-img">50</span>%)</span>
+                    <div class="flex flex-wrap justify-between text-xs font-bold text-slate-500 mt-2 gap-2">
+                        <span class="flex items-center gap-1"><div class="w-3 h-3 bg-blue-400 rounded-full"></div> Texte (<span id="pct-text">0</span>%)</span>
+                        <span class="flex items-center gap-1"><div class="w-3 h-3 bg-rose-400 rounded-full"></div> Images (<span id="pct-img">0</span>%)</span>
+                        <span class="flex items-center gap-1"><div class="w-3 h-3 bg-amber-400 rounded-full"></div> Audio (<span id="pct-audio">0</span>%)</span>
+                        <span class="flex items-center gap-1"><div class="w-3 h-3 bg-emerald-400 rounded-full"></div> Documents (<span id="pct-doc">0</span>%)</span>
                     </div>
                 </div>
             </div>
@@ -163,11 +175,19 @@
     </div>
 
     <script>
-        // --- CONSTANTES D'ÉVALUATION ---
+        // --- CONSTANTES D'ÉVALUATION ÉCOLOGIQUE ---
         const CO2_PER_TOKEN_G = 0.003; 
         const WATER_PER_TOKEN_ML = 0.01;
+        
         const CO2_PER_IMAGE_G = 2.0; 
         const WATER_PER_IMAGE_ML = 5.0;
+        
+        const CO2_PER_AUDIO_G = 1.2; 
+        const WATER_PER_AUDIO_ML = 3.5;
+
+        // Le traitement de contextes lourds (ingestion de fichiers PDF/Docx complets) est très gourmand
+        const CO2_PER_DOC_G = 3.5; 
+        const WATER_PER_DOC_ML = 9.0;
 
         const CO2_BURGER_G = 2500;
         const CO2_STREAM_40MIN_G = 36;
@@ -179,10 +199,8 @@
         const loadingUI = document.getElementById('loading');
         const resultsUI = document.getElementById('results');
 
-        // --- GESTION DU CLIC SUR LA DROPZONE ---
         dropzone.addEventListener('click', () => fileUpload.click());
 
-        // --- GESTION DES EVENEMENTS DRAG & DROP ---
         ['dragenter', 'dragover'].forEach(eventName => {
             dropzone.addEventListener(eventName, (e) => {
                 e.preventDefault();
@@ -197,7 +215,6 @@
             }, false);
         });
 
-        // Récupération des fichiers déposés
         dropzone.addEventListener('drop', (e) => {
             const dt = e.dataTransfer;
             const files = dt.files;
@@ -206,112 +223,147 @@
             }
         });
 
-        // Récupération via l'explorateur classique
         fileUpload.addEventListener('change', (e) => {
             if (e.target.files.length > 0) {
                 processFiles(e.target.files);
             }
         });
 
-        // --- LOGIQUE COMMUNE D'ANALYSE (PIPELINE ETL LOCAL) ---
+        // --- PIPELINE ETL LOCAL COMMUN ---
         async function processFiles(fileList) {
-            // Affichage UI chargement
             dropzonePrompt.classList.add('hidden');
             loadingUI.classList.remove('hidden');
             resultsUI.classList.add('hidden');
 
             let totalTokens = 0;
             let totalImages = 0;
+            let totalAudios = 0;
+            let totalDocs = 0;
             const htmlParser = new DOMParser();
 
             try {
-                // Parcourir la liste de fichiers (gère le multi-sélection / dossiers dézippés plats)
                 for (let i = 0; i < fileList.length; i++) {
                     const file = fileList[i];
 
-                    // 1. ANALYSE DES ARCHIVES ZIP
+                    // 1. GESTION DES ARCHIVES ZIP ENTIÈRES
                     if (file.name.endsWith('.zip')) {
                         const zip = new JSZip();
                         const contents = await zip.loadAsync(file);
                         
                         for (const [filename, zipEntry] of Object.entries(contents.files)) {
-                            if (zipEntry.dir) continue;
+                            if (zipEntry.dir) continue; // On ignore les dossiers physiques
 
-                            // Fichiers JSON du ZIP
+                            // JSON bruts dans le zip
                             if (filename.match(/\.json$/i)) {
                                 const text = await zipEntry.async("text");
                                 totalTokens += Math.floor(text.length / 4);
                             }
-                            // Fichiers HTML du ZIP (ex: Gemini)
-                            else if (filename.match(/\.html$/i)) {
-                                const rawHtml = await zipEntry.async("text");
-                                const doc = htmlParser.parseFromString(rawHtml, "text/html");
-                                const cleanText = doc.body.textContent || doc.body.innerText || "";
-                                totalTokens += Math.floor(cleanText.length / 4);
+                            // Fichiers textes structurés lisibles (HTML, CSV, XML) dans le zip
+                            else if (filename.match(/\.(html|csv|xml)$/i)) {
+                                const text = await zipEntry.async("text");
+                                if (filename.match(/\.html$/i)) {
+                                    const doc = htmlParser.parseFromString(text, "text/html");
+                                    const cleanText = doc.body.textContent || doc.body.innerText || "";
+                                    totalTokens += Math.floor(cleanText.length / 4);
+                                } else {
+                                    totalTokens += Math.floor(text.length / 4);
+                                }
                             }
-                            // Images contenues dans le ZIP
+                            // Images générées ou envoyées
                             else if (filename.match(/\.(png|jpe?g|webp|gif)$/i)) {
                                 totalImages += 1;
                             }
+                            // Audios enregistrés ou générés (.wav, .mp3...)
+                            else if (filename.match(/\.(wav|mp3|m4a|ogg)$/i)) {
+                                totalAudios += 1;
+                            }
+                            // Documents lourds ingérés (.pdf, .docx...)
+                            else if (filename.match(/\.(pdf|docx)$/i)) {
+                                totalDocs += 1;
+                            }
                         }
                     }
-                    // 2. ANALYSE D'UN FICHIER JSON UNIQUE (Claude / Dossier extrait)
+                    // 2. GESTION DES FICHIERS INDIVIDUELS (Dossiers extraits ou uploads uniques)
                     else if (file.name.endsWith('.json')) {
                         const text = await file.text();
                         totalTokens += Math.floor(text.length / 4);
                     }
-                    // 3. ANALYSE D'UN FICHIER HTML UNIQUE (Gemini Activity / Dossier extrait)
-                    else if (file.name.endsWith('.html')) {
-                        const rawHtml = await file.text();
-                        const doc = htmlParser.parseFromString(rawHtml, "text/html");
-                        const cleanText = doc.body.textContent || doc.body.innerText || "";
-                        totalTokens += Math.floor(cleanText.length / 4);
+                    else if (file.name.match(/\.(html|csv|xml)$/i)) {
+                        const text = await file.text();
+                        if (file.name.endsWith('.html')) {
+                            const doc = htmlParser.parseFromString(text, "text/html");
+                            const cleanText = doc.body.textContent || doc.body.innerText || "";
+                            totalTokens += Math.floor(cleanText.length / 4);
+                        } else {
+                            totalTokens += Math.floor(text.length / 4);
+                        }
                     }
-                    // 4. ANALYSE D'IMAGES UNIQUES GLISSÉES EN MÊME TEMPS
                     else if (file.name.match(/\.(png|jpe?g|webp|gif)$/i)) {
                         totalImages += 1;
                     }
+                    else if (file.name.match(/\.(wav|mp3|m4a|ogg)$/i)) {
+                        totalAudios += 1;
+                    }
+                    else if (file.name.match(/\.(pdf|docx)$/i)) {
+                        totalDocs += 1;
+                    }
+                    // Note : Les fichiers sans extensions ou autres formats non répertoriés sont ignorés silencieusement
                 }
 
-                // --- CALCUL DES ÉQUIVALENCES ÉCOLOGIQUES ---
+                // --- LOGIQUE DE CALCUL DES EMISSIONS ---
                 const co2Text = totalTokens * CO2_PER_TOKEN_G;
                 const co2Img = totalImages * CO2_PER_IMAGE_G;
-                const totalCo2Grams = co2Text + co2Img;
+                const co2Audio = totalAudios * CO2_PER_AUDIO_G;
+                const co2Doc = totalDocs * CO2_PER_DOC_G;
+                const totalCo2Grams = co2Text + co2Img + co2Audio + co2Doc;
 
                 const waterText = totalTokens * WATER_PER_TOKEN_ML;
                 const waterImg = totalImages * WATER_PER_IMAGE_ML;
-                const totalWaterMl = waterText + waterImg;
+                const waterAudio = totalAudios * WATER_PER_AUDIO_ML;
+                const waterDoc = totalDocs * WATER_PER_DOC_ML;
+                const totalWaterMl = waterText + waterImg + waterAudio + waterDoc;
 
+                // Équivalences
                 const burgers = (totalCo2Grams / CO2_BURGER_G).toFixed(2);
                 const streams = (totalCo2Grams / CO2_STREAM_40MIN_G).toFixed(1);
                 const carKm = (totalCo2Grams / CO2_CAR_KM_G).toFixed(1);
 
+                // Calcul des répartitions relatives (%)
                 const pctText = totalCo2Grams > 0 ? ((co2Text / totalCo2Grams) * 100).toFixed(1) : 0;
                 const pctImg = totalCo2Grams > 0 ? ((co2Img / totalCo2Grams) * 100).toFixed(1) : 0;
+                const pctAudio = totalCo2Grams > 0 ? ((co2Audio / totalCo2Grams) * 100).toFixed(1) : 0;
+                const pctDoc = totalCo2Grams > 0 ? ((co2Doc / totalCo2Grams) * 100).toFixed(1) : 0;
 
-                // --- INJECTION DES DONNÉES DANS LE DASHBOARD ---
+                // --- INTERPOLATION DANS LE DOM ---
                 document.getElementById('val-tokens').innerText = new Intl.NumberFormat('fr-FR').format(totalTokens);
                 document.getElementById('val-images').innerText = new Intl.NumberFormat('fr-FR').format(totalImages);
+                document.getElementById('val-audio').innerText = new Intl.NumberFormat('fr-FR').format(totalAudios);
+                document.getElementById('val-docs').innerText = new Intl.NumberFormat('fr-FR').format(totalDocs);
                 document.getElementById('val-co2').innerText = new Intl.NumberFormat('fr-FR').format(totalCo2Grams.toFixed(0)) + " g";
                 document.getElementById('val-water').innerText = new Intl.NumberFormat('fr-FR').format((totalWaterMl / 10).toFixed(1)) + " cl";
 
                 document.getElementById('bar-text').style.width = pctText + '%';
                 document.getElementById('bar-img').style.width = pctImg + '%';
+                document.getElementById('bar-audio').style.width = pctAudio + '%';
+                document.getElementById('bar-doc').style.width = pctDoc + '%';
+                
                 document.getElementById('pct-text').innerText = pctText;
                 document.getElementById('pct-img').innerText = pctImg;
+                document.getElementById('pct-audio').innerText = pctAudio;
+                document.getElementById('pct-doc').innerText = pctDoc;
 
                 document.getElementById('eq-burger').innerText = burgers;
                 document.getElementById('eq-stream').innerText = streams;
                 document.getElementById('eq-car').innerText = carKm;
 
-                // Affichage des résultats
+                // Restauration UI
                 loadingUI.classList.add('hidden');
                 dropzonePrompt.classList.remove('hidden');
                 resultsUI.classList.remove('hidden');
 
             } catch (error) {
                 console.error(error);
-                alert("Erreur lors de l'analyse des fichiers. Vérifiez que les formats correspondent à un export valide.");
+                alert("Une erreur s'est produite lors de l'analyse de votre dossier. Vérifiez qu'il contient des fichiers d'activité valides.");
                 loadingUI.classList.add('hidden');
                 dropzonePrompt.classList.remove('hidden');
             }
