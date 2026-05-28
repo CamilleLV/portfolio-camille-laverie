@@ -158,6 +158,16 @@
         "summary": "Découvrez comment orchestrer un pipeline de nettoyage et de qualité de données de bout en bout.",
         "tags": ["Airflow", "Docker", "Python"],
         "fontFamily": "font-mono"
+      },
+      {
+        "id": "ma-conso-ia-simulateur",
+        "title": "Ma Conso IA : Un outil de mesure d'empreinte",
+        "category": "Projet",
+        "date": "30 Mai 2026",
+        "readTime": "3 min",
+        "summary": "Création d'un simulateur 'Privacy-first' en Javascript pur et Tailwind pour calculer l'impact environnemental de nos historiques ChatGPT, Claude et Gemini.",
+        "tags": ["Green IT", "Javascript", "Tailwind"],
+        "fontFamily": "font-sans"
       }
     ],
     "contact": {
@@ -324,6 +334,16 @@
         "summary": "Discover how to orchestrate an end-to-end data cleaning and quality pipeline.",
         "tags": ["Airflow", "Docker", "Python"],
         "fontFamily": "font-mono"
+      },
+      {
+        "id": "ma-conso-ia-simulateur",
+        "title": "Ma Conso IA (My AI Footprint): An impact measurement tool",
+        "category": "Project",
+        "date": "May 30, 2026",
+        "readTime": "3 min",
+        "summary": "Creation of a 'Privacy-first' simulator in vanilla Javascript and Tailwind to calculate the environmental impact of our ChatGPT, Claude, and Gemini chat histories.",
+        "tags": ["Green IT", "Javascript", "Tailwind"],
+        "fontFamily": "font-sans"
       }
     ],
     "contact": {
