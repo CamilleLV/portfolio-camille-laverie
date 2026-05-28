@@ -1,6 +1,6 @@
 export const maConsoIaContent = [
   { type: "heading", text: "Projet : Ma Conso IA - Mesurez l'empreinte de vos LLMs" },
-  { type: "paragraph", text: "Par intérêt pour la BI Engagée et l'éthique de la donnée, j'ai développé un outil de sensibilisation interactif. Ce mini-site permet d'estimer l'empreinte carbone et hydrique de notre utilisation quotidienne des intelligences artificielles génératives (ChatGPT, Claude, Gemini). Le but est de dé-mystifier l'impact environnemental de notre utilisation des LLMs, et se rendre compte que l'impcat est beaucoup plus faible que le streaming vidéo ou la consommation de viande." },
+  { type: "paragraph", text: "Par intérêt pour la BI Engagée et l'éthique de la donnée, j'ai développé un outil de sensibilisation interactif. Ce mini-site permet d'estimer l'empreinte carbone et hydrique de notre utilisation quotidienne des intelligences artificielles génératives (ChatGPT, Claude, Gemini). Le but est de démystifier l'impact environnemental de notre utilisation des LLMs, et se rendre compte que l'impact est beaucoup plus faible que le streaming vidéo ou la consommation de viande." },
   
   { type: "heading", text: "L'Approche \"Privacy-First\"" },
   { type: "paragraph", text: "La principale contrainte technique de ce projet était de garantir la confidentialité absolue des historiques de conversation des utilisateurs et sans aucun serveur backend. L'application a donc été pensée de manière totalement décentralisée." },
@@ -45,7 +45,7 @@ for (const [filename, zipEntry] of Object.entries(contents.files)) {
   { type: "paragraph", text: "Exportez vos données depuis les paramètres de votre IA favorite et venez calculer votre bilan :" },
   { 
     type: "link", 
-    text: "↗ Lancer le simulateur Ta Conso IA", 
+    text: "Lancer le simulateur Ma Conso IA", 
     url: "/ma-conso-ia/index.html" 
   }
 ];
