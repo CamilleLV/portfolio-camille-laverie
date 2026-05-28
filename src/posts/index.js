@@ -8,5 +8,5 @@ export const postContents = {
   "pipeline-sirene-airflow": pipelineSireneAirflowContent,
   "projet-M2-analyse-hypermarche-dataviz": projetM2AnalyseHypermarcheDatavizContent,
   "bi-engagee-data-ethique": biEngageeContent,
-  "ta-conso-ia-simulateur": maConsoIaContent
+  "ma-conso-ia-simulateur": maConsoIaContent
 };
